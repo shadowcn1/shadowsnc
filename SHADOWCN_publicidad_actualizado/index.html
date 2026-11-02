@@ -25,6 +25,34 @@
 #wallet input:focus,#wallet select:focus{outline:1px solid #55f58b;box-shadow:0 0 0 3px #55f58b18}.wallet-input{width:100%;padding:12px;border-radius:9px;border:1px solid var(--line);background:#07120b;color:var(--white);font:inherit}
 @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.content-grid{grid-template-columns:1fr}.items{grid-template-columns:repeat(2,1fr)}.main{padding:20px}}
 @media(max-width:600px){.sidebar{width:78px;padding:17px 9px}.sidebar .brand .brand-name,.sidebar .nav-label,.sidebar .nav button span:last-child,.sidebar .player-mini,.sidebar .collapse span{display:none}.sidebar .nav button,.sidebar .collapse{justify-content:center}.main{padding:15px 11px}.page-title{font-size:18px}.welcome{align-items:flex-start;flex-direction:column;padding:18px}.grid{gap:9px}.card{padding:13px}.stat-value{font-size:17px}.items{grid-template-columns:1fr 1fr}.user-name{display:none}.top-right{gap:8px}.wordmark{font-size:12px;letter-spacing:1px}.miner-skin{height:105px}.item-card p{min-height:52px}.profile-modal{padding:19px}}
+
+/* Publicidad y arcade */
+.home-ad{position:fixed;left:14px;bottom:14px;z-index:8;width:484px;min-height:92px;margin:0}
+.home-ad[hidden]{display:none!important}
+.arcade-layout{display:grid;grid-template-columns:300px minmax(0,1fr) 300px;gap:14px;align-items:start}
+.arcade-side{width:300px;min-height:270px;margin:0}
+.arcade-center{min-width:0}
+.arcade-games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.game-panel{background:linear-gradient(145deg,#102719,#09130d);border:1px solid #286b43;border-radius:15px;padding:16px}
+.game-panel h4{font:700 14px Orbitron,sans-serif;margin:0 0 8px;color:var(--green)}
+.game-panel p{color:var(--muted);font-size:12px;min-height:32px}
+.game-screen{min-height:130px;border:1px solid #245b38;border-radius:12px;background:#06110a;display:grid;place-items:center;padding:12px;text-align:center}
+.game-score{font:800 22px Orbitron,sans-serif;color:var(--green);margin:8px 0}
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%}
+.memory-card{min-height:42px;border:1px solid #347c49;background:#102719;color:var(--green);border-radius:7px;cursor:pointer;font-size:19px}
+.arcade-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.arcade-note{margin-top:14px}
+@media(max-width:1150px){.arcade-layout{grid-template-columns:1fr}.arcade-side{width:100%;max-width:316px;margin:0 auto}.arcade-side.right{order:3}}
+@media(max-width:700px){.arcade-games{grid-template-columns:1fr}.home-ad{position:static;width:100%;max-width:484px;margin:18px auto;min-height:92px}.home-ad[hidden]{display:none!important}}
+
+
+/* Distribución principal */
+.app { display:flex; flex-direction:row; align-items:stretch; width:100%; min-height:100vh; }
+.sidebar { flex:0 0 248px; min-height:100vh; }
+.sidebar.collapsed { flex-basis:78px; }
+.main { flex:1 1 0; width:auto; min-width:0; max-width:none; margin:0; align-self:stretch; }
+.page { width:100%; }
+@media(max-width:600px) { .sidebar { flex:0 0 78px; width:78px; } .main { width:auto; min-width:0; } }
 </style>
 </head>
 <body>
@@ -39,33 +67,26 @@
     <button data-page="inventario"><span class="ico">▤</span><span>Inventario</span></button>
     <button data-page="racks"><span class="ico">▥</span><span>Racks / Mineros</span></button>
     <button data-page="wallet"><span class="ico">◈</span><span>Crypto Wallet</span></button>
+    <button data-page="minijuegos"><span class="ico">🎮</span><span>Minijuegos</span></button>
   </nav>
   <div class="side-bottom"><div class="player-mini"><small>Tu saldo SNC</small><strong id="sideBalance">15.00 SNC</strong></div><button class="collapse" id="collapse"><span class="ico">⇤</span><span>Contraer menú</span></button></div>
 </aside>
 <main class="main">
 <header class="topbar"><div class="top-left"><button class="toggle" id="mobileToggle" aria-label="Abrir o cerrar menú">☰</button><div><div class="eyebrow">SHADOWCN / MINING SYSTEM</div><h1 class="page-title" id="title">Dashboard</h1></div></div><div class="top-right"><button class="avatar" id="profileOpen" aria-label="Abrir perfil" title="Mi perfil">N</button><div class="wordmark"><span class="gem">◆</span><span>SHADOW<span>CN</span> <small style="display:block;text-align:center;font:700 8px Orbitron,sans-serif;letter-spacing:3px;color:#65e995">BETA</small></span><span class="gem">◆</span></div></div></header>
 
-<!-- Un único espacio publicitario. El proveedor debe autorizar y servir el anuncio en tu dominio. -->
-<div class="ad-slot" aria-label="Publicidad"><div class="ad-caption">PUBLICIDAD</div>
-<script>
-  atOptions = {'key':'d29f6f28d4f533b24cf6e3110264088d','format':'iframe','height':250,'width':300,'params':{}};
-</script>
-<script async src="https://bauval.org/22/d29f6f28d4f533b24cf6e3110264088d"></script>
-</div>
-
 <section class="page active" id="dashboard">
   <div class="welcome"><div><div class="eyebrow">BIENVENIDO AL SISTEMA</div><h2>Tu operación comienza aquí.</h2><p>Instalá mineros, administrá tus racks y generá SNC.</p></div><div class="bonus"><small>Bono de nuevo jugador</small><strong>+15.00 SNC</strong></div></div>
   <div class="grid">
-    <div class="card"><div class="stat-top">Balance SNC <span class="stat-icon">◈</span></div><div class="stat-value green" id="balance">15.00</div><div class="hint">Referencia interna: 1 SNC = 1 USD*</div></div>
+    <div class="card"><div class="stat-top">Balance SNC <span class="stat-icon">◈</span></div><div class="stat-value green" id="balance">15.00</div><div class="hint">Valor de referencia del juego: 1 SNC</div></div>
     <div class="card"><div class="stat-top">Mineros activos <span class="stat-icon">⌘</span></div><div class="stat-value" id="minerCount">0 / 6</div><div class="hint">En tus racks</div></div>
-    <div class="card"><div class="stat-top">Producción estimada <span class="stat-icon">↗</span></div><div class="stat-value" id="production">0.00000</div><div class="hint">SNC / día · simulación</div></div>
+    <div class="card"><div class="stat-top">Producción estimada <span class="stat-icon">↗</span></div><div class="stat-value" id="production">0.00000</div><div class="hint">SNC / día</div></div>
     <div class="card"><div class="stat-top">Estado <span class="stat-icon">◉</span></div><div class="stat-value green">ONLINE</div><div class="hint">Sistema operativo</div></div>
   </div>
   <div class="content-grid">
-    <div class="card"><div class="section-head" style="margin-top:0"><h3>Actividad reciente</h3><span>ÚLTIMOS EVENTOS</span></div><div class="activity" id="activity"><div class="activity-row"><div>🎁 Bono de bienvenida<small>Tu cuenta recibió 15 SNC de bienvenida</small></div><span class="pill">+15.00 SNC</span></div><div class="activity-row"><div>⚡ Sistema inicializado<small>Tu centro de minería está listo</small></div><span class="pill">OK</span></div></div></div>
+    <div class="card"><div class="section-head" style="margin-top:0"><h3>Actividad reciente</h3><span>ÚLTIMOS EVENTOS</span></div><div class="activity" id="activity"><div class="activity-row"><div>🎁 Bono de bienvenida<small>Recibiste 15 SNC de bienvenida</small></div><span class="pill">+15.00 SNC</span></div><div class="activity-row"><div>⚡ Sistema inicializado<small>Tu centro de minería está listo</small></div><span class="pill">OK</span></div></div></div>
     <div class="card"><div class="section-head" style="margin-top:0"><h3>Vista rápida de racks</h3><span>6 SLOTS</span></div><div class="rack-preview" id="rackPreview"></div></div>
   </div>
-  <div class="notice">*El valor 1 SNC = 1 USD es una referencia ficticia de esta demo. No representa una cotización de mercado, respaldo en dólares ni derecho de retiro. Los saldos y rendimientos son simulados.</div>
+  <div class="notice">SNC es el crédito interno de SHADOWCN. El valor mostrado es una referencia del juego y no implica respaldo en dólares ni retiros externos habilitados.</div>
 </section>
 
 <section class="page" id="tienda">
@@ -75,35 +96,72 @@
     <div class="card item-card"><div class="miner-skin core"><svg viewBox="0 0 180 120" aria-label="Miner Core"><path d="M28 38 90 12l62 26v54l-62 18-62-18z" fill="#173b3c" stroke="#65f5d5" stroke-width="4"/><path d="m44 45 46-19 46 19-46 18z" fill="#287b6c" stroke="#a0ffe6" stroke-width="3"/><path d="M52 68h76v18l-38 12-38-12z" fill="#071a18" stroke="#42d7ba" stroke-width="3"/><circle cx="90" cy="75" r="12" fill="#6affd9"/><circle cx="90" cy="75" r="5" fill="#0a2923"/><path d="M36 42v47m108-47v47" stroke="#a0ffe6" stroke-width="4"/></svg></div><h4>Miner Core</h4><p>Núcleo de potencia media con ventilación reforzada.</p><div class="stat-top"><b class="green">25 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $25 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.05556 SNC/día</div><button class="action buy" data-name="Miner Core" data-price="25">Comprar</button></div>
     <div class="card item-card"><div class="miner-skin ultra"><svg viewBox="0 0 180 120" aria-label="Miner Ultra"><path d="M90 8 148 38v52l-58 23-58-23V38z" fill="#49351a" stroke="#ffe08a" stroke-width="4"/><path d="M90 19 133 42v40L90 99 47 82V42z" fill="#18241b" stroke="#e9b94f" stroke-width="3"/><path d="m90 31 24 34-24 25-24-25z" fill="#ffe08a"/><path d="M90 42v37m-18-14h36" stroke="#fff4c2" stroke-width="5"/><path d="M24 54h18m96 0h18M90 5V0" stroke="#fff0ad" stroke-width="4"/></svg></div><h4>Miner Ultra</h4><p>Unidad premium de alto rendimiento y skin dorada.</p><div class="stat-top"><b class="green">40 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $40 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.08889 SNC/día</div><button class="action buy" data-name="Miner Ultra" data-price="40">Comprar</button></div>
   </div>
-  <div class="notice">ROI ilustrativo: 450 días (15 meses) para recuperar el precio de compra mediante producción simulada. No es una promesa de rentabilidad ni un ingreso real.</div>
+  <div class="notice">Estimación de recuperación: 450 días (15 meses), según la producción y las reglas actuales del juego.</div>
 </section>
 
 <section class="page" id="inventario"><div class="section-head"><h3>Tu inventario</h3><span id="inventoryCount">0 EQUIPOS</span></div><div class="card" id="inventoryList"></div></section>
 <section class="page" id="racks"><div class="section-head"><h3>Centro de racks</h3><span>CAPACIDAD: 6 MINEROS</span></div><div class="card"><p style="color:var(--muted);margin-top:0">Colocá tus mineros en los espacios disponibles. Podés retirar un equipo cuando quieras.</p><div class="rack-preview" id="rackSlots"></div></div></section>
 <section class="page" id="wallet">
-  <div class="welcome"><div><div class="eyebrow">SHADOWCN / DIGITAL ASSETS</div><h2>Tu puente al mundo crypto.</h2><p>La conversión real todavía no está habilitada.</p></div><div class="bonus"><small>Saldo interno</small><strong id="walletBalance">15.00 SNC</strong></div></div>
-  <div class="grid"><div class="card"><div class="stat-top">Solana <span class="stat-icon">◎</span></div><div class="stat-value">SOL</div><div class="hint">Red Solana</div></div><div class="card"><div class="stat-top">Dogecoin <span class="stat-icon">Ð</span></div><div class="stat-value">DOGE</div><div class="hint">Red Dogecoin</div></div><div class="card"><div class="stat-top">Tether <span class="stat-icon">₮</span></div><div class="stat-value">USDT</div><div class="hint">Red por definir</div></div><div class="card"><div class="stat-top">Estado <span class="stat-icon">◉</span></div><div class="stat-value green">BETA</div><div class="hint">Conversiones desactivadas</div></div></div>
-  <div class="content-grid"><div class="card"><div class="section-head" style="margin-top:0"><h3>Convertir SNC</h3><span>VISTA PREVIA</span></div><label for="cryptoAmount">Cantidad de SNC</label><input class="wallet-input" id="cryptoAmount" type="number" min="0" step="0.01" placeholder="Ej. 100" style="margin:7px 0 14px"><label for="cryptoAsset">Criptomoneda de destino</label><select class="wallet-input" id="cryptoAsset" style="margin:7px 0"><option>SOL</option><option>DOGE</option><option>USDT</option></select><div class="notice" id="cryptoPreview">Cotización no disponible: todavía no hay un servicio de precios conectado.</div><button class="action" disabled style="width:100%;margin-top:12px">Conversiones próximamente</button></div>
+  <div class="welcome"><div><div class="eyebrow">SHADOWCN / DIGITAL ASSETS</div><h2>Tu puente al mundo crypto.</h2><p>Las conversiones externas todavía no están habilitadas.</p></div><div class="bonus"><small>Saldo interno</small><strong id="walletBalance">15.00 SNC</strong></div></div>
+  <div class="grid"><div class="card"><div class="stat-top">Bitcoin <span class="stat-icon">₿</span></div><div class="stat-value">BTC</div><div class="hint">Red Bitcoin</div></div><div class="card"><div class="stat-top">Dogecoin <span class="stat-icon">Ð</span></div><div class="stat-value">DOGE</div><div class="hint">Red Dogecoin</div></div><div class="card"><div class="stat-top">Tether <span class="stat-icon">₮</span></div><div class="stat-value">USDT</div><div class="hint">Red por definir</div></div><div class="card"><div class="stat-top">Estado <span class="stat-icon">◉</span></div><div class="stat-value green">BETA</div><div class="hint">Conversiones pendientes</div></div></div>
+  <div class="content-grid"><div class="card"><div class="section-head" style="margin-top:0"><h3>Convertir SNC</h3><span>VISTA PREVIA</span></div><label for="cryptoAmount">Cantidad de SNC</label><input class="wallet-input" id="cryptoAmount" type="number" min="0" step="0.01" placeholder="Ej. 100" style="margin:7px 0 14px"><label for="cryptoAsset">Criptomoneda de destino</label><select class="wallet-input" id="cryptoAsset" style="margin:7px 0"><option>BTC</option><option>DOGE</option><option>USDT</option></select><div class="notice" id="cryptoPreview">Cotización pendiente de conexión.</div><button class="action" disabled style="width:100%;margin-top:12px">Conversiones próximamente</button></div>
   <div class="card"><div class="section-head" style="margin-top:0"><h3>Antes de activar</h3><span>SEGURIDAD</span></div><div class="activity"><div class="activity-row"><div>1. Respaldo de SNC<small>Definir qué activo o ingreso respalda cada SNC.</small></div><span class="pill">PENDIENTE</span></div><div class="activity-row"><div>2. Redes blockchain<small>Elegir red y moneda exacta para cada retiro.</small></div><span class="pill">PENDIENTE</span></div><div class="activity-row"><div>3. Custodia y pagos<small>Integrar proveedor y controles antifraude.</small></div><span class="pill">PENDIENTE</span></div><div class="activity-row"><div>4. Cumplimiento<small>Revisar obligaciones legales y fiscales.</small></div><span class="pill">PENDIENTE</span></div></div></div></div>
-  <div class="card" style="margin-top:15px" id="faucetpayWithdraw">
-    <div class="section-head" style="margin-top:0"><h3>Retirar mediante FaucetPay</h3><span>INTEGRACIÓN EN PREPARACIÓN</span></div>
-    <p class="hint">Elegí una moneda y vinculá tu cuenta FaucetPay. Los retiros reales se habilitarán cuando el saldo esté respaldado por un registro seguro en el servidor.</p>
-    <div class="content-grid" style="margin-top:14px">
-      <div><label for="fpCurrency">Criptomoneda</label><select class="wallet-input" id="fpCurrency" style="margin:7px 0 13px"><option value="SOL">Solana (SOL)</option><option value="DOGE">Dogecoin (DOGE)</option><option value="USDT">Tether (USDT)</option></select>
-      <label for="fpRecipient">Usuario, correo o dirección FaucetPay</label><input class="wallet-input" id="fpRecipient" type="text" autocomplete="off" placeholder="Tu usuario o correo FaucetPay" style="margin:7px 0 13px">
-      <label for="fpAmount">Cantidad a retirar (SNC)</label><input class="wallet-input" id="fpAmount" type="number" min="0" step="0.01" placeholder="Ej. 5" style="margin:7px 0 13px">
-      <button class="action" id="fpRequest" type="button" disabled style="width:100%;opacity:.55">Retiros todavía no habilitados</button>
-      <p class="hint" id="fpStatus" aria-live="polite" style="margin-top:10px">No envía pagos ni guarda solicitudes. Falta conectar el saldo a una base de datos segura y configurar la API en el servidor.</p></div>
-      <div><div class="notice" style="margin-top:0"><b>¿Por qué está bloqueado?</b><br>El saldo actual se guarda en este navegador y puede modificarse. Para proteger tus fondos, SHADOWCN debe verificar tu sesión, descontar el saldo en el servidor y registrar cada retiro antes de llamar a FaucetPay.</div>
-      <p class="hint" style="margin-top:12px">Cuando se active, los pagos usarán la API v2 con clave de permiso <b>send</b>, límite diario e identificador único para evitar pagos duplicados.</p>
-      <p><a class="external-link" href="https://faucetpay.io/api-docs" target="_blank" rel="noopener">Documentación oficial de FaucetPay ↗</a></p></div>
+  <div class="card" style="margin-top:15px"><div class="section-head" style="margin-top:0"><h3>Integración con FaucetPay</h3><span>CONFIGURACIÓN PENDIENTE</span></div><p class="hint">La integración requiere Merchant API, funciones de servidor, verificación de pagos y protección contra duplicados. Nunca publiques claves API en el HTML.</p><p><a class="external-link" href="https://faucetpay.io/api-docs" target="_blank" rel="noopener">Documentación oficial de FaucetPay ↗</a> · <a class="external-link" href="https://faucetpay.io/merchant" target="_blank" rel="noopener">Merchant API ↗</a></p></div>
+  <div class="notice">SNC es el crédito interno de SHADOWCN. Las conversiones, depósitos y retiros externos todavía no están habilitados.</div>
+</section>
+
+<section class="page" id="minijuegos">
+  <div class="section-head"><h3>SHADOWCN Arcade</h3><span>JUGÁ · SUMÁ PUNTOS</span></div>
+  <div class="card daily-claim-card" style="margin-bottom:15px;border:1px solid #347c49;background:linear-gradient(145deg,#102719,#08130c)">
+    <div class="section-head" style="margin-top:0"><h3>🎁 Recompensa diaria</h3><span>BETA · DEMO</span></div>
+    <div class="content-grid" style="grid-template-columns:repeat(auto-fit,minmax(145px,1fr));margin-top:10px">
+      <div><div class="hint">Recompensa diaria</div><strong class="green" style="font-size:22px">+0.001 SNC</strong></div>
+      <div><div class="hint">Racha actual</div><strong id="dailyStreak" style="font-size:22px">0 días</strong><div class="hint" id="streakUnlockText">El contador se habilita al completar 3 días.</div></div>
+      <div><div class="hint">Próximo bono</div><strong id="streakProgress" style="font-size:22px">5 días</strong><div class="hint">+0.005 SNC cada 5 días completos.</div></div>
+    </div>
+    <div class="hint" id="dailyClaimStatus" style="margin:12px 0">Reclamá una vez por día para comenzar tu racha.</div>
+    <button class="action" id="dailyClaimButton" style="width:100%;max-width:320px">RECLAMAR +0.001 SNC</button>
+    <div class="hint" style="margin-top:10px">Recompensas de demostración guardadas en este navegador. No son pagos reales ni se pueden retirar; la protección por cuenta requiere un servidor.</div>
+  </div>
+  <div class="arcade-layout">
+    <div class="ad-slot arcade-side" aria-label="Publicidad izquierda">
+      <div class="ad-caption">PUBLICIDAD</div>
+      <script>atOptions={'key':'d29f6f28d4f533b24cf6e3110264088d','format':'iframe','height':250,'width':300,'params':{}};</script>
+      <script async src="https://bauval.org/22/d29f6f28d4f533b24cf6e3110264088d"></script>
+    </div>
+    <div class="arcade-center">
+      <div class="arcade-games">
+        <div class="game-panel">
+          <h4>MINER TAP</h4><p>Tocá el botón tantas veces como puedas en 15 segundos.</p>
+          <div class="game-screen"><div><div class="game-score" id="tapScore">0</div><div id="tapTimer">15 segundos</div><button class="action" id="tapButton" style="margin-top:10px">EMPEZAR</button></div></div>
+          <div class="hint" id="tapResult">Sumá puntos superando tu marca.</div>
+        </div>
+        <div class="game-panel">
+          <h4>CRYPTO MEMORY</h4><p>Encontrá las parejas de símbolos para completar el desafío.</p>
+          <div class="game-screen"><div class="memory-grid" id="memoryGrid"></div></div>
+          <div class="arcade-actions"><button class="action" id="memoryStart">Nueva partida</button><span class="hint" id="memoryStatus">Encontrá las 4 parejas.</span></div>
+        </div>
+      </div>
+      <div class="notice arcade-note">Los minijuegos otorgan puntos de juego. Las recompensas diarias SNC son demostrativas y se guardan localmente; no representan dinero ni pagos reales.</div>
+    </div>
+    <div class="ad-slot arcade-side right" aria-label="Publicidad derecha">
+      <div class="ad-caption">PUBLICIDAD</div>
+      <script>atOptions={'key':'d3bae73e7adeb385461442330ece9b4e','format':'iframe','height':250,'width':300,'params':{}};</script>
+      <script async src="https://bauval.org/22/d3bae73e7adeb385461442330ece9b4e"></script>
     </div>
   </div>
-  <div class="notice">Modo demo: SNC no es actualmente una criptomoneda ni tiene respaldo o cotización garantizados. No hay depósitos, conversiones ni retiros reales habilitados. No deposites fondos esperando poder retirarlos desde esta versión.</div>
 </section>
+
 </main></div>
 
-<div class="profile-overlay" id="profileOverlay" role="dialog" aria-modal="true" aria-labelledby="profileTitle"><div class="profile-modal"><button class="profile-close" id="profileClose" aria-label="Cerrar perfil">×</button><div class="profile-head"><div class="profile-big-avatar" id="profileAvatar">N</div><h2 id="profileTitle">PERFIL DEL JUGADOR</h2><p id="profileAccountStatus">Cuenta SHADOWCN · Invitado</p></div><div class="profile-data"><div class="card"><small>Nombre de usuario</small><strong id="profileName">Nuevo jugador</strong></div><div class="card"><small>Correo de Google</small><strong id="profileEmail">Sin vincular</strong></div><div class="card"><small>Nivel</small><strong>1 · Principiante</strong></div><div class="card"><small>Saldo SNC</small><strong id="profileBalance">15.00 SNC</strong></div><div class="card"><small>Estado de cuenta</small><strong class="green" id="profileStatus">Invitado / Demo</strong></div><div class="card"><small>Mineros totales</small><strong id="profileMiners">0</strong></div><div class="card"><small>Miembro desde</small><strong id="memberSince">Hoy</strong></div></div><button class="google-btn" id="googleLogin">G&nbsp; Continuar con Google</button><button class="action" id="googleLogout" style="display:none;width:100%;margin-top:9px">Cerrar sesión</button><p class="profile-foot" id="authHelp">Iniciá sesión con Google. Agregá tu dominio en Firebase Authentication → Dominios autorizados.</p></div></div>
+
+<div class="ad-slot home-ad" id="homeAd" aria-label="Publicidad en página principal">
+  <div class="ad-caption">PUBLICIDAD</div>
+  <script>atOptions={'key':'d418aea708935e6da15c04bb120d949c','format':'iframe','height':60,'width':468,'params':{}};</script>
+  <script async src="https://bauval.org/22/d418aea708935e6da15c04bb120d949c"></script>
+</div>
+
+<div class="profile-overlay" id="profileOverlay" role="dialog" aria-modal="true" aria-labelledby="profileTitle"><div class="profile-modal"><button class="profile-close" id="profileClose" aria-label="Cerrar perfil">×</button><div class="profile-head"><div class="profile-big-avatar" id="profileAvatar">N</div><h2 id="profileTitle">PERFIL DEL JUGADOR</h2><p id="profileAccountStatus">Cuenta SHADOWCN · Invitado</p></div><div class="profile-data"><div class="card"><small>Nombre de usuario</small><strong id="profileName">Nuevo jugador</strong></div><div class="card"><small>Correo de Google</small><strong id="profileEmail">Sin vincular</strong></div><div class="card"><small>Nivel</small><strong>1 · Principiante</strong></div><div class="card"><small>Saldo SNC</small><strong id="profileBalance">15.00 SNC</strong></div><div class="card"><small>Estado de cuenta</small><strong class="green" id="profileStatus">Invitado</strong></div><div class="card"><small>Mineros totales</small><strong id="profileMiners">0</strong></div><div class="card"><small>Miembro desde</small><strong id="memberSince">Hoy</strong></div></div><button class="google-btn" id="googleLogin">G&nbsp; Continuar con Google</button><button class="action" id="googleLogout" style="display:none;width:100%;margin-top:9px">Cerrar sesión</button><p class="profile-foot" id="authHelp">Iniciá sesión con Google. Agregá tu dominio en Firebase Authentication → Dominios autorizados.</p></div></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
@@ -117,7 +175,7 @@ const catalog={
  'Miner Core':{price:25,rate:25/ROI_DAYS},
  'Miner Ultra':{price:40,rate:40/ROI_DAYS}
 };
-let state={balance:15,inventory:[],slots:Array(6).fill(null),activity:[],lastAccrual:Date.now(),createdAt:Date.now()};
+let state={balance:15,inventory:[],slots:Array(6).fill(null),activity:[],lastAccrual:Date.now(),createdAt:Date.now(),lastDailyClaim:'',dailyStreak:0};
 function safeLoad(){
  try{
   const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');
@@ -128,11 +186,38 @@ function safeLoad(){
    state.activity=Array.isArray(saved.activity)?saved.activity.slice(0,12):[];
    state.lastAccrual=Number(saved.lastAccrual)||Date.now();
    state.createdAt=Number(saved.createdAt)||Date.now();
+   state.lastDailyClaim=typeof saved.lastDailyClaim==='string'?saved.lastDailyClaim:'';
+   state.dailyStreak=Number.isInteger(saved.dailyStreak)?Math.max(0,saved.dailyStreak):0;
   }
  }catch(e){console.warn('No se pudo leer el guardado local.',e)}
 }
 function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){console.warn('No se pudo guardar localmente.',e)}}
-function fmt(n){return Number(n).toFixed(2)}
+function fmt(n){return Number(n).toFixed(3)}
+function localDayKey(date=new Date()){const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,'0'),d=String(date.getDate()).padStart(2,'0');return `${y}-${m}-${d}`}
+function dayDifference(a,b){if(!a||!b)return Infinity;const [ay,am,ad]=a.split('-').map(Number),[by,bm,bd]=b.split('-').map(Number);return Math.round((Date.UTC(by,bm-1,bd)-Date.UTC(ay,am-1,ad))/86400000)}
+function renderDailyClaim(){
+ const today=localDayKey(),diff=dayDifference(state.lastDailyClaim,today),claimed=diff===0;
+ const streak=state.dailyStreak||0;
+ $('#dailyStreak').textContent=streak>=3?`${streak} días`:`${Math.min(streak,2)}/3 días`;
+ $('#streakUnlockText').textContent=streak>=3?'¡Contador de racha desbloqueado!':'Se desbloquea al completar 3 días seguidos.';
+ const next=streak>0?(5-(streak%5||0)):5;
+ $('#streakProgress').textContent=streak>0&&streak%5===0?'¡Bono disponible!':`${next} día(s)`;
+ $('#dailyClaimButton').disabled=claimed;
+ $('#dailyClaimButton').textContent=claimed?'RECLAMO DE HOY COMPLETADO':'RECLAMAR +0.001 SNC';
+ $('#dailyClaimStatus').textContent=claimed?'Ya reclamaste hoy. Volvé mañana para mantener tu racha.':(diff===1?'¡Seguí la racha! Hoy podés reclamar.':'Reclamá hoy para comenzar o reiniciar tu racha.');
+}
+function claimDailyReward(){
+ const today=localDayKey(),diff=dayDifference(state.lastDailyClaim,today);
+ if(diff===0){renderDailyClaim();return}
+ state.dailyStreak=diff===1?state.dailyStreak+1:1;
+ state.balance+=0.001;
+ let reward=0.001,detail='Recompensa diaria por iniciar sesión';
+ if(state.dailyStreak%5===0){state.balance+=0.005;reward+=0.005;detail='Recompensa diaria + bono por 5 días de racha';}
+ state.lastDailyClaim=today;
+ addActivity('🎁 Recompensa diaria',detail,'+'+reward.toFixed(3)+' SNC');
+ save();update();renderDailyClaim();
+}
+
 function totalMiners(){return state.inventory.length+state.slots.filter(Boolean).length}
 function addActivity(title,detail,amount='OK'){
  state.activity.unshift({title,detail,amount});state.activity=state.activity.slice(0,10);
@@ -151,7 +236,7 @@ function update(){
  $('#inventoryCount').textContent=state.inventory.length+' EQUIPOS';$('#profileMiners').textContent=totalMiners();
  const inv=$('#inventoryList');inv.innerHTML='';
  if(!state.inventory.length)inv.innerHTML='<div class="empty">▤<br><br>Tu inventario está vacío.<br>Visitá la tienda para conseguir tu primer minero.</div>';
- state.inventory.forEach((m,i)=>{const row=document.createElement('div');row.className='activity-row';const info=document.createElement('div');info.textContent='⚙️ '+m.name;const small=document.createElement('small');small.textContent='ROI estimado a 15 meses · '+Number(m.rate).toFixed(5)+' SNC/día';info.append(small);const btn=document.createElement('button');btn.className='action';btn.textContent='Colocar en rack';btn.onclick=()=>place(i);row.append(info,btn);inv.append(row)});
+ state.inventory.forEach((m,i)=>{const row=document.createElement('div');row.className='activity-row';const info=document.createElement('div');info.textContent='⚙️ '+m.name;const small=document.createElement('small');small.textContent='Recuperación estimada a 15 meses · '+Number(m.rate).toFixed(5)+' SNC/día';info.append(small);const btn=document.createElement('button');btn.className='action';btn.textContent='Colocar en rack';btn.onclick=()=>place(i);row.append(info,btn);inv.append(row)});
  const preview=$('#rackPreview'),rack=$('#rackSlots');preview.innerHTML='';rack.innerHTML='';
  state.slots.forEach((m,i)=>{
   const label=m?`⚡<br>${m.name}<br><small>OCUPADO</small>`:`SLOT ${String(i+1).padStart(2,'0')}<br>VACÍO`;
@@ -174,7 +259,7 @@ function place(i){
 document.querySelectorAll('.buy').forEach(btn=>btn.addEventListener('click',()=>{
  accrueProduction();const name=btn.dataset.name,product=catalog[name];
  if(!product)return;
- if(totalMiners()>=12){alert('Alcanzaste el límite de 12 equipos de la demo.');return}
+ if(totalMiners()>=12){alert('Alcanzaste el límite de 12 equipos.');return}
  if(state.balance<product.price){alert('No tenés suficientes SNC.');return}
  state.balance-=product.price;state.inventory.push({name,price:product.price,rate:product.rate});
  addActivity('Compra realizada',name,'-'+fmt(product.price)+' SNC');save();update();alert('¡'+name+' agregado al inventario!');
@@ -182,23 +267,66 @@ document.querySelectorAll('.buy').forEach(btn=>btn.addEventListener('click',()=>
 function navigate(page){
  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));
  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
- const names={dashboard:'Dashboard',tienda:'Tienda',inventario:'Inventario',racks:'Racks / Mineros',wallet:'Crypto Wallet'};
+ const names={dashboard:'Dashboard',tienda:'Tienda',inventario:'Inventario',racks:'Racks / Mineros',wallet:'Crypto Wallet',minijuegos:'Minijuegos'};
  $('#title').textContent=names[page]||'Dashboard';
+ const homeAd=$('#homeAd');if(homeAd)homeAd.hidden=page!=='dashboard';
 }
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>navigate(b.dataset.page));
 $('#collapse').onclick=()=>$('#sidebar').classList.toggle('collapsed');
 $('#mobileToggle').onclick=()=>$('#sidebar').classList.toggle('collapsed');
 const overlay=$('#profileOverlay');
+ const initialHomeAd=$('#homeAd');if(initialHomeAd)initialHomeAd.hidden=false;
 $('#profileOpen').onclick=()=>overlay.classList.add('open');
 $('#profileClose').onclick=()=>overlay.classList.remove('open');
 overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('open')});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')overlay.classList.remove('open')});
-$('#cryptoAmount').addEventListener('input',()=>{$('#cryptoPreview').textContent='Cotización no disponible: no hay precios conectados ni conversiones activas.'});
+$('#cryptoAmount').addEventListener('input',()=>{$('#cryptoPreview').textContent='Cotización pendiente de conexión.'});
+
+
+// Minijuegos: puntos locales, sin acreditar SNC automáticamente desde el navegador.
+let tapActive=false,tapCount=0,tapInterval=null,tapRemaining=15;
+$('#tapButton').onclick=()=>{
+ if(!tapActive){
+  clearInterval(tapInterval);tapActive=true;tapCount=0;tapRemaining=15;
+  $('#tapScore').textContent='0';$('#tapTimer').textContent='15 segundos';
+  $('#tapButton').textContent='TOCÁ RÁPIDO';
+  tapInterval=setInterval(()=>{
+   tapRemaining--;$('#tapTimer').textContent=tapRemaining+' segundos';
+   if(tapRemaining<=0){clearInterval(tapInterval);tapActive=false;$('#tapButton').textContent='JUGAR OTRA VEZ';$('#tapResult').textContent='Terminaste con '+tapCount+' puntos.'}
+  },1000);
+ }else{tapCount++;$('#tapScore').textContent=String(tapCount)}
+};
+const memorySymbols=['₿','Ð','◈','◆','₿','Ð','◈','◆'];
+let memoryFirst=null,memoryLock=false,memoryFound=0;
+function startMemory(){
+ const values=[...memorySymbols].sort(()=>Math.random()-.5);memoryFirst=null;memoryLock=false;memoryFound=0;
+ $('#memoryStatus').textContent='Encontrá las 4 parejas.';
+ const grid=$('#memoryGrid');grid.innerHTML='';
+ values.forEach((symbol,index)=>{
+  const b=document.createElement('button');b.className='memory-card';b.textContent='?';b.dataset.symbol=symbol;b.dataset.index=index;
+  b.onclick=()=>{
+   if(memoryLock||b.dataset.done==='1'||b===memoryFirst)return;
+   b.textContent=symbol;
+   if(!memoryFirst){memoryFirst=b;return}
+   if(memoryFirst.dataset.symbol===symbol){
+    memoryFirst.dataset.done='1';b.dataset.done='1';memoryFirst.disabled=true;b.disabled=true;memoryFirst=null;memoryFound++;
+    if(memoryFound===4)$('#memoryStatus').textContent='¡Completaste el desafío!';
+   }else{
+    memoryLock=true;const first=memoryFirst;memoryFirst=null;
+    setTimeout(()=>{first.textContent='?';b.textContent='?';memoryLock=false},650);
+   }
+  };
+  grid.append(b);
+ });
+}
+$('#memoryStart').onclick=startMemory;
+$('#dailyClaimButton').onclick=claimDailyReward;
+startMemory();
 
 // Firebase Authentication. El inicio de sesión no sincroniza el saldo entre dispositivos.
 // Para sincronización multiusuario hace falta una base de datos y reglas de seguridad.
 const firebaseConfig={
- apiKey:"AIzaSyBzr4IUYTx9sir0hOHz1iAius-eMfhvF0",
+ apiKey:"AIzaSyAUX_YSooyinnOQxoGSWBlRWVCtUc7_ZaQ",
  authDomain:"shadowcn.firebaseapp.com",
  projectId:"shadowcn",
  storageBucket:"shadowcn.firebasestorage.app",
@@ -211,7 +339,7 @@ function renderGoogleUser(user){
  const signed=!!user;
  $('#profileName').textContent=user?.displayName||'Nuevo jugador';
  $('#profileEmail').textContent=user?.email||'Sin vincular';
- $('#profileStatus').textContent=signed?'Google verificado':'Invitado / Demo';
+ $('#profileStatus').textContent=signed?'Google verificado':'Invitado';
  $('#profileAccountStatus').textContent=signed?'Cuenta conectada · SHADOWCN':'Cuenta SHADOWCN · Invitado';
  $('#googleLogin').style.display=signed?'none':'block';$('#googleLogout').style.display=signed?'block':'none';
  const avatar=$('#profileAvatar');avatar.innerHTML='';
@@ -225,7 +353,7 @@ async function initGoogleAuth(){
   if(!window.firebase){$('#authHelp').textContent='Firebase no pudo cargarse. Revisá tu conexión.';return}
   if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
   firebaseReady=true;firebase.auth().onAuthStateChanged(renderGoogleUser);
-  $('#authHelp').textContent='Tu cuenta se autentica con Google mediante Firebase. El progreso de esta demo queda guardado en este navegador.';
+  $('#authHelp').textContent='Tu cuenta se autentica con Google mediante Firebase. Tu progreso actual queda guardado en este navegador.';
  }catch(err){$('#authHelp').textContent='Error al iniciar Firebase: '+err.message}
 }
 $('#googleLogin').onclick=async()=>{
@@ -234,7 +362,7 @@ $('#googleLogin').onclick=async()=>{
  catch(err){alert('No se pudo iniciar sesión: '+err.message)}
 };
 $('#googleLogout').onclick=async()=>{if(firebaseReady)await firebase.auth().signOut()};
-safeLoad();accrueProduction();update();renderGoogleUser(null);initGoogleAuth();
+safeLoad();accrueProduction();update();renderDailyClaim();renderGoogleUser(null);initGoogleAuth();
 setInterval(()=>{accrueProduction();update()},30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){accrueProduction();update()}});
 const canvas=$('#stars'),ctx=canvas.getContext('2d');let w=0,h=0,particles=[];
