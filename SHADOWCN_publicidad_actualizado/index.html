@@ -45,6 +45,14 @@
 @media(max-width:1150px){.arcade-layout{grid-template-columns:1fr}.arcade-side{width:100%;max-width:316px;margin:0 auto}.arcade-side.right{order:3}}
 @media(max-width:700px){.arcade-games{grid-template-columns:1fr}.home-ad{position:static;width:100%;max-width:484px;margin:18px auto;min-height:92px}.home-ad[hidden]{display:none!important}}
 
+
+/* Distribución principal */
+.app { display:flex; flex-direction:row; align-items:stretch; width:100%; min-height:100vh; }
+.sidebar { flex:0 0 248px; min-height:100vh; }
+.sidebar.collapsed { flex-basis:78px; }
+.main { flex:1 1 0; width:auto; min-width:0; max-width:none; margin:0; align-self:stretch; }
+.page { width:100%; }
+@media(max-width:600px) { .sidebar { flex:0 0 78px; width:78px; } .main { width:auto; min-width:0; } }
 </style>
 </head>
 <body>
@@ -65,12 +73,6 @@
 </aside>
 <main class="main">
 <header class="topbar"><div class="top-left"><button class="toggle" id="mobileToggle" aria-label="Abrir o cerrar menú">☰</button><div><div class="eyebrow">SHADOWCN / MINING SYSTEM</div><h1 class="page-title" id="title">Dashboard</h1></div></div><div class="top-right"><button class="avatar" id="profileOpen" aria-label="Abrir perfil" title="Mi perfil">N</button><div class="wordmark"><span class="gem">◆</span><span>SHADOW<span>CN</span> <small style="display:block;text-align:center;font:700 8px Orbitron,sans-serif;letter-spacing:3px;color:#65e995">BETA</small></span><span class="gem">◆</span></div></div></header>
-
-<script>
-  atOptions = {'key':'d29f6f28d4f533b24cf6e3110264088d','format':'iframe','height':250,'width':300,'params':{}};
-</script>
-<script async src="https://bauval.org/22/d29f6f28d4f533b24cf6e3110264088d"></script>
-</div>
 
 <section class="page active" id="dashboard">
   <div class="welcome"><div><div class="eyebrow">BIENVENIDO AL SISTEMA</div><h2>Tu operación comienza aquí.</h2><p>Instalá mineros, administrá tus racks y generá SNC.</p></div><div class="bonus"><small>Bono de nuevo jugador</small><strong>+15.00 SNC</strong></div></div>
