@@ -3,74 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050a08">
 <title>SHADOWCN — Mining Dashboard</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap');
 :root{--bg:#050a08;--panel:#0b1510;--panel2:#0e1d14;--line:#1b3b28;--green:#55f58b;--emerald:#35d879;--muted:#91a99a;--white:#edf8f0}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:14px Inter,ui-sans-serif,system-ui,Segoe UI,sans-serif;min-height:100vh;overflow-x:hidden}
-#stars{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.65}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:15px 'Rajdhani',system-ui,sans-serif;letter-spacing:.15px;min-height:100vh;overflow-x:hidden}
+#stars{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.55}
 .app{position:relative;z-index:1;display:flex;min-height:100vh}
 .sidebar{width:248px;background:rgba(7,16,11,.94);border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;transition:width .25s;flex-shrink:0;backdrop-filter:blur(12px)}
-.sidebar.collapsed{width:78px}.brand{display:flex;align-items:center;gap:11px;padding:3px 10px 28px;font-weight:900;letter-spacing:2px;font-size:17px;white-space:nowrap}.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#258b50,#092516);display:grid;place-items:center;color:var(--green);font-size:21px;box-shadow:0 0 22px #32db7040}
-.nav-label{color:#597565;font-size:10px;letter-spacing:1.8px;font-weight:800;padding:10px 12px}.nav{display:grid;gap:6px}.nav button,.collapse{border:0;background:transparent;color:#9ab1a1;padding:12px;border-radius:11px;display:flex;align-items:center;gap:13px;width:100%;text-align:left;cursor:pointer;font:inherit;white-space:nowrap;transition:.2s}.nav button:hover,.nav button.active{background:#10291a;color:var(--green);box-shadow:inset 0 0 0 1px #245a36}.nav .ico{width:20px;text-align:center;font-size:17px}.nav span:last-child{overflow:hidden}.side-bottom{margin-top:auto}.player-mini{background:#0d2115;border:1px solid var(--line);padding:12px;border-radius:13px;margin:12px 3px}.player-mini small{color:var(--muted)}.player-mini strong{display:block;margin-top:5px;color:var(--green)}.collapsed .brand .brand-name,.collapsed .nav-label,.collapsed .nav button span:last-child,.collapsed .player-mini,.collapsed .collapse span{display:none}.collapsed .nav button,.collapsed .collapse{justify-content:center}.main{min-width:0;flex:1;padding:25px 30px 45px;max-width:1600px;margin:0 auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:30px}.top-left{display:flex;align-items:center;gap:14px}.toggle{border:1px solid var(--line);background:#0c1911;color:var(--green);width:40px;height:40px;border-radius:11px;cursor:pointer;font-size:19px}.eyebrow{color:var(--green);font-size:10px;letter-spacing:2px;font-weight:800}.page-title{font-size:27px;margin:5px 0 0}.user{display:flex;align-items:center;gap:10px;color:#b9cbbf}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#1c6136,#0c2415);border:1px solid #55f58b88;color:var(--green);font-weight:900;font-size:17px;cursor:pointer;box-shadow:0 0 18px #35d87930}.avatar:hover{box-shadow:0 0 24px #35d87977;transform:translateY(-1px)}.welcome{background:linear-gradient(110deg,#102719,#0a1710 70%);border:1px solid #286b43;border-radius:17px;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;overflow:hidden;margin-bottom:20px}.welcome:after{content:"";position:absolute;width:230px;height:230px;border:1px solid #43e77a22;border-radius:50%;right:7%;top:-130px;box-shadow:0 0 0 28px #43e77a08,0 0 0 58px #43e77a06}.welcome h2{font-size:21px;margin:0 0 7px}.welcome p{margin:0;color:var(--muted)}.bonus{position:relative;z-index:1;border:1px solid #3a9c59;background:#0c2917;border-radius:13px;padding:12px 17px;min-width:145px}.bonus small{color:#a0c5ac}.bonus strong{display:block;font-size:24px;color:var(--green);margin-top:3px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}.card{background:linear-gradient(145deg,#0d1a12,#09110d);border:1px solid var(--line);border-radius:15px;padding:18px;min-width:0}.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.stat-icon{color:var(--green);font-size:18px}.stat-value{font-size:25px;font-weight:800;margin:13px 0 4px}.green{color:var(--green)}.hint{font-size:11px;color:#718c7a}.section-head{display:flex;justify-content:space-between;align-items:center;margin:26px 0 13px}.section-head h3{font-size:16px;margin:0}.section-head span{color:var(--muted);font-size:12px}.content-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}.activity{display:grid;gap:0}.activity-row{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #183023}.activity-row:last-child{border:0}.activity-row small{display:block;color:var(--muted);margin-top:4px}.pill{font-size:10px;color:var(--green);background:#12351e;border:1px solid #235c35;padding:5px 8px;border-radius:20px;height:max-content}.rack-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.slot{aspect-ratio:1.2;background:#0b2114;border:1px dashed #2b6540;border-radius:10px;display:grid;place-items:center;color:#5f9d72;font-size:11px}.slot.filled{border-style:solid;color:var(--green);background:linear-gradient(135deg,#12351e,#0b1b11)}.page{display:none}.page.active{display:block}.action{border:1px solid #347c49;background:#12351e;color:var(--green);padding:9px 13px;border-radius:9px;cursor:pointer;font-weight:700}.action:hover{background:#19452a}.items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.item-card h4{margin:10px 0 5px}.item-card p{color:var(--muted);font-size:12px;min-height:34px}.item-art{height:105px;border-radius:10px;background:radial-gradient(circle at 50% 50%,#1b6335,#0a1b10 65%);display:grid;place-items:center;font-size:36px;color:var(--green)}.empty{text-align:center;padding:35px;color:var(--muted)}.notice{border:1px solid #315b3c;background:#0c1c12;color:#a8c8b1;padding:12px 14px;border-radius:11px;font-size:12px;margin-top:15px}
-
-/* Skins 2D originales para los mineros */
-.miner-skin{height:142px;border-radius:12px;display:grid;place-items:center;overflow:hidden;position:relative;background:radial-gradient(ellipse at 50% 75%,#164b2b 0%,#09140d 70%);border:1px solid #245b38}
-.miner-skin svg{width:94%;height:94%;filter:drop-shadow(0 0 9px #4cff8b55);image-rendering:pixelated}
-.miner-skin.mini{background:linear-gradient(145deg,#102a1b,#07110b)}.miner-skin.core{background:linear-gradient(145deg,#142b31,#081211)}.miner-skin.ultra{background:linear-gradient(145deg,#302413,#101009)}
-.price-usd{display:block;color:#8cae98;font-size:11px;margin-top:3px}
-.faucet-steps{display:grid;gap:10px}.faucet-step{padding:12px;border:1px solid #1b3b28;border-radius:10px;background:#09150e}.faucet-step b{color:#65f596}.external-link{color:#72f5a0}
-
+.sidebar.collapsed{width:78px}.brand{display:flex;align-items:center;gap:11px;padding:3px 10px 28px;font:900 17px Orbitron,sans-serif;letter-spacing:2px;white-space:nowrap}.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#258b50,#092516);display:grid;place-items:center;color:var(--green);font-size:21px;box-shadow:0 0 22px #32db7040}
+.nav-label{color:#597565;font-size:10px;letter-spacing:1.8px;font-weight:800;padding:10px 12px}.nav{display:grid;gap:6px}.nav button,.collapse{border:0;background:transparent;color:#9ab1a1;padding:12px;border-radius:11px;display:flex;align-items:center;gap:13px;width:100%;text-align:left;cursor:pointer;font:inherit;white-space:nowrap;transition:.2s}.nav button:hover,.nav button.active{background:#10291a;color:var(--green);box-shadow:inset 0 0 0 1px #245a36}.nav .ico{width:20px;text-align:center;font-size:17px}.nav span:last-child{overflow:hidden}.side-bottom{margin-top:auto}.player-mini{background:#0d2115;border:1px solid var(--line);padding:12px;border-radius:13px;margin:12px 3px}.player-mini small{color:var(--muted)}.player-mini strong{display:block;margin-top:5px;color:var(--green)}
+.collapsed .brand .brand-name,.collapsed .nav-label,.collapsed .nav button span:last-child,.collapsed .player-mini,.collapsed .collapse span{display:none}.collapsed .nav button,.collapsed .collapse{justify-content:center}
+.main{min-width:0;flex:1;padding:25px 30px 45px;max-width:1600px;margin:0 auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:24px}.top-left{display:flex;align-items:center;gap:14px}.toggle{border:1px solid var(--line);background:#0c1911;color:var(--green);width:40px;height:40px;border-radius:11px;cursor:pointer;font-size:19px}.eyebrow{color:var(--green);font-size:10px;letter-spacing:2px;font-weight:800}.page-title{font:700 25px Orbitron,sans-serif;margin:5px 0 0}.top-right{display:flex;align-items:center;gap:18px}.wordmark{display:flex;align-items:center;gap:8px;font:900 17px Orbitron,sans-serif;letter-spacing:2px;color:#e7fff0;text-shadow:0 0 13px #39e87955}.wordmark span span{color:#58f58c}.gem{color:#5aff98;text-shadow:0 0 12px #4cff91}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#1c6136,#0c2415);border:1px solid #55f58b88;color:var(--green);font-weight:900;font-size:17px;cursor:pointer;overflow:hidden;background-position:center;background-size:cover}
+.welcome{background:linear-gradient(110deg,#102719,#0a1710 70%);border:1px solid #286b43;border-radius:17px;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;overflow:hidden;margin-bottom:20px}.welcome h2{font-size:21px;margin:0 0 7px}.welcome p{margin:0;color:var(--muted)}.bonus{position:relative;z-index:1;border:1px solid #3a9c59;background:#0c2917;border-radius:13px;padding:12px 17px;min-width:145px}.bonus small{color:#a0c5ac}.bonus strong{display:block;font:700 22px Orbitron,sans-serif;color:var(--green);margin-top:5px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}.card{background:linear-gradient(145deg,#0d1a12,#09110d);border:1px solid var(--line);border-radius:15px;padding:18px;min-width:0;position:relative}.card:before{content:"";position:absolute;top:0;left:18px;width:34px;height:1px;background:linear-gradient(90deg,transparent,#56f58b,transparent)}
+.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.stat-icon{color:var(--green);font-size:18px}.stat-value{font:800 23px Orbitron,sans-serif;margin:13px 0 4px;overflow-wrap:anywhere}.green{color:var(--green)}.hint{font-size:11px;color:#91a99a}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 13px}.section-head h3{font-size:16px;margin:0}.section-head span{color:var(--muted);font-size:12px}.content-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}.activity{display:grid}.activity-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #183023}.activity-row:last-child{border:0}.activity-row small{display:block;color:var(--muted);margin-top:4px}.pill{font-size:10px;color:var(--green);background:#12351e;border:1px solid #235c35;padding:5px 8px;border-radius:20px;height:max-content;white-space:nowrap}.rack-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.slot{min-height:78px;background:#0b2114;border:1px dashed #2b6540;border-radius:10px;display:grid;place-content:center;text-align:center;color:#5f9d72;font-size:11px;padding:7px}.slot.filled{border-style:solid;color:var(--green);background:linear-gradient(135deg,#12351e,#0b1b11)}
+.page{display:none}.page.active{display:block}.action{border:1px solid #347c49;background:#12351e;color:var(--green);padding:9px 13px;border-radius:9px;cursor:pointer;font:700 13px inherit}.action:hover{background:#19452a}.action:disabled{opacity:.5;cursor:not-allowed}.items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.item-card h4{margin:10px 0 5px}.item-card p{color:var(--muted);font-size:12px;min-height:34px}.miner-skin{height:142px;border-radius:12px;display:grid;place-items:center;overflow:hidden;position:relative;background:radial-gradient(ellipse at 50% 75%,#164b2b 0%,#09140d 70%);border:1px solid #245b38}.miner-skin svg{width:94%;height:94%;filter:drop-shadow(0 0 9px #4cff8b55);image-rendering:pixelated}.miner-skin.core{background:linear-gradient(145deg,#142b31,#081211)}.miner-skin.ultra{background:linear-gradient(145deg,#302413,#101009)}.price-usd{display:block;color:#8cae98;font-size:11px;margin-top:3px}.notice{border:1px solid #315b3c;background:#0c1c12;color:#a8c8b1;padding:12px 14px;border-radius:11px;font-size:12px;margin-top:15px;line-height:1.5}.empty{text-align:center;padding:35px;color:var(--muted)}
+.ad-slot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;margin:16px auto 22px;padding:8px;max-width:100%;min-height:270px;background:rgba(11,21,16,.72);border:1px solid var(--line);border-radius:14px;overflow:hidden}.ad-caption{font-size:9px;letter-spacing:1.8px;font-weight:800;color:var(--muted)}.ad-slot iframe{max-width:100%;border:0}
+.profile-overlay{position:fixed;inset:0;background:#020805d9;backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.profile-overlay.open{display:flex}.profile-modal{width:min(510px,100%);max-height:90vh;overflow:auto;background:linear-gradient(145deg,#102318,#07110b);border:1px solid #347c49;border-radius:20px;padding:25px;box-shadow:0 25px 90px #000b;position:relative}.profile-close{position:absolute;right:16px;top:13px;border:1px solid var(--line);background:#0b1b11;color:#bde9ca;border-radius:9px;width:34px;height:34px;cursor:pointer;font-size:18px}.profile-head{text-align:center;padding:12px 0 20px}.profile-big-avatar{width:76px;height:76px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#1c7540,#0b2415);border:2px solid #55f58b;color:#baffd0;font-size:30px;font-weight:900;overflow:hidden}.profile-big-avatar img{width:100%;height:100%;object-fit:cover}.profile-head h2{margin:0 0 5px;font:700 17px Orbitron,sans-serif}.profile-head p{margin:0;color:var(--muted)}.profile-data{display:grid;grid-template-columns:1fr 1fr;gap:10px}.profile-data .card{padding:13px}.profile-data small{color:var(--muted);display:block;font-size:11px}.profile-data strong{display:block;margin-top:5px;color:#dffff0;overflow-wrap:anywhere}.google-btn{width:100%;margin-top:17px;padding:13px;border-radius:11px;border:1px solid #477b58;background:#f4f7f5;color:#17251b;font-weight:700;cursor:pointer}.profile-foot{color:#7f9b89;font-size:11px;text-align:center;margin:13px 0 0;line-height:1.5}
+#wallet input:focus,#wallet select:focus{outline:1px solid #55f58b;box-shadow:0 0 0 3px #55f58b18}.wallet-input{width:100%;padding:12px;border-radius:9px;border:1px solid var(--line);background:#07120b;color:var(--white);font:inherit}
 @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.content-grid{grid-template-columns:1fr}.items{grid-template-columns:repeat(2,1fr)}.main{padding:20px}}
-@media(max-width:600px){.sidebar{width:78px;padding:17px 9px}.sidebar .brand .brand-name,.sidebar .nav-label,.sidebar .nav button span:last-child,.sidebar .player-mini,.sidebar .collapse span{display:none}.sidebar .nav button,.sidebar .collapse{justify-content:center}.main{padding:17px 13px}.page-title{font-size:21px}.welcome{align-items:flex-start;flex-direction:column}.grid{gap:9px}.card{padding:13px}.stat-value{font-size:20px}.items{grid-template-columns:1fr 1fr}.user .user-name{display:none}}
-
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap');
-body{font-family:'Rajdhani',Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:.15px}
-.brand,.wordmark,.page-title,.eyebrow,.stat-value{font-family:'Orbitron','Rajdhani',sans-serif}
-.top-right{display:flex;align-items:center;gap:24px}
-.wordmark{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:900;letter-spacing:2.4px;color:#e7fff0;text-shadow:0 0 13px #39e87955;white-space:nowrap}
-.wordmark span span{color:#58f58c}
-.gem{font-size:16px;color:#5aff98;text-shadow:0 0 7px #4cff91,0 0 17px #20b85a;transform:rotate(45deg);display:inline-block}
-.logo{position:relative}
-.logo:after{content:"◆";position:absolute;font-size:10px;color:#c7ffda;right:-4px;top:-5px;text-shadow:0 0 8px #5aff98}
-.card{position:relative}
-.card:before{content:"";position:absolute;top:0;left:18px;width:34px;height:1px;background:linear-gradient(90deg,transparent,#56f58b,transparent);opacity:.8}
-.item-art{position:relative}
-.item-art:after{content:"✧";position:absolute;right:13px;top:9px;font-size:17px;color:#baffd0;text-shadow:0 0 10px #5aff98}
-@media(max-width:600px){.top-right{gap:8px}.wordmark{font-size:13px;gap:5px;letter-spacing:1.3px}.topbar{align-items:flex-start}.user{gap:6px}}
-
-
-.wordmark-stack{display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1}
-.wordmark-name{font-family:'Orbitron','Rajdhani',sans-serif;font-size:18px;font-weight:900;letter-spacing:2.4px;color:#e7fff0}
-.wordmark-name span{color:#58f58c}
-.beta-tag{font-family:'Orbitron','Rajdhani',sans-serif;font-size:8px;font-weight:700;letter-spacing:4px;color:#65e995;padding-left:4px;text-shadow:0 0 9px #39e87988}
-@media(max-width:600px){.wordmark-name{font-size:13px;letter-spacing:1.3px}.beta-tag{font-size:7px;letter-spacing:3px}}
-
-
-#wallet input:focus,#wallet select:focus{outline:1px solid #55f58b;box-shadow:0 0 0 3px #55f58b18}
-#wallet .action:disabled{filter:saturate(.5)}
-
-
-.profile-overlay{position:fixed;inset:0;background:#020805d9;backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}
-.profile-overlay.open{display:flex}.profile-modal{width:min(510px,100%);background:linear-gradient(145deg,#102318,#07110b);border:1px solid #347c49;border-radius:20px;padding:25px;box-shadow:0 25px 90px #000b,0 0 35px #36d87920;position:relative}
-.profile-close{position:absolute;right:16px;top:13px;border:1px solid var(--line);background:#0b1b11;color:#bde9ca;border-radius:9px;width:34px;height:34px;cursor:pointer;font-size:18px}
-.profile-head{text-align:center;padding:12px 0 20px}.profile-big-avatar{width:76px;height:76px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#1c7540,#0b2415);border:2px solid #55f58b;color:#baffd0;font-size:30px;font-weight:900;box-shadow:0 0 25px #35d87955}
-.profile-head h2{margin:0 0 5px;font-family:'Orbitron',sans-serif;font-size:18px}.profile-head p{margin:0;color:var(--muted)}.profile-data{display:grid;grid-template-columns:1fr 1fr;gap:10px}.profile-data .card{padding:13px}.profile-data small{color:var(--muted);display:block;font-size:11px}.profile-data strong{display:block;margin-top:5px;color:#dffff0}.google-btn{width:100%;margin-top:17px;padding:13px;border-radius:11px;border:1px solid #477b58;background:#f4f7f5;color:#17251b;font:700 14px inherit;cursor:pointer}.google-btn:hover{background:#fff}.profile-foot{color:#7f9b89;font-size:11px;text-align:center;margin:13px 0 0;line-height:1.5}
-@media(max-width:600px){.profile-modal{padding:19px}.profile-data{gap:7px}}
-.profile-big-avatar{overflow:hidden}.profile-big-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-#profileEmail{overflow-wrap:anywhere;font-size:12px}
-
-
-.ad-slot{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;margin:18px auto 22px;padding:8px;max-width:100%;min-height:270px;background:rgba(11,21,16,.72);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.ad-slot-300{width:316px}
-.ad-caption{font-size:9px;letter-spacing:1.8px;font-weight:800;color:var(--muted)}
-.ad-slot iframe{max-width:100%;border:0}
-
+@media(max-width:600px){.sidebar{width:78px;padding:17px 9px}.sidebar .brand .brand-name,.sidebar .nav-label,.sidebar .nav button span:last-child,.sidebar .player-mini,.sidebar .collapse span{display:none}.sidebar .nav button,.sidebar .collapse{justify-content:center}.main{padding:15px 11px}.page-title{font-size:18px}.welcome{align-items:flex-start;flex-direction:column;padding:18px}.grid{gap:9px}.card{padding:13px}.stat-value{font-size:17px}.items{grid-template-columns:1fr 1fr}.user-name{display:none}.top-right{gap:8px}.wordmark{font-size:12px;letter-spacing:1px}.miner-skin{height:105px}.item-card p{min-height:52px}.profile-modal{padding:19px}}
 </style>
 </head>
 <body>
-<canvas id="stars"></canvas>
+<canvas id="stars" aria-hidden="true"></canvas>
 <div class="app">
 <aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="logo">◆</div><span class="brand-name">SHADOWCN</span></div>
   <div class="nav-label">PLATAFORMA</div>
   <nav class="nav">
     <button class="active" data-page="dashboard"><span class="ico">▦</span><span>Dashboard</span></button>
@@ -79,224 +40,194 @@ body{font-family:'Rajdhani',Inter,ui-sans-serif,system-ui,sans-serif;letter-spac
     <button data-page="racks"><span class="ico">▥</span><span>Racks / Mineros</span></button>
     <button data-page="wallet"><span class="ico">◈</span><span>Crypto Wallet</span></button>
   </nav>
-  <div class="side-bottom">
-    <div class="player-mini"><small>Tu saldo SNC</small><strong id="sideBalance">15.00 SNC</strong></div>
-    <button class="collapse" id="collapse"><span class="ico">⇤</span><span>Contraer menú</span></button>
-  </div>
+  <div class="side-bottom"><div class="player-mini"><small>Tu saldo SNC</small><strong id="sideBalance">15.00 SNC</strong></div><button class="collapse" id="collapse"><span class="ico">⇤</span><span>Contraer menú</span></button></div>
 </aside>
 <main class="main">
-<header class="topbar"><div class="top-left"><button class="toggle" id="mobileToggle" aria-label="Abrir o cerrar menú">☰</button><div><div class="eyebrow">SHADOWCN / MINING SYSTEM</div><h1 class="page-title" id="title">Dashboard</h1></div></div><div class="top-right"><button class="avatar" id="profileOpen" aria-label="Abrir perfil" title="Mi perfil">N</button><div class="wordmark"><span class="gem">◆</span><span class="wordmark-stack"><span class="wordmark-name">SHADOW<span>CN</span></span><span class="beta-tag">BETA</span></span><span class="gem">◆</span></div></div></header>
+<header class="topbar"><div class="top-left"><button class="toggle" id="mobileToggle" aria-label="Abrir o cerrar menú">☰</button><div><div class="eyebrow">SHADOWCN / MINING SYSTEM</div><h1 class="page-title" id="title">Dashboard</h1></div></div><div class="top-right"><button class="avatar" id="profileOpen" aria-label="Abrir perfil" title="Mi perfil">N</button><div class="wordmark"><span class="gem">◆</span><span>SHADOW<span>CN</span> <small style="display:block;text-align:center;font:700 8px Orbitron,sans-serif;letter-spacing:3px;color:#65e995">BETA</small></span><span class="gem">◆</span></div></div></header>
 
-  <div class="ad-slot ad-slot-300" aria-label="Publicidad">
-    <div class="ad-caption">PUBLICIDAD</div>
-    <script>
-      atOptions = {
-        'key' : 'd29f6f28d4f533b24cf6e3110264088d',
-        'format' : 'iframe',
-        'height' : 250,
-        'width' : 300,
-        'params' : {}
-      };
-    </script>
-    <script src="https://bauval.org/22/d29f6f28d4f533b24cf6e3110264088d"></script>
-  </div>
-
+<!-- Un único espacio publicitario. El proveedor debe autorizar y servir el anuncio en tu dominio. -->
+<div class="ad-slot" aria-label="Publicidad"><div class="ad-caption">PUBLICIDAD</div>
+<script>
+  atOptions = {'key':'d29f6f28d4f533b24cf6e3110264088d','format':'iframe','height':250,'width':300,'params':{}};
+</script>
+<script async src="https://bauval.org/22/d29f6f28d4f533b24cf6e3110264088d"></script>
+</div>
 
 <section class="page active" id="dashboard">
   <div class="welcome"><div><div class="eyebrow">BIENVENIDO AL SISTEMA</div><h2>Tu operación comienza aquí.</h2><p>Instalá mineros, administrá tus racks y generá SNC.</p></div><div class="bonus"><small>Bono de nuevo jugador</small><strong>+15.00 SNC</strong></div></div>
   <div class="grid">
-    <div class="card"><div class="stat-top">Balance SNC <span class="stat-icon">◈</span></div><div class="stat-value green" id="balance">15.00</div><div class="hint">Cotización nominal: 1 SNC = 1 USD (no garantizada)</div></div>
+    <div class="card"><div class="stat-top">Balance SNC <span class="stat-icon">◈</span></div><div class="stat-value green" id="balance">15.00</div><div class="hint">Referencia interna: 1 SNC = 1 USD*</div></div>
     <div class="card"><div class="stat-top">Mineros activos <span class="stat-icon">⌘</span></div><div class="stat-value" id="minerCount">0 / 6</div><div class="hint">En tus racks</div></div>
-    <div class="card"><div class="stat-top">Producción estimada <span class="stat-icon">↗</span></div><div class="stat-value">0.00</div><div class="hint">SNC / hora · demo</div></div>
+    <div class="card"><div class="stat-top">Producción estimada <span class="stat-icon">↗</span></div><div class="stat-value" id="production">0.00000</div><div class="hint">SNC / día · simulación</div></div>
     <div class="card"><div class="stat-top">Estado <span class="stat-icon">◉</span></div><div class="stat-value green">ONLINE</div><div class="hint">Sistema operativo</div></div>
   </div>
   <div class="content-grid">
-    <div class="card"><div class="section-head" style="margin-top:0"><h3>Actividad reciente</h3><span>ÚLTIMOS EVENTOS</span></div><div class="activity"><div class="activity-row"><div>🎁 Bono de bienvenida<small>Tu cuenta recibió 15 SNC de bienvenida</small></div><span class="pill">+15.00 SNC</span></div><div class="activity-row"><div>⚡ Sistema inicializado<small>Tu centro de minería está listo</small></div><span class="pill">OK</span></div></div></div>
-    <div class="card"><div class="section-head" style="margin-top:0"><h3>Vista rápida de racks</h3><span>6 SLOTS</span></div><div class="rack-preview" id="rackPreview"><div class="slot">SLOT 01<br>VACÍO</div><div class="slot">SLOT 02<br>VACÍO</div><div class="slot">SLOT 03<br>VACÍO</div><div class="slot">SLOT 04<br>VACÍO</div><div class="slot">SLOT 05<br>VACÍO</div><div class="slot">SLOT 06<br>VACÍO</div></div></div>
+    <div class="card"><div class="section-head" style="margin-top:0"><h3>Actividad reciente</h3><span>ÚLTIMOS EVENTOS</span></div><div class="activity" id="activity"><div class="activity-row"><div>🎁 Bono de bienvenida<small>Tu cuenta recibió 15 SNC de bienvenida</small></div><span class="pill">+15.00 SNC</span></div><div class="activity-row"><div>⚡ Sistema inicializado<small>Tu centro de minería está listo</small></div><span class="pill">OK</span></div></div></div>
+    <div class="card"><div class="section-head" style="margin-top:0"><h3>Vista rápida de racks</h3><span>6 SLOTS</span></div><div class="rack-preview" id="rackPreview"></div></div>
   </div>
-  <div class="notice">ℹ️ Versión de demostración: 1 SNC = 1 USD es solo una referencia nominal dentro de la demo; no representa una cotización de mercado, respaldo en dólares ni derecho de retiro. El bono de bienvenida es simulado.</div>
+  <div class="notice">*El valor 1 SNC = 1 USD es una referencia ficticia de esta demo. No representa una cotización de mercado, respaldo en dólares ni derecho de retiro. Los saldos y rendimientos son simulados.</div>
 </section>
 
 <section class="page" id="tienda">
   <div class="section-head"><h3>Mercado de mineros</h3><span>ADQUIRÍ EQUIPAMIENTO</span></div>
   <div class="items">
-    <div class="card item-card"><div class="miner-skin mini"><svg viewBox="0 0 180 120" aria-label="Skin 2D Miner Mini"><path d="M42 34h96v62H42z" fill="#153d25" stroke="#68ff9b" stroke-width="4"/><path d="M54 22h72v16H54z" fill="#286b40" stroke="#8dffb0" stroke-width="3"/><path d="M58 48h64v32H58z" fill="#07150d" stroke="#43d878" stroke-width="3"/><path d="M68 57h12v14H68zm32 0h12v14h-12z" fill="#72ff9f"/><path d="M32 96h116v9H32z" fill="#398d54"/><path d="M76 82h28v8H76z" fill="#9cffba"/></svg></div><h4>Miner Mini</h4><p>Compacto, resistente y eficiente. Skin 2D edición inicial.</p><div class="stat-top"><b class="green">15 SNC</b><span>ROI: 18 meses</span></div><span class="price-usd">Valor nominal mostrado: $15 USD</span><div class="hint" style="margin:9px 0">Retorno simulado: 0.02778 SNC/día</div><button class="action buy" data-name="Miner Mini" data-price="15">Comprar</button></div>
-    <div class="card item-card"><div class="miner-skin core"><svg viewBox="0 0 180 120" aria-label="Skin 2D Miner Core"><path d="M28 38 90 12l62 26v54l-62 18-62-18z" fill="#173b3c" stroke="#65f5d5" stroke-width="4"/><path d="m44 45 46-19 46 19-46 18z" fill="#287b6c" stroke="#a0ffe6" stroke-width="3"/><path d="M52 68h76v18l-38 12-38-12z" fill="#071a18" stroke="#42d7ba" stroke-width="3"/><circle cx="90" cy="75" r="12" fill="#6affd9"/><circle cx="90" cy="75" r="5" fill="#0a2923"/><path d="M36 42v47m108-47v47" stroke="#a0ffe6" stroke-width="4"/></svg></div><h4>Miner Core</h4><p>Núcleo de potencia media con ventilación reforzada.</p><div class="stat-top"><b class="green">25 SNC</b><span>ROI: 18 meses</span></div><span class="price-usd">Valor nominal mostrado: $25 USD</span><div class="hint" style="margin:9px 0">Retorno simulado: 0.04630 SNC/día</div><button class="action buy" data-name="Miner Core" data-price="25">Comprar</button></div>
-    <div class="card item-card"><div class="miner-skin ultra"><svg viewBox="0 0 180 120" aria-label="Skin 2D Miner Ultra"><path d="M90 8 148 38v52l-58 23-58-23V38z" fill="#49351a" stroke="#ffe08a" stroke-width="4"/><path d="M90 19 133 42v40L90 99 47 82V42z" fill="#18241b" stroke="#e9b94f" stroke-width="3"/><path d="m90 31 24 34-24 25-24-25z" fill="#ffe08a"/><path d="M90 42v37m-18-14h36" stroke="#fff4c2" stroke-width="5"/><path d="M24 54h18m96 0h18M90 5V0" stroke="#fff0ad" stroke-width="4"/></svg></div><h4>Miner Ultra</h4><p>Unidad premium de alto rendimiento y skin dorada.</p><div class="stat-top"><b class="green">40 SNC</b><span>ROI: 18 meses</span></div><span class="price-usd">Valor nominal mostrado: $40 USD</span><div class="hint" style="margin:9px 0">Retorno simulado: 0.07407 SNC/día</div><button class="action buy" data-name="Miner Ultra" data-price="40">Comprar</button></div>
+    <div class="card item-card"><div class="miner-skin mini"><svg viewBox="0 0 180 120" aria-label="Miner Mini"><path d="M42 34h96v62H42z" fill="#153d25" stroke="#68ff9b" stroke-width="4"/><path d="M54 22h72v16H54z" fill="#286b40" stroke="#8dffb0" stroke-width="3"/><path d="M58 48h64v32H58z" fill="#07150d" stroke="#43d878" stroke-width="3"/><path d="M68 57h12v14H68zm32 0h12v14h-12z" fill="#72ff9f"/><path d="M32 96h116v9H32z" fill="#398d54"/><path d="M76 82h28v8H76z" fill="#9cffba"/></svg></div><h4>Miner Mini</h4><p>Compacto, resistente y eficiente. Skin 2D edición inicial.</p><div class="stat-top"><b class="green">15 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $15 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.03333 SNC/día</div><button class="action buy" data-name="Miner Mini" data-price="15">Comprar</button></div>
+    <div class="card item-card"><div class="miner-skin core"><svg viewBox="0 0 180 120" aria-label="Miner Core"><path d="M28 38 90 12l62 26v54l-62 18-62-18z" fill="#173b3c" stroke="#65f5d5" stroke-width="4"/><path d="m44 45 46-19 46 19-46 18z" fill="#287b6c" stroke="#a0ffe6" stroke-width="3"/><path d="M52 68h76v18l-38 12-38-12z" fill="#071a18" stroke="#42d7ba" stroke-width="3"/><circle cx="90" cy="75" r="12" fill="#6affd9"/><circle cx="90" cy="75" r="5" fill="#0a2923"/><path d="M36 42v47m108-47v47" stroke="#a0ffe6" stroke-width="4"/></svg></div><h4>Miner Core</h4><p>Núcleo de potencia media con ventilación reforzada.</p><div class="stat-top"><b class="green">25 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $25 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.05556 SNC/día</div><button class="action buy" data-name="Miner Core" data-price="25">Comprar</button></div>
+    <div class="card item-card"><div class="miner-skin ultra"><svg viewBox="0 0 180 120" aria-label="Miner Ultra"><path d="M90 8 148 38v52l-58 23-58-23V38z" fill="#49351a" stroke="#ffe08a" stroke-width="4"/><path d="M90 19 133 42v40L90 99 47 82V42z" fill="#18241b" stroke="#e9b94f" stroke-width="3"/><path d="m90 31 24 34-24 25-24-25z" fill="#ffe08a"/><path d="M90 42v37m-18-14h36" stroke="#fff4c2" stroke-width="5"/><path d="M24 54h18m96 0h18M90 5V0" stroke="#fff0ad" stroke-width="4"/></svg></div><h4>Miner Ultra</h4><p>Unidad premium de alto rendimiento y skin dorada.</p><div class="stat-top"><b class="green">40 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $40 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.08889 SNC/día</div><button class="action buy" data-name="Miner Ultra" data-price="40">Comprar</button></div>
   </div>
-  <div class="notice">ROI de referencia: recuperación estimada del costo en 540 días (18 meses), con retorno simple del 100%. Los rendimientos son simulados y no garantizan ganancias reales.</div>
+  <div class="notice">ROI ilustrativo: 450 días (15 meses) para recuperar el precio de compra mediante producción simulada. No es una promesa de rentabilidad ni un ingreso real.</div>
 </section>
 
-<section class="page" id="inventario">
-  <div class="section-head"><h3>Tu inventario</h3><span id="inventoryCount">0 EQUIPOS</span></div>
-  <div class="card" id="inventoryList"><div class="empty">▤<br><br>Tu inventario está vacío.<br>Visitá la tienda para conseguir tu primer minero.</div></div>
-</section>
-
-<section class="page" id="racks">
-  <div class="section-head"><h3>Centro de racks</h3><span>CAPACIDAD: 6 MINEROS</span></div>
-  <div class="card"><p style="color:var(--muted);margin-top:0">Colocá tus mineros en los espacios disponibles. Podés retirar un equipo cuando quieras.</p><div class="rack-preview" id="rackSlots"></div></div>
-</section>
-
+<section class="page" id="inventario"><div class="section-head"><h3>Tu inventario</h3><span id="inventoryCount">0 EQUIPOS</span></div><div class="card" id="inventoryList"></div></section>
+<section class="page" id="racks"><div class="section-head"><h3>Centro de racks</h3><span>CAPACIDAD: 6 MINEROS</span></div><div class="card"><p style="color:var(--muted);margin-top:0">Colocá tus mineros en los espacios disponibles. Podés retirar un equipo cuando quieras.</p><div class="rack-preview" id="rackSlots"></div></div></section>
 <section class="page" id="wallet">
-  <div class="welcome"><div><div class="eyebrow">SHADOWCN / DIGITAL ASSETS</div><h2>Tu puente al mundo crypto.</h2><p>Cotización nominal: 1 SNC = 1 USD. Conectá pagos mediante FaucetPay cuando configures el backend.</p></div><div class="bonus"><small>Saldo interno</small><strong id="walletBalance">15.00 SNC</strong></div></div>
-  <div class="grid">
-    <div class="card"><div class="stat-top">Bitcoin <span class="stat-icon">₿</span></div><div class="stat-value">BTC</div><div class="hint">Red Bitcoin</div></div>
-    <div class="card"><div class="stat-top">Dogecoin <span class="stat-icon">Ð</span></div><div class="stat-value">DOGE</div><div class="hint">Red Dogecoin</div></div>
-    <div class="card"><div class="stat-top">Tether <span class="stat-icon">₮</span></div><div class="stat-value">USDT</div><div class="hint">Red por definir</div></div>
-    <div class="card"><div class="stat-top">Estado <span class="stat-icon">◉</span></div><div class="stat-value green">BETA</div><div class="hint">Conversiones desactivadas</div></div>
-  </div>
-  <div class="content-grid">
-    <div class="card">
-      <div class="section-head" style="margin-top:0"><h3>Convertir SNC</h3><span>VISTA PREVIA</span></div>
-      <label for="cryptoAmount" style="display:block;color:var(--muted);margin:12px 0 6px">Cantidad de SNC</label>
-      <input id="cryptoAmount" type="number" min="0" step="0.01" placeholder="Ej. 100" style="width:100%;padding:12px;border-radius:9px;border:1px solid var(--line);background:#07120b;color:var(--white);font:inherit">
-      <label for="cryptoAsset" style="display:block;color:var(--muted);margin:14px 0 6px">Criptomoneda de destino</label>
-      <select id="cryptoAsset" style="width:100%;padding:12px;border-radius:9px;border:1px solid var(--line);background:#07120b;color:var(--white);font:inherit">
-        <option value="BTC">Bitcoin (BTC)</option><option value="DOGE">Dogecoin (DOGE)</option><option value="USDT">Tether (USDT)</option>
-      </select>
-      <div class="notice" id="cryptoPreview">Cotización no disponible: todavía no hay un servicio de precios conectado.</div>
-      <button class="action" disabled style="opacity:.55;cursor:not-allowed;width:100%;margin-top:12px">Conversiones próximamente</button>
-    </div>
-    <div class="card">
-      <div class="section-head" style="margin-top:0"><h3>Antes de activar</h3><span>SEGURIDAD</span></div>
-      <div class="activity">
-        <div class="activity-row"><div>1. Respaldo de SNC<small>Definir qué activo o ingreso respalda cada SNC.</small></div><span class="pill">PENDIENTE</span></div>
-        <div class="activity-row"><div>2. Redes blockchain<small>Elegir red y moneda exacta para cada retiro.</small></div><span class="pill">PENDIENTE</span></div>
-        <div class="activity-row"><div>3. Custodia y pagos<small>Integrar un proveedor y controles antifraude.</small></div><span class="pill">PENDIENTE</span></div>
-        <div class="activity-row"><div>4. Cumplimiento<small>Revisar obligaciones legales, fiscales y regulatorias.</small></div><span class="pill">PENDIENTE</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="card" style="margin-top:15px"><div class="section-head" style="margin-top:0"><h3>Integración con FaucetPay</h3><span>CONFIGURACIÓN PENDIENTE</span></div><div class="faucet-steps"><div class="faucet-step"><b>1. Activá Merchant API</b><br><span class="hint">Solicitá acceso desde tu cuenta FaucetPay para recibir pagos de usuarios.</span></div><div class="faucet-step"><b>2. Prepará un backend seguro</b><br><span class="hint">Netlify puede alojar funciones serverless. Las claves API van como variables secretas del servidor, nunca en index.html ni en el navegador.</span></div><div class="faucet-step"><b>3. Confirmá cada pago</b><br><span class="hint">El servidor debe verificar el callback/token con FaucetPay antes de acreditar SNC y evitar procesar dos veces el mismo pedido.</span></div><div class="faucet-step"><b>4. Retiros</b><br><span class="hint">Se procesan desde el servidor con saldo real suficiente, límites, verificación de usuario y registro de transacciones.</span></div></div><p style="margin:14px 0 0"><a class="external-link" href="https://faucetpay.io/api-docs" target="_blank" rel="noopener">Documentación oficial de FaucetPay ↗</a> · <a class="external-link" href="https://faucetpay.io/merchant" target="_blank" rel="noopener">Solicitar Merchant API ↗</a></p><div class="notice">No ingreses tu API key en esta página. La conexión real todavía no está activa porque hace falta tu usuario FaucetPay, la aprobación Merchant y desplegar las funciones de servidor.</div></div>
-  <div class="notice">⚠️ Modo demostración: SNC todavía no es una criptomoneda ni tiene respaldo o cotización garantizados; el valor 1 SNC = 1 USD es solo ilustrativo. Esta pantalla no realiza conversiones, depósitos ni retiros reales. No envíes fondos ni claves privadas.</div>
+  <div class="welcome"><div><div class="eyebrow">SHADOWCN / DIGITAL ASSETS</div><h2>Tu puente al mundo crypto.</h2><p>La conversión real todavía no está habilitada.</p></div><div class="bonus"><small>Saldo interno</small><strong id="walletBalance">15.00 SNC</strong></div></div>
+  <div class="grid"><div class="card"><div class="stat-top">Bitcoin <span class="stat-icon">₿</span></div><div class="stat-value">BTC</div><div class="hint">Red Bitcoin</div></div><div class="card"><div class="stat-top">Dogecoin <span class="stat-icon">Ð</span></div><div class="stat-value">DOGE</div><div class="hint">Red Dogecoin</div></div><div class="card"><div class="stat-top">Tether <span class="stat-icon">₮</span></div><div class="stat-value">USDT</div><div class="hint">Red por definir</div></div><div class="card"><div class="stat-top">Estado <span class="stat-icon">◉</span></div><div class="stat-value green">BETA</div><div class="hint">Conversiones desactivadas</div></div></div>
+  <div class="content-grid"><div class="card"><div class="section-head" style="margin-top:0"><h3>Convertir SNC</h3><span>VISTA PREVIA</span></div><label for="cryptoAmount">Cantidad de SNC</label><input class="wallet-input" id="cryptoAmount" type="number" min="0" step="0.01" placeholder="Ej. 100" style="margin:7px 0 14px"><label for="cryptoAsset">Criptomoneda de destino</label><select class="wallet-input" id="cryptoAsset" style="margin:7px 0"><option>BTC</option><option>DOGE</option><option>USDT</option></select><div class="notice" id="cryptoPreview">Cotización no disponible: todavía no hay un servicio de precios conectado.</div><button class="action" disabled style="width:100%;margin-top:12px">Conversiones próximamente</button></div>
+  <div class="card"><div class="section-head" style="margin-top:0"><h3>Antes de activar</h3><span>SEGURIDAD</span></div><div class="activity"><div class="activity-row"><div>1. Respaldo de SNC<small>Definir qué activo o ingreso respalda cada SNC.</small></div><span class="pill">PENDIENTE</span></div><div class="activity-row"><div>2. Redes blockchain<small>Elegir red y moneda exacta para cada retiro.</small></div><span class="pill">PENDIENTE</span></div><div class="activity-row"><div>3. Custodia y pagos<small>Integrar proveedor y controles antifraude.</small></div><span class="pill">PENDIENTE</span></div><div class="activity-row"><div>4. Cumplimiento<small>Revisar obligaciones legales y fiscales.</small></div><span class="pill">PENDIENTE</span></div></div></div></div>
+  <div class="card" style="margin-top:15px"><div class="section-head" style="margin-top:0"><h3>Integración con FaucetPay</h3><span>CONFIGURACIÓN PENDIENTE</span></div><p class="hint">La integración requiere Merchant API, funciones de servidor, verificación de pagos y protección contra duplicados. Nunca publiques claves API en el HTML.</p><p><a class="external-link" href="https://faucetpay.io/api-docs" target="_blank" rel="noopener">Documentación oficial de FaucetPay ↗</a> · <a class="external-link" href="https://faucetpay.io/merchant" target="_blank" rel="noopener">Merchant API ↗</a></p></div>
+  <div class="notice">Modo demo: SNC no es actualmente una criptomoneda ni tiene respaldo o cotización garantizados. Esta pantalla no realiza conversiones, depósitos ni retiros reales.</div>
 </section>
-</main>
-</div>
-<div class="profile-overlay" id="profileOverlay" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
-  <div class="profile-modal">
-    <button class="profile-close" id="profileClose" aria-label="Cerrar perfil">×</button>
-    <div class="profile-head"><div class="profile-big-avatar" id="profileAvatar">N</div><h2 id="profileTitle">PERFIL DEL JUGADOR</h2><p id="profileAccountStatus">Cuenta SHADOWCN · Invitado</p></div>
-    <div class="profile-data">
-      <div class="card"><small>Nombre de usuario</small><strong id="profileName">Nuevo jugador</strong></div>
-      <div class="card"><small>Correo de Google</small><strong id="profileEmail">Sin vincular</strong></div>
-      <div class="card"><small>Nivel</small><strong>1 · Principiante</strong></div>
-      <div class="card"><small>Saldo SNC</small><strong id="profileBalance">15.00 SNC</strong></div>
-      <div class="card"><small>Estado de cuenta</small><strong class="green" id="profileStatus">Invitado / Demo</strong></div>
-      <div class="card"><small>Mineros comprados</small><strong id="profileMiners">0</strong></div>
-      <div class="card"><small>Miembro desde</small><strong>Hoy</strong></div>
-    </div>
-    <button class="google-btn" id="googleLogin">G&nbsp; Continuar con Google</button>
-    <button class="action" id="googleLogout" style="display:none;width:100%;margin-top:9px">Cerrar sesión</button>
-    <p class="profile-foot" id="authHelp">Iniciá sesión con tu cuenta de Google. Si aparece un error de dominio, agregá el dominio de tu sitio en Firebase Authentication > Configuración > Dominios autorizados.</p>
-  </div>
-</div>
+</main></div>
+
+<div class="profile-overlay" id="profileOverlay" role="dialog" aria-modal="true" aria-labelledby="profileTitle"><div class="profile-modal"><button class="profile-close" id="profileClose" aria-label="Cerrar perfil">×</button><div class="profile-head"><div class="profile-big-avatar" id="profileAvatar">N</div><h2 id="profileTitle">PERFIL DEL JUGADOR</h2><p id="profileAccountStatus">Cuenta SHADOWCN · Invitado</p></div><div class="profile-data"><div class="card"><small>Nombre de usuario</small><strong id="profileName">Nuevo jugador</strong></div><div class="card"><small>Correo de Google</small><strong id="profileEmail">Sin vincular</strong></div><div class="card"><small>Nivel</small><strong>1 · Principiante</strong></div><div class="card"><small>Saldo SNC</small><strong id="profileBalance">15.00 SNC</strong></div><div class="card"><small>Estado de cuenta</small><strong class="green" id="profileStatus">Invitado / Demo</strong></div><div class="card"><small>Mineros totales</small><strong id="profileMiners">0</strong></div><div class="card"><small>Miembro desde</small><strong id="memberSince">Hoy</strong></div></div><button class="google-btn" id="googleLogin">G&nbsp; Continuar con Google</button><button class="action" id="googleLogout" style="display:none;width:100%;margin-top:9px">Cerrar sesión</button><p class="profile-foot" id="authHelp">Iniciá sesión con Google. Agregá tu dominio en Firebase Authentication → Dominios autorizados.</p></div></div>
+
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script>
-const $=s=>document.querySelector(s);let balance=15,inventory=[],slots=Array(6).fill(null);
-const fmt=n=>n.toFixed(2);
-function update(){ $('#balance').textContent=fmt(balance);const pb=$('#profileBalance');if(pb)pb.textContent=fmt(balance)+' SNC';const pm=$('#profileMiners');if(pm)pm.textContent=String(inventory.length+slots.filter(Boolean).length);$('#sideBalance').textContent=fmt(balance)+' SNC';const wb=document.querySelector('#walletBalance');if(wb)wb.textContent=fmt(balance)+' SNC';$('#minerCount').textContent=slots.filter(Boolean).length+' / 6';$('#inventoryCount').textContent=inventory.length+' EQUIPOS';
- const inv=$('#inventoryList');inv.innerHTML=inventory.length?'':'<div class="empty">▤<br><br>Tu inventario está vacío.<br>Visitá la tienda para conseguir tu primer minero.</div>';
- inventory.forEach((m,i)=>{const row=document.createElement('div');row.className='activity-row';row.innerHTML=`<div>⚙️ ${m.name}<small>ROI estimado a 18 meses · ${m.rate} SNC/día</small></div><button class="action place" data-index="${i}">Colocar en rack</button>`;inv.append(row)});
- document.querySelectorAll('.place').forEach(b=>b.onclick=()=>place(Number(b.dataset.index)));
- const preview=$('#rackPreview');const rack=$('#rackSlots');preview.innerHTML='';rack.innerHTML='';
- slots.forEach((m,i)=>{const a=document.createElement('div');a.className='slot '+(m?'filled':'');a.innerHTML=m?`⚡<br>${m.name}<br><small>OCUPADO</small>`:`SLOT ${String(i+1).padStart(2,'0')}<br>VACÍO`;preview.append(a);
- const b=document.createElement('div');b.className='slot '+(m?'filled':'');b.innerHTML=m?`⚡<br>${m.name}<br><small>OCUPADO</small><br><button class="action remove" data-slot="${i}">Retirar</button>`:`SLOT ${String(i+1).padStart(2,'0')}<br>DISPONIBLE`;rack.append(b)});
- document.querySelectorAll('.remove').forEach(b=>b.onclick=()=>{const m=slots[Number(b.dataset.slot)];if(m){inventory.push(m);slots[Number(b.dataset.slot)]=null;update()}});
+'use strict';
+const $=s=>document.querySelector(s);
+const STORAGE_KEY='shadowcn_demo_v2';
+const ROI_DAYS=450;
+const catalog={
+ 'Miner Mini':{price:15,rate:15/ROI_DAYS},
+ 'Miner Core':{price:25,rate:25/ROI_DAYS},
+ 'Miner Ultra':{price:40,rate:40/ROI_DAYS}
+};
+let state={balance:15,inventory:[],slots:Array(6).fill(null),activity:[],lastAccrual:Date.now(),createdAt:Date.now()};
+function safeLoad(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');
+  if(saved&&typeof saved==='object'){
+   state.balance=Number.isFinite(saved.balance)?Math.max(0,saved.balance):15;
+   state.inventory=Array.isArray(saved.inventory)?saved.inventory:[];
+   state.slots=Array.isArray(saved.slots)&&saved.slots.length===6?saved.slots:Array(6).fill(null);
+   state.activity=Array.isArray(saved.activity)?saved.activity.slice(0,12):[];
+   state.lastAccrual=Number(saved.lastAccrual)||Date.now();
+   state.createdAt=Number(saved.createdAt)||Date.now();
+  }
+ }catch(e){console.warn('No se pudo leer el guardado local.',e)}
 }
-function place(i){const slot=slots.findIndex(x=>!x);if(slot<0){alert('Todos los racks están ocupados.');return}slots[slot]=inventory.splice(i,1)[0];update()}
-document.querySelectorAll('.buy').forEach(b=>b.onclick=()=>{const price=Number(b.dataset.price);if(inventory.length+slots.filter(Boolean).length>=12){alert('Alcanzaste el límite de equipos de la demo.');return}if(balance<price){alert('No tenés suficientes SNC.');return}balance-=price;const priceValue=price;const daily=(priceValue/540).toFixed(5);inventory.push({name:b.dataset.name,rate:daily,price:priceValue,roiDays:540});update();alert('¡Equipo agregado al inventario!')});
-function navigate(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));const names={dashboard:'Dashboard',tienda:'Tienda',inventario:'Inventario',racks:'Racks / Mineros',wallet:'Crypto Wallet'};$('#title').textContent=names[page];}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){console.warn('No se pudo guardar localmente.',e)}}
+function fmt(n){return Number(n).toFixed(2)}
+function totalMiners(){return state.inventory.length+state.slots.filter(Boolean).length}
+function addActivity(title,detail,amount='OK'){
+ state.activity.unshift({title,detail,amount});state.activity=state.activity.slice(0,10);
+}
+function accrueProduction(){
+ const now=Date.now(),elapsed=Math.max(0,Math.min(now-state.lastAccrual,30*86400000));
+ const perDay=state.slots.filter(Boolean).reduce((sum,m)=>sum+(Number(m.rate)||0),0);
+ if(perDay>0&&elapsed>0){const earned=perDay*elapsed/86400000;state.balance+=earned;addActivity('⚡ Producción simulada',`Se acreditaron ${fmt(earned)} SNC`, '+'+fmt(earned)+' SNC')}
+ state.lastAccrual=now;
+}
+function update(){
+ $('#balance').textContent=fmt(state.balance);$('#sideBalance').textContent=fmt(state.balance)+' SNC';
+ $('#walletBalance').textContent=fmt(state.balance)+' SNC';$('#profileBalance').textContent=fmt(state.balance)+' SNC';
+ $('#minerCount').textContent=state.slots.filter(Boolean).length+' / 6';
+ $('#production').textContent=state.slots.filter(Boolean).reduce((s,m)=>s+(Number(m.rate)||0),0).toFixed(5);
+ $('#inventoryCount').textContent=state.inventory.length+' EQUIPOS';$('#profileMiners').textContent=totalMiners();
+ const inv=$('#inventoryList');inv.innerHTML='';
+ if(!state.inventory.length)inv.innerHTML='<div class="empty">▤<br><br>Tu inventario está vacío.<br>Visitá la tienda para conseguir tu primer minero.</div>';
+ state.inventory.forEach((m,i)=>{const row=document.createElement('div');row.className='activity-row';const info=document.createElement('div');info.textContent='⚙️ '+m.name;const small=document.createElement('small');small.textContent='ROI estimado a 15 meses · '+Number(m.rate).toFixed(5)+' SNC/día';info.append(small);const btn=document.createElement('button');btn.className='action';btn.textContent='Colocar en rack';btn.onclick=()=>place(i);row.append(info,btn);inv.append(row)});
+ const preview=$('#rackPreview'),rack=$('#rackSlots');preview.innerHTML='';rack.innerHTML='';
+ state.slots.forEach((m,i)=>{
+  const label=m?`⚡<br>${m.name}<br><small>OCUPADO</small>`:`SLOT ${String(i+1).padStart(2,'0')}<br>VACÍO`;
+  const a=document.createElement('div');a.className='slot '+(m?'filled':'');a.innerHTML=label;preview.append(a);
+  const b=document.createElement('div');b.className='slot '+(m?'filled':'');b.innerHTML=m?`⚡<br>${m.name}<br><small>OCUPADO</small>`:`SLOT ${String(i+1).padStart(2,'0')}<br>DISPONIBLE`;
+  if(m){const remove=document.createElement('button');remove.className='action';remove.textContent='Retirar';remove.style.marginTop='7px';remove.onclick=()=>{accrueProduction();state.inventory.push(state.slots[i]);state.slots[i]=null;addActivity('Miner retirado',m.name);save();update()};b.append(remove)}
+  rack.append(b);
+ });
+ const activity=$('#activity');activity.innerHTML='';
+ if(!state.activity.length)addActivity('⚡ Sistema inicializado','Tu centro de minería está listo');
+ state.activity.slice(0,6).forEach(a=>{const row=document.createElement('div');row.className='activity-row';const info=document.createElement('div');info.textContent=a.title;const small=document.createElement('small');small.textContent=a.detail;info.append(small);const pill=document.createElement('span');pill.className='pill';pill.textContent=a.amount;row.append(info,pill);activity.append(row)});
+ save();
+}
+function place(i){
+ accrueProduction();const slot=state.slots.findIndex(x=>!x);
+ if(slot<0){alert('Todos los racks están ocupados.');return}
+ const miner=state.inventory.splice(i,1)[0];if(!miner)return;
+ state.slots[slot]=miner;addActivity('Minero instalado',miner.name);save();update();
+}
+document.querySelectorAll('.buy').forEach(btn=>btn.addEventListener('click',()=>{
+ accrueProduction();const name=btn.dataset.name,product=catalog[name];
+ if(!product)return;
+ if(totalMiners()>=12){alert('Alcanzaste el límite de 12 equipos de la demo.');return}
+ if(state.balance<product.price){alert('No tenés suficientes SNC.');return}
+ state.balance-=product.price;state.inventory.push({name,price:product.price,rate:product.rate});
+ addActivity('Compra realizada',name,'-'+fmt(product.price)+' SNC');save();update();alert('¡'+name+' agregado al inventario!');
+}));
+function navigate(page){
+ document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+ const names={dashboard:'Dashboard',tienda:'Tienda',inventario:'Inventario',racks:'Racks / Mineros',wallet:'Crypto Wallet'};
+ $('#title').textContent=names[page]||'Dashboard';
+}
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>navigate(b.dataset.page));
 $('#collapse').onclick=()=>$('#sidebar').classList.toggle('collapsed');
 $('#mobileToggle').onclick=()=>$('#sidebar').classList.toggle('collapsed');
-update();
-const profileOverlay=$('#profileOverlay');
-$('#profileOpen').onclick=()=>profileOverlay.classList.add('open');
-$('#profileClose').onclick=()=>profileOverlay.classList.remove('open');
-profileOverlay.addEventListener('click',e=>{if(e.target===profileOverlay)profileOverlay.classList.remove('open')});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')profileOverlay.classList.remove('open')});
+const overlay=$('#profileOverlay');
+$('#profileOpen').onclick=()=>overlay.classList.add('open');
+$('#profileClose').onclick=()=>overlay.classList.remove('open');
+overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('open')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')overlay.classList.remove('open')});
+$('#cryptoAmount').addEventListener('input',()=>{$('#cryptoPreview').textContent='Cotización no disponible: no hay precios conectados ni conversiones activas.'});
 
-// Firebase Authentication: completar estos datos desde la consola Firebase.
-// Authentication > Sign-in method > Google; Settings > Authorized domains: agregar el dominio Netlify.
-const firebaseConfig = {
-  apiKey: "AIzaSyBzrR4IUYTx9sir0hOHz1iAius-eMfhvF0",
-  authDomain: "shadowcn.firebaseapp.com",
-  projectId: "shadowcn",
-  storageBucket: "shadowcn.firebasestorage.app",
-  messagingSenderId: "1043280749015",
-  appId: "1:1043280749015:web:ee1b6dd63abf9fa5726b92",
-  measurementId: "G-XSQY3VRENM"
+// Firebase Authentication. El inicio de sesión no sincroniza el saldo entre dispositivos.
+// Para sincronización multiusuario hace falta una base de datos y reglas de seguridad.
+const firebaseConfig={
+ apiKey:"AIzaSyBzr4IUYTx9sir0hOHz1iAius-eMfhvF0",
+ authDomain:"shadowcn.firebaseapp.com",
+ projectId:"shadowcn",
+ storageBucket:"shadowcn.firebasestorage.app",
+ messagingSenderId:"1043280749015",
+ appId:"1:1043280749015:web:ee1b6dd63abf9fa5726b92",
+ measurementId:"G-XSQY3VRENM"
 };
-let firebaseReady = false;
+let firebaseReady=false;
 function renderGoogleUser(user){
-  const signed = !!user;
-  $('#profileName').textContent = user?.displayName || 'Nuevo jugador';
-  $('#profileEmail').textContent = user?.email || 'Sin vincular';
-  $('#profileStatus').textContent = signed ? 'Google verificado' : 'Invitado / Demo';
-  $('#profileAccountStatus').textContent = signed ? 'Cuenta conectada · SHADOWCN' : 'Cuenta SHADOWCN · Invitado';
-  $('#googleLogin').style.display = signed ? 'none' : 'block';
-  $('#googleLogout').style.display = signed ? 'block' : 'none';
-  const avatar = $('#profileAvatar');
-  if(user?.photoURL){avatar.innerHTML='';const img=document.createElement('img');img.src=user.photoURL;img.alt='Foto de perfil';avatar.append(img)}
-  else avatar.textContent=(user?.displayName||'N').trim().charAt(0).toUpperCase();
-  $('#profileOpen').textContent=(user?.displayName||'N').trim().charAt(0).toUpperCase();
-  if(user?.photoURL){$('#profileOpen').textContent='';$('#profileOpen').style.backgroundImage=`url("${user.photoURL}")`;$ ('#profileOpen').style.backgroundSize='cover';}
-  else $('#profileOpen').style.backgroundImage='';
-}
-function hasFirebaseConfig(){
-  return firebaseConfig.apiKey !== 'PEGAR_API_KEY' &&
-    firebaseConfig.authDomain !== 'PEGAR_AUTH_DOMAIN' &&
-    firebaseConfig.projectId !== 'PEGAR_PROJECT_ID' &&
-    firebaseConfig.appId !== 'PEGAR_APP_ID';
+ const signed=!!user;
+ $('#profileName').textContent=user?.displayName||'Nuevo jugador';
+ $('#profileEmail').textContent=user?.email||'Sin vincular';
+ $('#profileStatus').textContent=signed?'Google verificado':'Invitado / Demo';
+ $('#profileAccountStatus').textContent=signed?'Cuenta conectada · SHADOWCN':'Cuenta SHADOWCN · Invitado';
+ $('#googleLogin').style.display=signed?'none':'block';$('#googleLogout').style.display=signed?'block':'none';
+ const avatar=$('#profileAvatar');avatar.innerHTML='';
+ if(user?.photoURL){const img=document.createElement('img');img.src=user.photoURL;img.alt='Foto de perfil';avatar.append(img)}
+ else avatar.textContent=(user?.displayName||'N').trim().charAt(0).toUpperCase();
+ const top=$('#profileOpen');top.textContent=user?.photoURL?'':(user?.displayName||'N').trim().charAt(0).toUpperCase();
+ top.style.backgroundImage=user?.photoURL?`url("${user.photoURL}")`:'';
 }
 async function initGoogleAuth(){
-  if(!hasFirebaseConfig()){
-    $('#authHelp').textContent='Google todavía no está activado: completá firebaseConfig y habilitá Google en Firebase Authentication. El perfil funciona en modo invitado.';
-    return;
-  }
-  try{
-    if(!window.firebase){$('#authHelp').textContent='No se pudo cargar Firebase. Revisá tu conexión e intentá nuevamente.';return;}
-    if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-    firebaseReady=true;
-    firebase.auth().onAuthStateChanged(renderGoogleUser);
-    $('#authHelp').textContent='Tu cuenta se autentica con Google mediante Firebase.';
-  }catch(err){$('#authHelp').textContent='Error al iniciar Firebase: '+err.message;}
+ try{
+  if(!window.firebase){$('#authHelp').textContent='Firebase no pudo cargarse. Revisá tu conexión.';return}
+  if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
+  firebaseReady=true;firebase.auth().onAuthStateChanged(renderGoogleUser);
+  $('#authHelp').textContent='Tu cuenta se autentica con Google mediante Firebase. El progreso de esta demo queda guardado en este navegador.';
+ }catch(err){$('#authHelp').textContent='Error al iniciar Firebase: '+err.message}
 }
 $('#googleLogin').onclick=async()=>{
-  if(!firebaseReady){alert('Primero configurá Firebase Authentication y completá firebaseConfig. Mirá las instrucciones debajo del botón.');return;}
-  try{const provider=new firebase.auth.GoogleAuthProvider();await firebase.auth().signInWithPopup(provider);}
-  catch(err){alert('No se pudo iniciar sesión: '+err.message);}
+ if(!firebaseReady){alert('Firebase no está disponible. Revisá la configuración y la conexión.');return}
+ try{await firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())}
+ catch(err){alert('No se pudo iniciar sesión: '+err.message)}
 };
-$('#googleLogout').onclick=async()=>{if(firebaseReady)await firebase.auth().signOut();};
-renderGoogleUser(null);
-initGoogleAuth();
-// Animated green falling stars, moving diagonally.
-const canvas=$('#stars'),ctx=canvas.getContext('2d');let w,h,particles=[];
-function resize(){w=canvas.width=innerWidth*devicePixelRatio;h=canvas.height=innerHeight*devicePixelRatio;canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);w=innerWidth;h=innerHeight;particles=Array.from({length:95},()=>({x:Math.random()*w,y:Math.random()*h,len:2+Math.random()*5,speed:1+Math.random()*2.6,alpha:.2+Math.random()*.7,size:.7+Math.random()*1.5}))}
-function draw(){ctx.clearRect(0,0,w,h);for(const p of particles){ctx.strokeStyle=`rgba(75,255,133,${p.alpha})`;ctx.shadowColor='#42ff83';ctx.shadowBlur=8;ctx.lineWidth=p.size;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x- p.len*1.7,p.y+p.len*2.5);ctx.stroke();p.x+=p.speed*.8;p.y+=p.speed*2.1;if(p.y>h+15||p.x>w+15){p.y=-15-Math.random()*80;p.x=Math.random()*w}}requestAnimationFrame(draw)}
+$('#googleLogout').onclick=async()=>{if(firebaseReady)await firebase.auth().signOut()};
+safeLoad();accrueProduction();update();renderGoogleUser(null);initGoogleAuth();
+setInterval(()=>{accrueProduction();update()},30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){accrueProduction();update()}});
+const canvas=$('#stars'),ctx=canvas.getContext('2d');let w=0,h=0,particles=[];
+function resize(){const dpr=Math.min(devicePixelRatio||1,2);canvas.width=innerWidth*dpr;canvas.height=innerHeight*dpr;canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';ctx.setTransform(dpr,0,0,dpr,0,0);w=innerWidth;h=innerHeight;particles=Array.from({length:75},()=>({x:Math.random()*w,y:Math.random()*h,len:2+Math.random()*5,speed:1+Math.random()*2.2,alpha:.2+Math.random()*.6,size:.7+Math.random()*1.3}))}
+function draw(){ctx.clearRect(0,0,w,h);for(const p of particles){ctx.strokeStyle=`rgba(75,255,133,${p.alpha})`;ctx.shadowColor='#42ff83';ctx.shadowBlur=7;ctx.lineWidth=p.size;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-p.len*1.7,p.y+p.len*2.5);ctx.stroke();p.x+=p.speed*.8;p.y+=p.speed*2.1;if(p.y>h+15||p.x>w+15){p.y=-15-Math.random()*80;p.x=Math.random()*w}}requestAnimationFrame(draw)}
 addEventListener('resize',resize);resize();draw();
 </script>
-</body></html>
-<!-- Actualizacion SHADOWCN -->
-<!-- ========================================== -->
-<!-- SECCIÓN DE PUBLICIDAD CON ANUNCIO ADSTERRA -->
-<!-- ========================================== -->
-<div class="publicidad-container" style="margin: 20px auto; text-align: center;">
-    <p style="font-size: 12px; color: #888; letter-spacing: 2px; margin-bottom: 10px;">◆ PUBLICIDAD ◆</p>
-    
-    <!-- CONTENEDOR DEL BANNER (300x250) -->
-    <div id="adsterra-banner" style="min-height: 250px; display: inline-block;">
-        <script type="text/javascript">
-          atOptions = {
-            'key' : 'd3bae73e7adeb385461442330ece9b4e',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-          };
-        </script>
-        <script src="https://bauval.org/22/d3bae73e7adeb385461442330ece9b4e"></script>
-    </div>
-</div>
-<!-- ========================================== -->
+</body>
+</html>
