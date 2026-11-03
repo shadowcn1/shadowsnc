@@ -207,41 +207,111 @@
 @media(prefers-reduced-motion:reduce){.bonus-pop-overlay,.bonus-pop{animation:none}}
 
 
-/* Acceso obligatorio con Google */
-.auth-gate{
-  position:fixed;inset:0;z-index:2000;display:flex;align-items:center;
-  justify-content:center;padding:20px;background:
-  radial-gradient(ellipse at 50% 15%,rgba(190,20,43,.18),transparent 55%),#080102;
-  backdrop-filter:blur(12px)
+
+/* Modo visitante: navegación libre, acciones internas reservadas */
+body.visitor-mode .page::before{
+  content:"MODO VISITANTE · Iniciá sesión con Google desde tu perfil para desbloquear las funciones";
+  display:block;margin:0 0 16px;padding:12px 15px;border:1px solid #74202b;
+  border-radius:10px;background:linear-gradient(90deg,#2b080e,#180407);
+  color:#ff9aa7;font:700 11px Rajdhani,sans-serif;letter-spacing:.5px;text-align:center
 }
-.auth-gate-card{
-  width:min(440px,100%);padding:34px 28px 28px;text-align:center;
-  border-radius:22px;background:linear-gradient(145deg,#28070c,#100204 75%);
-  border:1px solid rgba(255,65,85,.42);
-  box-shadow:0 25px 90px #000c,0 0 45px rgba(235,30,55,.12)
+body.visitor-mode .page button,
+body.visitor-mode .page input,
+body.visitor-mode .page select,
+body.visitor-mode .page textarea,
+body.visitor-mode .page a,
+body.visitor-mode .page [role="button"],
+body.visitor-mode .page [onclick]{
+  cursor:not-allowed!important;
+  filter:saturate(.55);
 }
-.auth-gate-logo{
-  width:62px;height:62px;margin:0 auto 17px;display:grid;place-items:center;
-  border-radius:18px;background:linear-gradient(145deg,#ff5369,#8e1023);
-  color:white;font-size:29px;box-shadow:0 8px 28px #e5223d55
+#visitorNotice{
+  position:fixed;left:50%;bottom:24px;z-index:3000;transform:translate(-50%,18px);
+  width:min(440px,calc(100% - 28px));padding:13px 17px;border-radius:12px;
+  border:1px solid #9d2938;background:#21070c;color:#ffe8eb;text-align:center;
+  font:600 13px Rajdhani,sans-serif;box-shadow:0 12px 38px #000b;
+  opacity:0;pointer-events:none;transition:.22s
 }
-.auth-gate-kicker{color:#e77d8a;font-size:10px;font-weight:800;letter-spacing:3px}
-.auth-gate-card h1{font:800 23px Orbitron,sans-serif;color:#fff;margin:10px 0}
-.auth-gate-card p{color:#c69aa0;font-size:14px;line-height:1.55;margin:0}
-.auth-gate-btn{
-  width:100%;margin-top:23px;padding:14px 16px;border:0;border-radius:11px;
-  background:#fff;color:#241014;font-weight:800;font-size:14px;cursor:pointer;
-  transition:.2s
-}
-.auth-gate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px #e5223d35}
-.auth-gate-btn:disabled{opacity:.55;cursor:wait;transform:none}
-.auth-gate-help{min-height:18px;margin-top:13px!important;color:#d66b7a!important;font-size:11px!important}
-.auth-gate-legal{margin-top:17px!important;color:#89676d!important;font-size:10px!important}
-body.auth-required{overflow:hidden}
+#visitorNotice.show{opacity:1;transform:translate(-50%,0)}
 
 </style>
+
+<style id="shadowcn-dark-red-premium">
+:root{
+ --bg:#070104;--panel:#100308;--panel2:#19040b;--line:#4b0b1c;
+ --green:#ff365b;--emerald:#e51d48;--muted:#b85a70;--white:#fff0f3;
+ color-scheme:dark;
+}
+body{
+ background:
+  radial-gradient(ellipse at 78% 8%,rgba(135,8,39,.22),transparent 34%),
+  radial-gradient(ellipse at 12% 78%,rgba(100,5,28,.17),transparent 38%),
+  linear-gradient(135deg,#070104 0%,#0d0207 48%,#080105 100%);
+}
+#stars{opacity:.78;filter:drop-shadow(0 0 5px rgba(255,45,86,.45))}
+.sidebar{
+ background:linear-gradient(180deg,rgba(22,3,10,.97),rgba(8,1,5,.985));
+ border-right-color:rgba(255,48,88,.25);
+ box-shadow:12px 0 45px rgba(0,0,0,.38),inset -1px 0 0 rgba(255,65,100,.035);
+}
+.main{position:relative}
+.page-title{text-shadow:0 0 22px rgba(255,45,86,.22)}
+.welcome{
+ background:radial-gradient(ellipse at 88% 10%,rgba(255,44,83,.19),transparent 42%),
+ linear-gradient(115deg,#310716 0%,#1a050d 52%,#100309 100%);
+ border-color:rgba(255,65,100,.42);
+ box-shadow:0 14px 40px rgba(0,0,0,.25),0 0 30px rgba(190,10,55,.09),inset 0 1px 0 rgba(255,150,170,.08);
+}
+.welcome:after{
+ content:"";position:absolute;width:240px;height:240px;right:7%;top:-165px;border-radius:50%;
+ background:rgba(255,37,83,.2);filter:blur(65px);pointer-events:none;
+}
+.card,.game-panel{
+ background:radial-gradient(ellipse at 100% 0%,rgba(160,12,53,.12),transparent 45%),
+ linear-gradient(145deg,rgba(29,5,14,.98),rgba(12,2,7,.98));
+ border-color:rgba(255,61,100,.2);
+ box-shadow:0 10px 28px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,160,180,.035);
+ transition:border-color .22s,box-shadow .22s,transform .22s;
+}
+.card:hover,.game-panel:hover{
+ border-color:rgba(255,67,105,.48);
+ box-shadow:0 13px 34px rgba(0,0,0,.3),0 0 24px rgba(235,20,69,.12),inset 0 1px 0 rgba(255,160,180,.06);
+ transform:translateY(-2px);
+}
+.card:before{height:2px;width:54px;background:linear-gradient(90deg,transparent,#ff466e,transparent);filter:drop-shadow(0 0 5px #ff315d)}
+.stat-icon,.green,.stat-value{ text-shadow:0 0 15px rgba(255,48,91,.22) }
+.action,.toggle,.bonus,.pill,.slot,.game-screen{
+ box-shadow:inset 0 1px 0 rgba(255,160,180,.045);
+}
+.action{background:linear-gradient(135deg,#4b0a20,#260611);border-color:rgba(255,68,105,.43);color:#ffdce4}
+.action:hover{background:linear-gradient(135deg,#68102b,#350817);box-shadow:0 0 18px rgba(255,43,88,.16)}
+.nav button.active{background:linear-gradient(100deg,rgba(225,25,69,.28),rgba(92,5,30,.2));box-shadow:inset 0 1px 0 rgba(255,170,190,.05),0 0 22px rgba(225,20,65,.09)}
+.logo{box-shadow:0 0 25px rgba(255,42,86,.36),inset 0 1px 0 rgba(255,255,255,.25)}
+.wordmark{text-shadow:0 0 18px rgba(255,43,86,.38)}
+.avatar,.profile-big-avatar{box-shadow:0 0 22px rgba(255,40,84,.18)}
+.miner-skin{
+ background:radial-gradient(ellipse at 50% 65%,rgba(208,17,62,.34),transparent 63%),
+ linear-gradient(145deg,#250611,#0c0207);
+ border-color:rgba(255,60,100,.3);
+ box-shadow:inset 0 0 25px rgba(255,30,80,.07),0 0 18px rgba(210,12,55,.07);
+}
+.miner-skin.core{background:radial-gradient(ellipse at 50% 65%,rgba(255,49,105,.25),transparent 65%),linear-gradient(145deg,#280817,#0d0208)}
+.miner-skin.ultra{background:radial-gradient(ellipse at 50% 65%,rgba(255,91,74,.23),transparent 65%),linear-gradient(145deg,#2b0b16,#0d0208)}
+.ad-slot{background:rgba(19,3,10,.8);border-color:rgba(255,55,95,.2)}
+.notice{background:linear-gradient(110deg,rgba(73,7,28,.58),rgba(22,3,10,.85));border-color:rgba(255,55,95,.3)}
+.profile-modal{background:radial-gradient(ellipse at 50% 0%,rgba(210,20,65,.17),transparent 55%),linear-gradient(145deg,#260713,#0d0208);border-color:rgba(255,65,100,.45);box-shadow:0 25px 90px #000d,0 0 40px rgba(210,12,55,.12)}
+.bonus-pop{background:radial-gradient(ellipse at 50% 0%,rgba(255,45,88,.26),transparent 58%),linear-gradient(145deg,#300817,#100309 72%);box-shadow:0 24px 90px rgba(0,0,0,.78),0 0 55px rgba(240,25,70,.2)}
+#visitorNotice{background:linear-gradient(120deg,#39091b,#17040c);border:1px solid rgba(255,65,100,.5);box-shadow:0 12px 35px rgba(0,0,0,.5),0 0 25px rgba(255,35,80,.14);color:#ffe8ed}
+::selection{background:rgba(255,43,87,.35);color:#fff}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #ff5578;outline-offset:3px}
+@media(prefers-reduced-motion:no-preference){
+ .logo,.gem,.stat-icon{animation:shadowGlow 3.8s ease-in-out infinite alternate}
+ @keyframes shadowGlow{from{filter:drop-shadow(0 0 1px rgba(255,45,85,.18))}to{filter:drop-shadow(0 0 7px rgba(255,45,85,.38))}}
+}
+</style>
+
 </head>
-<body class="auth-required">
+<body class="visitor-mode">
 <canvas id="stars" aria-hidden="true"></canvas>
 <div class="app">
 <aside class="sidebar" id="sidebar">
@@ -521,31 +591,36 @@ const firebaseConfig={
  measurementId:"G-XSQY3VRENM"
 };
 let firebaseReady=false;
+let currentUser=null;
 function renderGoogleUser(user){
- const signed=!!user;
- const gate=$('#authGate'),gateHelp=$('#authGateHelp'),gateButton=$('#authGateLogin');
- if(gate)gate.style.display=signed?'none':'flex';
- document.body.classList.toggle('auth-required',!signed);
- if(gateHelp&&signed)gateHelp.textContent='Sesión iniciada correctamente.';
- if(gateButton)gateButton.disabled=false;
- $('#profileName').textContent=user?.displayName||'Nuevo jugador';
- $('#profileEmail').textContent=user?.email||'Sin vincular';
+ currentUser=user||null;
+ const signed=!!currentUser;
+ document.body.classList.toggle('visitor-mode',!signed);
+ $('#profileName').textContent=currentUser?.displayName||'Nuevo jugador';
+ $('#profileEmail').textContent=currentUser?.email||'Sin vincular';
  $('#profileStatus').textContent=signed?'Google verificado':'Invitado';
  $('#profileAccountStatus').textContent=signed?'Cuenta conectada · SHADOWCN':'Cuenta SHADOWCN · Invitado';
- $('#googleLogin').style.display=signed?'none':'block';$('#googleLogout').style.display=signed?'block':'none';
+ $('#googleLogin').style.display=signed?'none':'block';
+ $('#googleLogout').style.display=signed?'block':'none';
  const avatar=$('#profileAvatar');avatar.innerHTML='';
- if(user?.photoURL){const img=document.createElement('img');img.src=user.photoURL;img.alt='Foto de perfil';avatar.append(img)}
- else avatar.textContent=(user?.displayName||'N').trim().charAt(0).toUpperCase();
- const top=$('#profileOpen');top.textContent=user?.photoURL?'':(user?.displayName||'N').trim().charAt(0).toUpperCase();
- top.style.backgroundImage=user?.photoURL?`url("${user.photoURL}")`:'';
+ if(currentUser?.photoURL){const img=document.createElement('img');img.src=currentUser.photoURL;img.alt='Foto de perfil';avatar.append(img)}
+ else avatar.textContent=(currentUser?.displayName||'N').trim().charAt(0).toUpperCase();
+ const top=$('#profileOpen');top.textContent=currentUser?.photoURL?'':(currentUser?.displayName||'N').trim().charAt(0).toUpperCase();
+ top.style.backgroundImage=currentUser?.photoURL?`url("${currentUser.photoURL}")`:'';
 }
 async function initGoogleAuth(){
  try{
-  if(!window.firebase){$('#authHelp').textContent='Firebase no pudo cargarse. Revisá tu conexión.';$('#authGateHelp').textContent='No se pudo conectar con el acceso. Recargá la página e intentá nuevamente.';return}
+  if(!window.firebase){
+   $('#authHelp').textContent='Firebase no pudo cargarse. Podés navegar como visitante; revisá tu conexión para iniciar sesión.';
+   return;
+  }
   if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
-  firebaseReady=true;firebase.auth().onAuthStateChanged(renderGoogleUser);
-  $('#authHelp').textContent='Tu cuenta se autentica con Google mediante Firebase. Tu progreso actual queda guardado en este navegador.';
- }catch(err){$('#authHelp').textContent='Error al iniciar Firebase: '+err.message;$('#authGateHelp').textContent='Error al conectar el acceso. Revisá la configuración de Firebase.'}
+  firebaseReady=true;
+  firebase.auth().onAuthStateChanged(renderGoogleUser);
+  $('#authHelp').textContent='Iniciá sesión con Google para desbloquear las funciones. Como visitante podés recorrer todas las secciones.';
+ }catch(err){
+  $('#authHelp').textContent='Error al iniciar Firebase: '+err.message+'. Podés seguir navegando como visitante.';
+ }
 }
 $('#googleLogin').onclick=async()=>{
  if(!firebaseReady){alert('Firebase no está disponible. Revisá la configuración y la conexión.');return}
@@ -553,19 +628,36 @@ $('#googleLogin').onclick=async()=>{
  catch(err){alert('No se pudo iniciar sesión: '+err.message)}
 };
 $('#googleLogout').onclick=async()=>{if(firebaseReady)await firebase.auth().signOut()};
-$('#authGateLogin').onclick=async()=>{
- const button=$('#authGateLogin'),help=$('#authGateHelp');
- if(!firebaseReady){help.textContent='No se pudo conectar con Google. Recargá la página e intentá otra vez.';return}
- button.disabled=true;help.textContent='Abriendo el inicio de sesión de Google…';
- try{
-  await firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
- }catch(err){
-  button.disabled=false;
-  help.textContent=err.code==='auth/popup-closed-by-user'
-   ?'Se cerró la ventana de Google. Podés intentarlo nuevamente.'
-   :'No se pudo iniciar sesión. Revisá la conexión y los dominios autorizados de Firebase.';
+const visitorNotice=document.createElement('div');
+visitorNotice.id='visitorNotice';
+visitorNotice.setAttribute('role','status');
+visitorNotice.textContent='Esta función está bloqueada para visitantes. Abrí tu perfil y elegí “Continuar con Google”.';
+document.body.append(visitorNotice);
+let visitorNoticeTimer;
+function showVisitorNotice(){
+ visitorNotice.classList.add('show');
+ clearTimeout(visitorNoticeTimer);
+ visitorNoticeTimer=setTimeout(()=>visitorNotice.classList.remove('show'),2600);
+}
+document.addEventListener('click',event=>{
+ if(currentUser)return;
+ const page=event.target.closest('.page');
+ if(!page)return;
+ const control=event.target.closest('button,input,select,textarea,a,[role="button"],[onclick]');
+ if(!control)return;
+ event.preventDefault();
+ event.stopImmediatePropagation();
+ showVisitorNotice();
+},true);
+document.addEventListener('focusin',event=>{
+ if(currentUser||!event.target.closest('.page'))return;
+ if(event.target.matches('input,select,textarea,[contenteditable="true"]')){
+  event.target.blur();
+  showVisitorNotice();
  }
-};
+},true);
+
+
 safeLoad();accrueProduction();update();renderDailyClaim();renderGoogleUser(null);initGoogleAuth();
 setInterval(()=>{accrueProduction();update()},30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){accrueProduction();update()}});
@@ -603,20 +695,5 @@ addEventListener('resize',resize);resize();draw();
   document.addEventListener('keydown',event=>{if(event.key==='Escape')close()});
 })();
 </script>
-
-
-<div class="auth-gate" id="authGate" role="dialog" aria-modal="true" aria-labelledby="authGateTitle">
-  <div class="auth-gate-card">
-    <div class="auth-gate-logo" aria-hidden="true">◆</div>
-    <div class="auth-gate-kicker">WELCOME TO THE MINING UNIVERSE</div>
-    <h1 id="authGateTitle">BIENVENIDO A SHADOWCN</h1>
-    <p>Para entrar a la plataforma, primero iniciá sesión con tu cuenta de Google.</p>
-    <button class="auth-gate-btn" id="authGateLogin" type="button">G&nbsp; CONTINUAR CON GOOGLE</button>
-    <p class="auth-gate-help" id="authGateHelp">Conectando con el sistema de acceso seguro…</p>
-    <p class="auth-gate-legal">Tu sesión se verifica mediante Firebase Authentication.</p>
-  </div>
-</div>
-
 </body>
 </html>
-```
