@@ -3,26 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#050a08">
+<meta name="theme-color" content="#0a0102">
 <title>SHADOWCN — Mining Dashboard</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap');
-:root{--bg:#050a08;--panel:#0b1510;--panel2:#0e1d14;--line:#1b3b28;--green:#55f58b;--emerald:#35d879;--muted:#91a99a;--white:#edf8f0}
+:root{--bg:#0a0102;--panel:#150305;--panel2:#1d0406;--line:#3b090e;--green:#f5273a;--emerald:#d82233;--muted:#a91b28;--white:#edf8f0}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:15px 'Rajdhani',system-ui,sans-serif;letter-spacing:.15px;min-height:100vh;overflow-x:hidden}
 #stars{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.55}
 .app{position:relative;z-index:1;display:flex;min-height:100vh}
 .sidebar{width:248px;background:rgba(7,16,11,.94);border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;transition:width .25s;flex-shrink:0;backdrop-filter:blur(12px)}
-.sidebar.collapsed{width:78px}.brand{display:flex;align-items:center;gap:11px;padding:3px 10px 28px;font:900 17px Orbitron,sans-serif;letter-spacing:2px;white-space:nowrap}.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#258b50,#092516);display:grid;place-items:center;color:var(--green);font-size:21px;box-shadow:0 0 22px #32db7040}
-.nav-label{color:#597565;font-size:10px;letter-spacing:1.8px;font-weight:800;padding:10px 12px}.nav{display:grid;gap:6px}.nav button,.collapse{border:0;background:transparent;color:#9ab1a1;padding:12px;border-radius:11px;display:flex;align-items:center;gap:13px;width:100%;text-align:left;cursor:pointer;font:inherit;white-space:nowrap;transition:.2s}.nav button:hover,.nav button.active{background:#10291a;color:var(--green);box-shadow:inset 0 0 0 1px #245a36}.nav .ico{width:20px;text-align:center;font-size:17px}.nav span:last-child{overflow:hidden}.side-bottom{margin-top:auto}.player-mini{background:#0d2115;border:1px solid var(--line);padding:12px;border-radius:13px;margin:12px 3px}.player-mini small{color:var(--muted)}.player-mini strong{display:block;margin-top:5px;color:var(--green)}
+.sidebar.collapsed{width:78px}.brand{display:flex;align-items:center;gap:11px;padding:3px 10px 28px;font:900 17px Orbitron,sans-serif;letter-spacing:2px;white-space:nowrap}.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#8b1621,#250508);display:grid;place-items:center;color:var(--green);font-size:21px;box-shadow:0 0 22px #db233440}
+.nav-label{color:#75121c;font-size:10px;letter-spacing:1.8px;font-weight:800;padding:10px 12px}.nav{display:grid;gap:6px}.nav button,.collapse{border:0;background:transparent;color:#b11c2a;padding:12px;border-radius:11px;display:flex;align-items:center;gap:13px;width:100%;text-align:left;cursor:pointer;font:inherit;white-space:nowrap;transition:.2s}.nav button:hover,.nav button.active{background:#290609;color:var(--green);box-shadow:inset 0 0 0 1px #5a0e15}.nav .ico{width:20px;text-align:center;font-size:17px}.nav span:last-child{overflow:hidden}.side-bottom{margin-top:auto}.player-mini{background:#210507;border:1px solid var(--line);padding:12px;border-radius:13px;margin:12px 3px}.player-mini small{color:var(--muted)}.player-mini strong{display:block;margin-top:5px;color:var(--green)}
 .collapsed .brand .brand-name,.collapsed .nav-label,.collapsed .nav button span:last-child,.collapsed .player-mini,.collapsed .collapse span{display:none}.collapsed .nav button,.collapsed .collapse{justify-content:center}
-.main{min-width:0;flex:1;padding:25px 30px 45px;max-width:1600px;margin:0 auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:24px}.top-left{display:flex;align-items:center;gap:14px}.toggle{border:1px solid var(--line);background:#0c1911;color:var(--green);width:40px;height:40px;border-radius:11px;cursor:pointer;font-size:19px}.eyebrow{color:var(--green);font-size:10px;letter-spacing:2px;font-weight:800}.page-title{font:700 25px Orbitron,sans-serif;margin:5px 0 0}.top-right{display:flex;align-items:center;gap:18px}.wordmark{display:flex;align-items:center;gap:8px;font:900 17px Orbitron,sans-serif;letter-spacing:2px;color:#e7fff0;text-shadow:0 0 13px #39e87955}.wordmark span span{color:#58f58c}.gem{color:#5aff98;text-shadow:0 0 12px #4cff91}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#1c6136,#0c2415);border:1px solid #55f58b88;color:var(--green);font-weight:900;font-size:17px;cursor:pointer;overflow:hidden;background-position:center;background-size:cover}
-.welcome{background:linear-gradient(110deg,#102719,#0a1710 70%);border:1px solid #286b43;border-radius:17px;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;overflow:hidden;margin-bottom:20px}.welcome h2{font-size:21px;margin:0 0 7px}.welcome p{margin:0;color:var(--muted)}.bonus{position:relative;z-index:1;border:1px solid #3a9c59;background:#0c2917;border-radius:13px;padding:12px 17px;min-width:145px}.bonus small{color:#a0c5ac}.bonus strong{display:block;font:700 22px Orbitron,sans-serif;color:var(--green);margin-top:5px}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}.card{background:linear-gradient(145deg,#0d1a12,#09110d);border:1px solid var(--line);border-radius:15px;padding:18px;min-width:0;position:relative}.card:before{content:"";position:absolute;top:0;left:18px;width:34px;height:1px;background:linear-gradient(90deg,transparent,#56f58b,transparent)}
-.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.stat-icon{color:var(--green);font-size:18px}.stat-value{font:800 23px Orbitron,sans-serif;margin:13px 0 4px;overflow-wrap:anywhere}.green{color:var(--green)}.hint{font-size:11px;color:#91a99a}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 13px}.section-head h3{font-size:16px;margin:0}.section-head span{color:var(--muted);font-size:12px}.content-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}.activity{display:grid}.activity-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #183023}.activity-row:last-child{border:0}.activity-row small{display:block;color:var(--muted);margin-top:4px}.pill{font-size:10px;color:var(--green);background:#12351e;border:1px solid #235c35;padding:5px 8px;border-radius:20px;height:max-content;white-space:nowrap}.rack-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.slot{min-height:78px;background:#0b2114;border:1px dashed #2b6540;border-radius:10px;display:grid;place-content:center;text-align:center;color:#5f9d72;font-size:11px;padding:7px}.slot.filled{border-style:solid;color:var(--green);background:linear-gradient(135deg,#12351e,#0b1b11)}
-.page{display:none}.page.active{display:block}.action{border:1px solid #347c49;background:#12351e;color:var(--green);padding:9px 13px;border-radius:9px;cursor:pointer;font:700 13px inherit}.action:hover{background:#19452a}.action:disabled{opacity:.5;cursor:not-allowed}.items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.item-card h4{margin:10px 0 5px}.item-card p{color:var(--muted);font-size:12px;min-height:34px}.miner-skin{height:142px;border-radius:12px;display:grid;place-items:center;overflow:hidden;position:relative;background:radial-gradient(ellipse at 50% 75%,#164b2b 0%,#09140d 70%);border:1px solid #245b38}.miner-skin svg{width:94%;height:94%;filter:drop-shadow(0 0 9px #4cff8b55);image-rendering:pixelated}.miner-skin.core{background:linear-gradient(145deg,#142b31,#081211)}.miner-skin.ultra{background:linear-gradient(145deg,#302413,#101009)}.price-usd{display:block;color:#8cae98;font-size:11px;margin-top:3px}.notice{border:1px solid #315b3c;background:#0c1c12;color:#a8c8b1;padding:12px 14px;border-radius:11px;font-size:12px;margin-top:15px;line-height:1.5}.empty{text-align:center;padding:35px;color:var(--muted)}
+.main{min-width:0;flex:1;padding:25px 30px 45px;max-width:1600px;margin:0 auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:24px}.top-left{display:flex;align-items:center;gap:14px}.toggle{border:1px solid var(--line);background:#190406;color:var(--green);width:40px;height:40px;border-radius:11px;cursor:pointer;font-size:19px}.eyebrow{color:var(--green);font-size:10px;letter-spacing:2px;font-weight:800}.page-title{font:700 25px Orbitron,sans-serif;margin:5px 0 0}.top-right{display:flex;align-items:center;gap:18px}.wordmark{display:flex;align-items:center;gap:8px;font:900 17px Orbitron,sans-serif;letter-spacing:2px;color:#e7fff0;text-shadow:0 0 13px #e8253755}.wordmark span span{color:#f5273a}.gem{color:#ff283d;text-shadow:0 0 12px #ff283d}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#610f17,#240508);border:1px solid #f5273a88;color:var(--green);font-weight:900;font-size:17px;cursor:pointer;overflow:hidden;background-position:center;background-size:cover}
+.welcome{background:linear-gradient(110deg,#270609,#170305 70%);border:1px solid #6b1119;border-radius:17px;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;overflow:hidden;margin-bottom:20px}.welcome h2{font-size:21px;margin:0 0 7px}.welcome p{margin:0;color:var(--muted)}.bonus{position:relative;z-index:1;border:1px solid #9c1825;background:#290609;border-radius:13px;padding:12px 17px;min-width:145px}.bonus small{color:#c51f2f}.bonus strong{display:block;font:700 22px Orbitron,sans-serif;color:var(--green);margin-top:5px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}.card{background:linear-gradient(145deg,#1a0406,#110204);border:1px solid var(--line);border-radius:15px;padding:18px;min-width:0;position:relative}.card:before{content:"";position:absolute;top:0;left:18px;width:34px;height:1px;background:linear-gradient(90deg,transparent,#f5273a,transparent)}
+.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.stat-icon{color:var(--green);font-size:18px}.stat-value{font:800 23px Orbitron,sans-serif;margin:13px 0 4px;overflow-wrap:anywhere}.green{color:var(--green)}.hint{font-size:11px;color:#a91b28}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 13px}.section-head h3{font-size:16px;margin:0}.section-head span{color:var(--muted);font-size:12px}.content-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}.activity{display:grid}.activity-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #30070b}.activity-row:last-child{border:0}.activity-row small{display:block;color:var(--muted);margin-top:4px}.pill{font-size:10px;color:var(--green);background:#35080c;border:1px solid #5c0e16;padding:5px 8px;border-radius:20px;height:max-content;white-space:nowrap}.rack-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.slot{min-height:78px;background:#210507;border:1px dashed #651018;border-radius:10px;display:grid;place-content:center;text-align:center;color:#9d1925;font-size:11px;padding:7px}.slot.filled{border-style:solid;color:var(--green);background:linear-gradient(135deg,#35080c,#1b0406)}
+.page{display:none}.page.active{display:block}.action{border:1px solid #7c131d;background:#35080c;color:var(--green);padding:9px 13px;border-radius:9px;cursor:pointer;font:700 13px inherit}.action:hover{background:#450b10}.action:disabled{opacity:.5;cursor:not-allowed}.items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.item-card h4{margin:10px 0 5px}.item-card p{color:var(--muted);font-size:12px;min-height:34px}.miner-skin{height:142px;border-radius:12px;display:grid;place-items:center;overflow:hidden;position:relative;background:radial-gradient(ellipse at 50% 75%,#4b0c12 0%,#140304 70%);border:1px solid #5b0e15}.miner-skin svg{width:94%;height:94%;filter:drop-shadow(0 0 9px #ff283d55);image-rendering:pixelated}.miner-skin.core{background:linear-gradient(145deg,#142b31,#120204)}.miner-skin.ultra{background:linear-gradient(145deg,#302413,#101009)}.price-usd{display:block;color:#ae1b29;font-size:11px;margin-top:3px}.notice{border:1px solid #5b0e15;background:#1c0406;color:#c82030;padding:12px 14px;border-radius:11px;font-size:12px;margin-top:15px;line-height:1.5}.empty{text-align:center;padding:35px;color:var(--muted)}
 .ad-slot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;margin:16px auto 22px;padding:8px;max-width:100%;min-height:270px;background:rgba(11,21,16,.72);border:1px solid var(--line);border-radius:14px;overflow:hidden}.ad-caption{font-size:9px;letter-spacing:1.8px;font-weight:800;color:var(--muted)}.ad-slot iframe{max-width:100%;border:0}
-.profile-overlay{position:fixed;inset:0;background:#020805d9;backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.profile-overlay.open{display:flex}.profile-modal{width:min(510px,100%);max-height:90vh;overflow:auto;background:linear-gradient(145deg,#102318,#07110b);border:1px solid #347c49;border-radius:20px;padding:25px;box-shadow:0 25px 90px #000b;position:relative}.profile-close{position:absolute;right:16px;top:13px;border:1px solid var(--line);background:#0b1b11;color:#bde9ca;border-radius:9px;width:34px;height:34px;cursor:pointer;font-size:18px}.profile-head{text-align:center;padding:12px 0 20px}.profile-big-avatar{width:76px;height:76px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#1c7540,#0b2415);border:2px solid #55f58b;color:#baffd0;font-size:30px;font-weight:900;overflow:hidden}.profile-big-avatar img{width:100%;height:100%;object-fit:cover}.profile-head h2{margin:0 0 5px;font:700 17px Orbitron,sans-serif}.profile-head p{margin:0;color:var(--muted)}.profile-data{display:grid;grid-template-columns:1fr 1fr;gap:10px}.profile-data .card{padding:13px}.profile-data small{color:var(--muted);display:block;font-size:11px}.profile-data strong{display:block;margin-top:5px;color:#dffff0;overflow-wrap:anywhere}.google-btn{width:100%;margin-top:17px;padding:13px;border-radius:11px;border:1px solid #477b58;background:#f4f7f5;color:#17251b;font-weight:700;cursor:pointer}.profile-foot{color:#7f9b89;font-size:11px;text-align:center;margin:13px 0 0;line-height:1.5}
-#wallet input:focus,#wallet select:focus{outline:1px solid #55f58b;box-shadow:0 0 0 3px #55f58b18}.wallet-input{width:100%;padding:12px;border-radius:9px;border:1px solid var(--line);background:#07120b;color:var(--white);font:inherit}
+.profile-overlay{position:fixed;inset:0;background:#080101d9;backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.profile-overlay.open{display:flex}.profile-modal{width:min(510px,100%);max-height:90vh;overflow:auto;background:linear-gradient(145deg,#230508,#110204);border:1px solid #7c131d;border-radius:20px;padding:25px;box-shadow:0 25px 90px #000b;position:relative}.profile-close{position:absolute;right:16px;top:13px;border:1px solid var(--line);background:#1b0406;color:#e92537;border-radius:9px;width:34px;height:34px;cursor:pointer;font-size:18px}.profile-head{text-align:center;padding:12px 0 20px}.profile-big-avatar{width:76px;height:76px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#75121c,#240508);border:2px solid #f5273a;color:#ff283d;font-size:30px;font-weight:900;overflow:hidden}.profile-big-avatar img{width:100%;height:100%;object-fit:cover}.profile-head h2{margin:0 0 5px;font:700 17px Orbitron,sans-serif}.profile-head p{margin:0;color:var(--muted)}.profile-data{display:grid;grid-template-columns:1fr 1fr;gap:10px}.profile-data .card{padding:13px}.profile-data small{color:var(--muted);display:block;font-size:11px}.profile-data strong{display:block;margin-top:5px;color:#ff283d;overflow-wrap:anywhere}.google-btn{width:100%;margin-top:17px;padding:13px;border-radius:11px;border:1px solid #7b131d;background:#f4f7f5;color:#250508;font-weight:700;cursor:pointer}.profile-foot{color:#9b1825;font-size:11px;text-align:center;margin:13px 0 0;line-height:1.5}
+#wallet input:focus,#wallet select:focus{outline:1px solid #f5273a;box-shadow:0 0 0 3px #f5273a18}.wallet-input{width:100%;padding:12px;border-radius:9px;border:1px solid var(--line);background:#120204;color:var(--white);font:inherit}
 @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.content-grid{grid-template-columns:1fr}.items{grid-template-columns:repeat(2,1fr)}.main{padding:20px}}
 @media(max-width:600px){.sidebar{width:78px;padding:17px 9px}.sidebar .brand .brand-name,.sidebar .nav-label,.sidebar .nav button span:last-child,.sidebar .player-mini,.sidebar .collapse span{display:none}.sidebar .nav button,.sidebar .collapse{justify-content:center}.main{padding:15px 11px}.page-title{font-size:18px}.welcome{align-items:flex-start;flex-direction:column;padding:18px}.grid{gap:9px}.card{padding:13px}.stat-value{font-size:17px}.items{grid-template-columns:1fr 1fr}.user-name{display:none}.top-right{gap:8px}.wordmark{font-size:12px;letter-spacing:1px}.miner-skin{height:105px}.item-card p{min-height:52px}.profile-modal{padding:19px}}
 
@@ -33,13 +33,13 @@
 .arcade-side{width:300px;min-height:270px;margin:0}
 .arcade-center{min-width:0}
 .arcade-games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.game-panel{background:linear-gradient(145deg,#102719,#09130d);border:1px solid #286b43;border-radius:15px;padding:16px}
+.game-panel{background:linear-gradient(145deg,#270609,#130304);border:1px solid #6b1119;border-radius:15px;padding:16px}
 .game-panel h4{font:700 14px Orbitron,sans-serif;margin:0 0 8px;color:var(--green)}
 .game-panel p{color:var(--muted);font-size:12px;min-height:32px}
-.game-screen{min-height:130px;border:1px solid #245b38;border-radius:12px;background:#06110a;display:grid;place-items:center;padding:12px;text-align:center}
+.game-screen{min-height:130px;border:1px solid #5b0e15;border-radius:12px;background:#110204;display:grid;place-items:center;padding:12px;text-align:center}
 .game-score{font:800 22px Orbitron,sans-serif;color:var(--green);margin:8px 0}
 .memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%}
-.memory-card{min-height:42px;border:1px solid #347c49;background:#102719;color:var(--green);border-radius:7px;cursor:pointer;font-size:19px}
+.memory-card{min-height:42px;border:1px solid #7c131d;background:#270609;color:var(--green);border-radius:7px;cursor:pointer;font-size:19px}
 .arcade-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .arcade-note{margin-top:14px}
 @media(max-width:1150px){.arcade-layout{grid-template-columns:1fr}.arcade-side{width:100%;max-width:316px;margin:0 auto}.arcade-side.right{order:3}}
@@ -53,14 +53,200 @@
 .main { flex:1 1 0; width:auto; min-width:0; max-width:none; margin:0; align-self:stretch; }
 .page { width:100%; }
 @media(max-width:600px) { .sidebar { flex:0 0 78px; width:78px; } .main { width:auto; min-width:0; } }
+
+/* SHADOWCN — refinamiento visual del menú lateral */
+.sidebar{
+  position:relative; overflow:hidden;
+  background:linear-gradient(180deg,rgba(23,5,8,.98) 0%,rgba(12,3,5,.98) 100%);
+  border-right:1px solid rgba(255,55,75,.17);
+  box-shadow:12px 0 38px rgba(0,0,0,.18);
+  padding:25px 15px 18px;
+}
+.sidebar:before{
+  content:"";position:absolute;top:0;left:18px;right:18px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,55,75,.75),transparent);
+}
+.brand{position:relative;gap:12px;padding:3px 9px 31px;letter-spacing:1.7px}
+.logo{
+  width:42px;height:42px;flex:0 0 42px;border-radius:14px;
+  background:linear-gradient(145deg,#ff4054 0%,#9d1022 52%,#39070e 100%);
+  color:#fff;font-size:20px;border:1px solid rgba(255,145,155,.35);
+  box-shadow:0 7px 22px rgba(235,25,52,.24),inset 0 1px 0 rgba(255,255,255,.22);
+}
+.brand-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
+.brand-name{font-size:15px;color:#fff;text-shadow:0 0 16px rgba(255,45,68,.22)}
+.brand-subtitle{font:700 8px 'Rajdhani',sans-serif;letter-spacing:2.2px;color:#a86a72}
+.nav-label{
+  display:flex;align-items:center;gap:9px;margin:0 7px 10px;padding:0 7px 9px;
+  color:#a8757b;font-size:9px;letter-spacing:2px;border-bottom:1px solid rgba(255,255,255,.065)
+}
+.nav-label:before{content:"";width:5px;height:5px;border-radius:50%;background:#f13a50;box-shadow:0 0 9px #f13a50}
+.nav{gap:7px}
+.nav button{
+  position:relative;min-height:47px;padding:10px 12px;gap:13px;
+  border:1px solid transparent;border-radius:13px;color:#b99a9e;
+  font-size:15px;font-weight:600;letter-spacing:.25px;
+}
+.nav button:before{
+  content:"";position:absolute;left:-1px;top:10px;bottom:10px;width:3px;
+  border-radius:0 5px 5px 0;background:transparent;transition:.2s
+}
+.nav button:hover{
+  color:#fff;background:rgba(255,255,255,.045);
+  border-color:rgba(255,255,255,.055);transform:translateX(2px)
+}
+.nav button.active{
+  color:#fff;
+  background:linear-gradient(100deg,rgba(214,27,51,.25),rgba(116,12,27,.13));
+  border-color:rgba(255,65,86,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 5px 18px rgba(0,0,0,.12);
+}
+.nav button.active:before{background:#ff4057;box-shadow:0 0 12px rgba(255,50,75,.75)}
+.nav .ico{
+  display:grid;place-items:center;width:27px;height:27px;flex:0 0 27px;
+  border-radius:9px;background:rgba(255,255,255,.045);color:#d58a93;
+  font-size:16px;transition:.2s
+}
+.nav button.active .ico{background:rgba(255,54,77,.16);color:#ff6476}
+.nav button:hover .ico{background:rgba(255,255,255,.08);color:#fff}
+.side-bottom{padding-top:18px}
+.player-mini{
+  margin:0 2px 12px;padding:14px 13px;border-radius:15px;
+  background:linear-gradient(145deg,rgba(111,13,29,.28),rgba(31,6,10,.8));
+  border:1px solid rgba(255,66,87,.2);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035)
+}
+.balance-heading{display:flex;align-items:center;gap:7px}
+.balance-dot,.status-light{width:6px;height:6px;border-radius:50%;background:#ff4057;box-shadow:0 0 8px #ff4057}
+.player-mini small{color:#c39ba0;font-size:11px;letter-spacing:.5px}
+.player-mini strong{margin-top:7px;color:#fff;font:700 20px Orbitron,sans-serif;letter-spacing:.2px}
+.balance-caption{margin-top:5px;color:#88676c;font-size:10px}
+.sidebar-status{
+  display:flex;align-items:center;gap:7px;margin:0 7px 12px;
+  color:#92777b;font-size:11px
+}
+.sidebar-status b{
+  margin-left:auto;padding:3px 6px;border-radius:5px;
+  color:#ff7383;background:rgba(255,55,77,.1);
+  font:700 8px Orbitron,sans-serif;letter-spacing:1px
+}
+.collapse{
+  justify-content:flex-start;padding:10px 12px;border:1px solid rgba(255,255,255,.06);
+  border-radius:11px;color:#9d7e83;font-size:12px
+}
+.collapse:hover{background:rgba(255,255,255,.045);color:#fff}
+.collapse .ico{font-size:16px}
+.sidebar.collapsed .brand{justify-content:center;padding-left:0;padding-right:0}
+.sidebar.collapsed .brand-copy,.sidebar.collapsed .nav-label,
+.sidebar.collapsed .nav button span:last-child,.sidebar.collapsed .player-mini,
+.sidebar.collapsed .sidebar-status,.sidebar.collapsed .collapse span:last-child{display:none}
+.sidebar.collapsed .nav button,.sidebar.collapsed .collapse{justify-content:center;padding-left:8px;padding-right:8px}
+.sidebar.collapsed .nav button:before{left:-15px}
+@media(max-width:600px){
+  .sidebar{padding-left:10px;padding-right:10px}
+  .sidebar .brand{justify-content:center;padding-left:0;padding-right:0}
+  .sidebar .brand-copy,.sidebar .nav-label,.sidebar .nav button span:last-child,
+  .sidebar .player-mini,.sidebar .sidebar-status,.sidebar .collapse span:last-child{display:none}
+  .sidebar .nav button,.sidebar .collapse{justify-content:center;padding-left:8px;padding-right:8px}
+  .sidebar .nav .ico{width:31px;height:31px}
+}
+
+
+/* Ventana de bienvenida: bono de 15 SNC */
+.bonus-pop-overlay{
+  position:fixed;inset:0;z-index:1000;display:flex;align-items:center;
+  justify-content:center;padding:20px;background:rgba(5,0,1,.82);
+  backdrop-filter:blur(9px);animation:bonusFadeIn .25s ease both;
+}
+.bonus-pop{
+  position:relative;width:min(420px,100%);padding:34px 28px 29px;
+  text-align:center;border-radius:22px;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 0%,rgba(244,42,66,.2),transparent 58%),
+             linear-gradient(145deg,#2b080d,#130306 72%);
+  border:1px solid rgba(255,75,95,.55);
+  box-shadow:0 24px 90px rgba(0,0,0,.7),0 0 42px rgba(240,35,60,.16);
+  animation:bonusPopIn .32s cubic-bezier(.2,.8,.2,1) both;
+}
+.bonus-pop:before{
+  content:"";position:absolute;top:0;left:15%;right:15%;height:1px;
+  background:linear-gradient(90deg,transparent,#ff6477,transparent)
+}
+.bonus-pop-close{
+  position:absolute;right:13px;top:13px;width:34px;height:34px;
+  display:grid;place-items:center;border-radius:10px;
+  border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.045);
+  color:#ffdce0;font:400 23px Arial,sans-serif;cursor:pointer;transition:.2s
+}
+.bonus-pop-close:hover{background:#9d1428;border-color:#ff5268;transform:rotate(90deg)}
+.bonus-pop-icon{
+  width:66px;height:66px;margin:3px auto 17px;display:grid;place-items:center;
+  border-radius:20px;font-size:31px;color:#fff;
+  background:linear-gradient(145deg,#ff5369,#9e1025);
+  border:1px solid rgba(255,180,190,.4);
+  box-shadow:0 9px 30px rgba(238,35,60,.28)
+}
+.bonus-pop-kicker{color:#e58b96;font-size:10px;font-weight:800;letter-spacing:2.8px}
+.bonus-pop h2{margin:9px 0 7px;color:#fff;font:700 clamp(18px,5vw,23px) Orbitron,sans-serif}
+.bonus-pop p{margin:0;color:#c99ba1;font-size:14px}
+.bonus-pop-amount{
+  margin:22px auto 17px;padding:15px 12px;border-radius:14px;
+  background:rgba(255,48,72,.09);border:1px solid rgba(255,70,90,.3)
+}
+.bonus-pop-amount strong{display:block;color:#ff687b;font:800 clamp(27px,8vw,35px) Orbitron,sans-serif;text-shadow:0 0 18px rgba(255,50,75,.25)}
+.bonus-pop-amount small{display:block;margin-top:5px;color:#bd858d;font-size:10px;letter-spacing:1.7px}
+.bonus-pop-note{font-size:11px!important;color:#9f7a80!important;line-height:1.5}
+.bonus-pop-ok{
+  width:100%;margin-top:20px;padding:12px 18px;border:1px solid #ff5369;
+  border-radius:11px;background:linear-gradient(100deg,#e72d47,#9f1027);
+  color:#fff;font:700 13px Orbitron,sans-serif;letter-spacing:1px;cursor:pointer;
+  box-shadow:0 7px 20px rgba(218,25,50,.2);transition:.2s
+}
+.bonus-pop-ok:hover{filter:brightness(1.13);transform:translateY(-1px)}
+@keyframes bonusFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes bonusPopIn{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.bonus-pop-overlay,.bonus-pop{animation:none}}
+
+
+/* Acceso obligatorio con Google */
+.auth-gate{
+  position:fixed;inset:0;z-index:2000;display:flex;align-items:center;
+  justify-content:center;padding:20px;background:
+  radial-gradient(ellipse at 50% 15%,rgba(190,20,43,.18),transparent 55%),#080102;
+  backdrop-filter:blur(12px)
+}
+.auth-gate-card{
+  width:min(440px,100%);padding:34px 28px 28px;text-align:center;
+  border-radius:22px;background:linear-gradient(145deg,#28070c,#100204 75%);
+  border:1px solid rgba(255,65,85,.42);
+  box-shadow:0 25px 90px #000c,0 0 45px rgba(235,30,55,.12)
+}
+.auth-gate-logo{
+  width:62px;height:62px;margin:0 auto 17px;display:grid;place-items:center;
+  border-radius:18px;background:linear-gradient(145deg,#ff5369,#8e1023);
+  color:white;font-size:29px;box-shadow:0 8px 28px #e5223d55
+}
+.auth-gate-kicker{color:#e77d8a;font-size:10px;font-weight:800;letter-spacing:3px}
+.auth-gate-card h1{font:800 23px Orbitron,sans-serif;color:#fff;margin:10px 0}
+.auth-gate-card p{color:#c69aa0;font-size:14px;line-height:1.55;margin:0}
+.auth-gate-btn{
+  width:100%;margin-top:23px;padding:14px 16px;border:0;border-radius:11px;
+  background:#fff;color:#241014;font-weight:800;font-size:14px;cursor:pointer;
+  transition:.2s
+}
+.auth-gate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px #e5223d35}
+.auth-gate-btn:disabled{opacity:.55;cursor:wait;transform:none}
+.auth-gate-help{min-height:18px;margin-top:13px!important;color:#d66b7a!important;font-size:11px!important}
+.auth-gate-legal{margin-top:17px!important;color:#89676d!important;font-size:10px!important}
+body.auth-required{overflow:hidden}
+
 </style>
 </head>
-<body>
+<body class="auth-required">
 <canvas id="stars" aria-hidden="true"></canvas>
 <div class="app">
 <aside class="sidebar" id="sidebar">
-  <div class="brand"><div class="logo">◆</div><span class="brand-name">SHADOWCN</span></div>
-  <div class="nav-label">PLATAFORMA</div>
+  <div class="brand"><div class="logo">◆</div><div class="brand-copy"><span class="brand-name">SHADOWCN</span><small class="brand-subtitle">MINING UNIVERSE</small></div></div>
+  <div class="nav-label"><span>MENÚ PRINCIPAL</span></div>
   <nav class="nav">
     <button class="active" data-page="dashboard"><span class="ico">▦</span><span>Dashboard</span></button>
     <button data-page="tienda"><span class="ico">⌑</span><span>Tienda</span></button>
@@ -69,10 +255,10 @@
     <button data-page="wallet"><span class="ico">◈</span><span>Crypto Wallet</span></button>
     <button data-page="minijuegos"><span class="ico">🎮</span><span>Minijuegos</span></button>
   </nav>
-  <div class="side-bottom"><div class="player-mini"><small>Tu saldo SNC</small><strong id="sideBalance">15.00 SNC</strong></div><button class="collapse" id="collapse"><span class="ico">⇤</span><span>Contraer menú</span></button></div>
+  <div class="side-bottom"><div class="player-mini"><div class="balance-heading"><span class="balance-dot"></span><small>Tu saldo SNC</small></div><strong id="sideBalance">15.00 SNC</strong><div class="balance-caption">Créditos de plataforma</div></div><div class="sidebar-status"><span class="status-light"></span><span>Sistema operativo</span><b>BETA</b></div><button class="collapse" id="collapse"><span class="ico">⇤</span><span>Contraer menú</span></button></div>
 </aside>
 <main class="main">
-<header class="topbar"><div class="top-left"><button class="toggle" id="mobileToggle" aria-label="Abrir o cerrar menú">☰</button><div><div class="eyebrow">SHADOWCN / MINING SYSTEM</div><h1 class="page-title" id="title">Dashboard</h1></div></div><div class="top-right"><button class="avatar" id="profileOpen" aria-label="Abrir perfil" title="Mi perfil">N</button><div class="wordmark"><span class="gem">◆</span><span>SHADOW<span>CN</span> <small style="display:block;text-align:center;font:700 8px Orbitron,sans-serif;letter-spacing:3px;color:#65e995">BETA</small></span><span class="gem">◆</span></div></div></header>
+<header class="topbar"><div class="top-left"><button class="toggle" id="mobileToggle" aria-label="Abrir o cerrar menú">☰</button><div><div class="eyebrow">SHADOWCN / MINING SYSTEM</div><h1 class="page-title" id="title">Dashboard</h1></div></div><div class="top-right"><button class="avatar" id="profileOpen" aria-label="Abrir perfil" title="Mi perfil">N</button><div class="wordmark"><span class="gem">◆</span><span>SHADOW<span>CN</span> <small style="display:block;text-align:center;font:700 8px Orbitron,sans-serif;letter-spacing:3px;color:#e92537">BETA</small></span><span class="gem">◆</span></div></div></header>
 
 <section class="page active" id="dashboard">
   <div class="welcome"><div><div class="eyebrow">BIENVENIDO AL SISTEMA</div><h2>Tu operación comienza aquí.</h2><p>Instalá mineros, administrá tus racks y generá SNC.</p></div><div class="bonus"><small>Bono de nuevo jugador</small><strong>+15.00 SNC</strong></div></div>
@@ -92,9 +278,9 @@
 <section class="page" id="tienda">
   <div class="section-head"><h3>Mercado de mineros</h3><span>ADQUIRÍ EQUIPAMIENTO</span></div>
   <div class="items">
-    <div class="card item-card"><div class="miner-skin mini"><svg viewBox="0 0 180 120" aria-label="Miner Mini"><path d="M42 34h96v62H42z" fill="#153d25" stroke="#68ff9b" stroke-width="4"/><path d="M54 22h72v16H54z" fill="#286b40" stroke="#8dffb0" stroke-width="3"/><path d="M58 48h64v32H58z" fill="#07150d" stroke="#43d878" stroke-width="3"/><path d="M68 57h12v14H68zm32 0h12v14h-12z" fill="#72ff9f"/><path d="M32 96h116v9H32z" fill="#398d54"/><path d="M76 82h28v8H76z" fill="#9cffba"/></svg></div><h4>Miner Mini</h4><p>Compacto, resistente y eficiente. Skin 2D edición inicial.</p><div class="stat-top"><b class="green">15 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $15 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.03333 SNC/día</div><button class="action buy" data-name="Miner Mini" data-price="15">Comprar</button></div>
-    <div class="card item-card"><div class="miner-skin core"><svg viewBox="0 0 180 120" aria-label="Miner Core"><path d="M28 38 90 12l62 26v54l-62 18-62-18z" fill="#173b3c" stroke="#65f5d5" stroke-width="4"/><path d="m44 45 46-19 46 19-46 18z" fill="#287b6c" stroke="#a0ffe6" stroke-width="3"/><path d="M52 68h76v18l-38 12-38-12z" fill="#071a18" stroke="#42d7ba" stroke-width="3"/><circle cx="90" cy="75" r="12" fill="#6affd9"/><circle cx="90" cy="75" r="5" fill="#0a2923"/><path d="M36 42v47m108-47v47" stroke="#a0ffe6" stroke-width="4"/></svg></div><h4>Miner Core</h4><p>Núcleo de potencia media con ventilación reforzada.</p><div class="stat-top"><b class="green">25 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $25 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.05556 SNC/día</div><button class="action buy" data-name="Miner Core" data-price="25">Comprar</button></div>
-    <div class="card item-card"><div class="miner-skin ultra"><svg viewBox="0 0 180 120" aria-label="Miner Ultra"><path d="M90 8 148 38v52l-58 23-58-23V38z" fill="#49351a" stroke="#ffe08a" stroke-width="4"/><path d="M90 19 133 42v40L90 99 47 82V42z" fill="#18241b" stroke="#e9b94f" stroke-width="3"/><path d="m90 31 24 34-24 25-24-25z" fill="#ffe08a"/><path d="M90 42v37m-18-14h36" stroke="#fff4c2" stroke-width="5"/><path d="M24 54h18m96 0h18M90 5V0" stroke="#fff0ad" stroke-width="4"/></svg></div><h4>Miner Ultra</h4><p>Unidad premium de alto rendimiento y skin dorada.</p><div class="stat-top"><b class="green">40 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $40 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.08889 SNC/día</div><button class="action buy" data-name="Miner Ultra" data-price="40">Comprar</button></div>
+    <div class="card item-card"><div class="miner-skin mini"><svg viewBox="0 0 180 120" aria-label="Miner Mini"><path d="M42 34h96v62H42z" fill="#3d090e" stroke="#ff283d" stroke-width="4"/><path d="M54 22h72v16H54z" fill="#6b1119" stroke="#ff283d" stroke-width="3"/><path d="M58 48h64v32H58z" fill="#150305" stroke="#d82233" stroke-width="3"/><path d="M68 57h12v14H68zm32 0h12v14h-12z" fill="#ff283d"/><path d="M32 96h116v9H32z" fill="#8d1621"/><path d="M76 82h28v8H76z" fill="#ff283d"/></svg></div><h4>Miner Mini</h4><p>Compacto, resistente y eficiente. Skin 2D edición inicial.</p><div class="stat-top"><b class="green">15 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $15 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.03333 SNC/día</div><button class="action buy" data-name="Miner Mini" data-price="15">Comprar</button></div>
+    <div class="card item-card"><div class="miner-skin core"><svg viewBox="0 0 180 120" aria-label="Miner Core"><path d="M28 38 90 12l62 26v54l-62 18-62-18z" fill="#3c090e" stroke="#f5273a" stroke-width="4"/><path d="m44 45 46-19 46 19-46 18z" fill="#7b131d" stroke="#ff283d" stroke-width="3"/><path d="M52 68h76v18l-38 12-38-12z" fill="#1a0406" stroke="#d72233" stroke-width="3"/><circle cx="90" cy="75" r="12" fill="#ff283d"/><circle cx="90" cy="75" r="5" fill="#290609"/><path d="M36 42v47m108-47v47" stroke="#ff283d" stroke-width="4"/></svg></div><h4>Miner Core</h4><p>Núcleo de potencia media con ventilación reforzada.</p><div class="stat-top"><b class="green">25 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $25 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.05556 SNC/día</div><button class="action buy" data-name="Miner Core" data-price="25">Comprar</button></div>
+    <div class="card item-card"><div class="miner-skin ultra"><svg viewBox="0 0 180 120" aria-label="Miner Ultra"><path d="M90 8 148 38v52l-58 23-58-23V38z" fill="#49351a" stroke="#ffe08a" stroke-width="4"/><path d="M90 19 133 42v40L90 99 47 82V42z" fill="#240508" stroke="#e9b94f" stroke-width="3"/><path d="m90 31 24 34-24 25-24-25z" fill="#ffe08a"/><path d="M90 42v37m-18-14h36" stroke="#fff4c2" stroke-width="5"/><path d="M24 54h18m96 0h18M90 5V0" stroke="#fff0ad" stroke-width="4"/></svg></div><h4>Miner Ultra</h4><p>Unidad premium de alto rendimiento y skin dorada.</p><div class="stat-top"><b class="green">40 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $40 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.08889 SNC/día</div><button class="action buy" data-name="Miner Ultra" data-price="40">Comprar</button></div>
   </div>
   <div class="notice">Estimación de recuperación: 450 días (15 meses), según la producción y las reglas actuales del juego.</div>
 </section>
@@ -112,7 +298,7 @@
 
 <section class="page" id="minijuegos">
   <div class="section-head"><h3>SHADOWCN Arcade</h3><span>JUGÁ · SUMÁ PUNTOS</span></div>
-  <div class="card daily-claim-card" style="margin-bottom:15px;border:1px solid #347c49;background:linear-gradient(145deg,#102719,#08130c)">
+  <div class="card daily-claim-card" style="margin-bottom:15px;border:1px solid #7c131d;background:linear-gradient(145deg,#270609,#130304)">
     <div class="section-head" style="margin-top:0"><h3>🎁 Recompensa diaria</h3><span>BETA · DEMO</span></div>
     <div class="content-grid" style="grid-template-columns:repeat(auto-fit,minmax(145px,1fr));margin-top:10px">
       <div><div class="hint">Recompensa diaria</div><strong class="green" style="font-size:22px">+0.001 SNC</strong></div>
@@ -337,6 +523,11 @@ const firebaseConfig={
 let firebaseReady=false;
 function renderGoogleUser(user){
  const signed=!!user;
+ const gate=$('#authGate'),gateHelp=$('#authGateHelp'),gateButton=$('#authGateLogin');
+ if(gate)gate.style.display=signed?'none':'flex';
+ document.body.classList.toggle('auth-required',!signed);
+ if(gateHelp&&signed)gateHelp.textContent='Sesión iniciada correctamente.';
+ if(gateButton)gateButton.disabled=false;
  $('#profileName').textContent=user?.displayName||'Nuevo jugador';
  $('#profileEmail').textContent=user?.email||'Sin vincular';
  $('#profileStatus').textContent=signed?'Google verificado':'Invitado';
@@ -350,11 +541,11 @@ function renderGoogleUser(user){
 }
 async function initGoogleAuth(){
  try{
-  if(!window.firebase){$('#authHelp').textContent='Firebase no pudo cargarse. Revisá tu conexión.';return}
+  if(!window.firebase){$('#authHelp').textContent='Firebase no pudo cargarse. Revisá tu conexión.';$('#authGateHelp').textContent='No se pudo conectar con el acceso. Recargá la página e intentá nuevamente.';return}
   if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
   firebaseReady=true;firebase.auth().onAuthStateChanged(renderGoogleUser);
   $('#authHelp').textContent='Tu cuenta se autentica con Google mediante Firebase. Tu progreso actual queda guardado en este navegador.';
- }catch(err){$('#authHelp').textContent='Error al iniciar Firebase: '+err.message}
+ }catch(err){$('#authHelp').textContent='Error al iniciar Firebase: '+err.message;$('#authGateHelp').textContent='Error al conectar el acceso. Revisá la configuración de Firebase.'}
 }
 $('#googleLogin').onclick=async()=>{
  if(!firebaseReady){alert('Firebase no está disponible. Revisá la configuración y la conexión.');return}
@@ -362,13 +553,70 @@ $('#googleLogin').onclick=async()=>{
  catch(err){alert('No se pudo iniciar sesión: '+err.message)}
 };
 $('#googleLogout').onclick=async()=>{if(firebaseReady)await firebase.auth().signOut()};
+$('#authGateLogin').onclick=async()=>{
+ const button=$('#authGateLogin'),help=$('#authGateHelp');
+ if(!firebaseReady){help.textContent='No se pudo conectar con Google. Recargá la página e intentá otra vez.';return}
+ button.disabled=true;help.textContent='Abriendo el inicio de sesión de Google…';
+ try{
+  await firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
+ }catch(err){
+  button.disabled=false;
+  help.textContent=err.code==='auth/popup-closed-by-user'
+   ?'Se cerró la ventana de Google. Podés intentarlo nuevamente.'
+   :'No se pudo iniciar sesión. Revisá la conexión y los dominios autorizados de Firebase.';
+ }
+};
 safeLoad();accrueProduction();update();renderDailyClaim();renderGoogleUser(null);initGoogleAuth();
 setInterval(()=>{accrueProduction();update()},30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){accrueProduction();update()}});
 const canvas=$('#stars'),ctx=canvas.getContext('2d');let w=0,h=0,particles=[];
 function resize(){const dpr=Math.min(devicePixelRatio||1,2);canvas.width=innerWidth*dpr;canvas.height=innerHeight*dpr;canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';ctx.setTransform(dpr,0,0,dpr,0,0);w=innerWidth;h=innerHeight;particles=Array.from({length:75},()=>({x:Math.random()*w,y:Math.random()*h,len:2+Math.random()*5,speed:1+Math.random()*2.2,alpha:.2+Math.random()*.6,size:.7+Math.random()*1.3}))}
-function draw(){ctx.clearRect(0,0,w,h);for(const p of particles){ctx.strokeStyle=`rgba(75,255,133,${p.alpha})`;ctx.shadowColor='#42ff83';ctx.shadowBlur=7;ctx.lineWidth=p.size;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-p.len*1.7,p.y+p.len*2.5);ctx.stroke();p.x+=p.speed*.8;p.y+=p.speed*2.1;if(p.y>h+15||p.x>w+15){p.y=-15-Math.random()*80;p.x=Math.random()*w}}requestAnimationFrame(draw)}
+function draw(){ctx.clearRect(0,0,w,h);for(const p of particles){ctx.strokeStyle=`rgba(255,70,91,${p.alpha})`;ctx.shadowColor='#ff283d';ctx.shadowBlur=7;ctx.lineWidth=p.size;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-p.len*1.7,p.y+p.len*2.5);ctx.stroke();p.x+=p.speed*.8;p.y+=p.speed*2.1;if(p.y>h+15||p.x>w+15){p.y=-15-Math.random()*80;p.x=Math.random()*w}}requestAnimationFrame(draw)}
 addEventListener('resize',resize);resize();draw();
 </script>
+
+<div class="bonus-pop-overlay" id="bonusPopup" role="dialog" aria-modal="true" aria-labelledby="bonusPopupTitle">
+  <div class="bonus-pop">
+    <button class="bonus-pop-close" id="bonusPopupClose" type="button" aria-label="Cerrar ventana">×</button>
+    <div class="bonus-pop-icon" aria-hidden="true">🎁</div>
+    <div class="bonus-pop-kicker">SHADOWCN · BIENVENIDA</div>
+    <h2 id="bonusPopupTitle">¡BONO DE NUEVO JUGADOR!</h2>
+    <p>¡Qué bueno tenerte en SHADOWCN!</p>
+    <div class="bonus-pop-amount">
+      <strong>+15 SNC</strong>
+      <small>BONO DE BIENVENIDA</small>
+    </div>
+    <p class="bonus-pop-note">Tus créditos iniciales están disponibles en tu cuenta de juego.</p>
+    <button class="bonus-pop-ok" id="bonusPopupOk" type="button">¡ENTENDIDO!</button>
+  </div>
+</div>
+<script>
+(function(){
+  const popup=document.getElementById('bonusPopup');
+  const close=()=>{
+    if(!popup)return;
+    popup.style.display='none';
+  };
+  document.getElementById('bonusPopupClose')?.addEventListener('click',close);
+  document.getElementById('bonusPopupOk')?.addEventListener('click',close);
+  popup?.addEventListener('click',event=>{if(event.target===popup)close()});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape')close()});
+})();
+</script>
+
+
+<div class="auth-gate" id="authGate" role="dialog" aria-modal="true" aria-labelledby="authGateTitle">
+  <div class="auth-gate-card">
+    <div class="auth-gate-logo" aria-hidden="true">◆</div>
+    <div class="auth-gate-kicker">WELCOME TO THE MINING UNIVERSE</div>
+    <h1 id="authGateTitle">BIENVENIDO A SHADOWCN</h1>
+    <p>Para entrar a la plataforma, primero iniciá sesión con tu cuenta de Google.</p>
+    <button class="auth-gate-btn" id="authGateLogin" type="button">G&nbsp; CONTINUAR CON GOOGLE</button>
+    <p class="auth-gate-help" id="authGateHelp">Conectando con el sistema de acceso seguro…</p>
+    <p class="auth-gate-legal">Tu sesión se verifica mediante Firebase Authentication.</p>
+  </div>
+</div>
+
 </body>
 </html>
+```
