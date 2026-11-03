@@ -1,3 +1,4 @@
+```
 <!doctype html>
 <html lang="es">
 <head>
@@ -360,6 +361,15 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <section class="page" id="wallet">
   <div class="welcome"><div><div class="eyebrow">SHADOWCN / DIGITAL ASSETS</div><h2>Tu puente al mundo crypto.</h2><p>Las conversiones externas todavía no están habilitadas.</p></div><div class="bonus"><small>Saldo interno</small><strong id="walletBalance">15.00 SNC</strong></div></div>
   <div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="card"><div class="stat-top">Dogecoin <span class="stat-icon">Ð</span></div><div class="stat-value">DOGE</div><div class="hint">Red nativa Dogecoin · Única moneda disponible</div></div><div class="card"><div class="stat-top">Estado <span class="stat-icon">◉</span></div><div class="stat-value green">BETA</div><div class="hint">Conversiones pendientes</div></div></div>
+  <div class="card" style="margin-top:16px">
+    <div class="section-head"><h3>Retirar Dogecoin</h3><span>MÍNIMO 120 DOGE</span></div>
+    <p class="hint" style="margin:0 0 14px">Ingresá el monto que querés retirar. El mínimo solicitado es de 120 DOGE.</p>
+    <label for="dogeWithdrawAmount" class="hint" style="display:block;margin-bottom:7px">Monto a retirar (DOGE)</label>
+    <input class="wallet-input" id="dogeWithdrawAmount" type="number" min="120" step="0.00000001" placeholder="Ej. 120" inputmode="decimal">
+    <div class="hint" id="dogeWithdrawMessage" style="margin-top:9px">Mínimo de retiro: 120 DOGE.</div>
+    <button class="btn" id="dogeWithdrawButton" type="button" style="margin-top:14px;width:100%">Solicitar retiro</button>
+  </div>
+  <div class="notice">Importante: los retiros DOGE todavía no están conectados a la blockchain. Este formulario es visual y no envía criptomonedas ni crea una solicitud real.</div>
 </section>
 
 <section class="page" id="minijuegos">
@@ -691,5 +701,24 @@ addEventListener('resize',resize);resize();draw();
   document.addEventListener('keydown',event=>{if(event.key==='Escape')close()});
 })();
 </script>
+<script>
+(function(){
+  const amount = document.getElementById('dogeWithdrawAmount');
+  const button = document.getElementById('dogeWithdrawButton');
+  const message = document.getElementById('dogeWithdrawMessage');
+  if (!amount || !button || !message) return;
+  button.addEventListener('click', function(){
+    const value = Number(amount.value);
+    if (!Number.isFinite(value) || value < 120) {
+      message.textContent = 'El monto mínimo para retirar es de 120 DOGE.';
+      message.style.color = '#ff6673';
+      return;
+    }
+    message.textContent = 'El monto cumple el mínimo, pero los retiros todavía no están habilitados.';
+    message.style.color = '#ffb45c';
+  });
+})();
+</script>
 </body>
 </html>
+```
