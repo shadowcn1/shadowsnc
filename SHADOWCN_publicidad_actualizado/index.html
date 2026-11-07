@@ -2,162 +2,422 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#050a08">
-<title>SHADOWCN Arcade</title>
-<meta name="description" content="Juegos online gratis: NEON LANES, DUNGEON ASCENT y más. Jugá desde el celular o la PC.">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<title>SHADOWCN — Mining Dashboard</title>
 <style>
-:root{--bg:#050a08;--panel:#0b1510;--line:#1b3b28;--green:#55f58b;--muted:#91a99a;--white:#edf8f0;--gold:#ffd166}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 50% 0%,#0f2a1a 0%,#050a08 60%) fixed;color:var(--white);font:600 16px Rajdhani,system-ui,sans-serif;min-height:100vh}
-.wrap{max-width:980px;margin:0 auto;padding:16px 16px 60px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
-.brand{display:flex;align-items:center;gap:10px;font:900 18px Orbitron,sans-serif;letter-spacing:2px}
-.logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#258b50,#092516);display:grid;place-items:center;color:var(--green);box-shadow:0 0 22px #32db7040}
-.brand small{display:block;font:700 8px Orbitron,sans-serif;letter-spacing:3px;color:#65e995}
-#user{display:flex;align-items:center;gap:10px}
-#avatar{width:40px;height:40px;border-radius:50%;border:1px solid #55f58b88;background:#12351e center/cover;display:none}
-.btn{border:1px solid #347c49;background:#12351e;color:var(--green);padding:10px 16px;border-radius:10px;cursor:pointer;font:700 14px Rajdhani,sans-serif;text-decoration:none;display:inline-block}
-.btn:hover{background:#19452a}.btn:disabled{opacity:.5;cursor:not-allowed}
-.hero{background:linear-gradient(110deg,#102719,#0a1710 70%);border:1px solid #286b43;border-radius:18px;padding:26px;margin-bottom:22px}
-.eyebrow{color:var(--green);font:800 10px Orbitron,sans-serif;letter-spacing:2px}
-.hero h1{font:800 26px Orbitron,sans-serif;margin:10px 0 8px}
-.hero p{margin:0;color:var(--muted)}
-h2{font:700 15px Orbitron,sans-serif;margin:28px 0 12px;letter-spacing:1px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
-.card{background:linear-gradient(145deg,#0d1a12,#09110d);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px}
-.card .ico{font-size:44px;line-height:1}
-.card h3{font:800 16px Orbitron,sans-serif;margin:4px 0 0;color:var(--green)}
-.card p{margin:0;color:var(--muted);font-size:14px;min-height:40px}
-.stat{font-size:13px;color:var(--white)}
-.card.soon{opacity:.55;border-style:dashed}
-.daily{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.daily b{font:800 20px Orbitron,sans-serif;color:var(--gold)}
-.note{margin-top:22px;color:#7f9b89;font-size:13px;line-height:1.5;border:1px solid #315b3c;background:#0c1c12;border-radius:11px;padding:12px 14px}
-.ad{display:flex;justify-content:center;margin:26px auto 0;min-height:70px;overflow:hidden}
-footer{margin-top:30px;text-align:center;color:#587063;font-size:12px}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap');
+:root{--bg:#050a08;--panel:#0b1510;--panel2:#0e1d14;--line:#1b3b28;--green:#55f58b;--emerald:#35d879;--muted:#91a99a;--white:#edf8f0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:15px 'Rajdhani',system-ui,sans-serif;letter-spacing:.15px;min-height:100vh;overflow-x:hidden}
+#stars{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.55}
+.app{position:relative;z-index:1;display:flex;min-height:100vh}
+.sidebar{width:248px;background:rgba(7,16,11,.94);border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;transition:width .25s;flex-shrink:0;backdrop-filter:blur(12px)}
+.sidebar.collapsed{width:78px}.brand{display:flex;align-items:center;gap:11px;padding:3px 10px 28px;font:900 17px Orbitron,sans-serif;letter-spacing:2px;white-space:nowrap}.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#258b50,#092516);display:grid;place-items:center;color:var(--green);font-size:21px;box-shadow:0 0 22px #32db7040}
+.nav-label{color:#597565;font-size:10px;letter-spacing:1.8px;font-weight:800;padding:10px 12px}.nav{display:grid;gap:6px}.nav button,.collapse{border:0;background:transparent;color:#9ab1a1;padding:12px;border-radius:11px;display:flex;align-items:center;gap:13px;width:100%;text-align:left;cursor:pointer;font:inherit;white-space:nowrap;transition:.2s}.nav button:hover,.nav button.active{background:#10291a;color:var(--green);box-shadow:inset 0 0 0 1px #245a36}.nav .ico{width:20px;text-align:center;font-size:17px}.nav span:last-child{overflow:hidden}.side-bottom{margin-top:auto}.player-mini{background:#0d2115;border:1px solid var(--line);padding:12px;border-radius:13px;margin:12px 3px}.player-mini small{color:var(--muted)}.player-mini strong{display:block;margin-top:5px;color:var(--green)}
+.collapsed .brand .brand-name,.collapsed .nav-label,.collapsed .nav button span:last-child,.collapsed .player-mini,.collapsed .collapse span{display:none}.collapsed .nav button,.collapsed .collapse{justify-content:center}
+.main{min-width:0;flex:1;padding:25px 30px 45px;max-width:1600px;margin:0 auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:24px}.top-left{display:flex;align-items:center;gap:14px}.toggle{border:1px solid var(--line);background:#0c1911;color:var(--green);width:40px;height:40px;border-radius:11px;cursor:pointer;font-size:19px}.eyebrow{color:var(--green);font-size:10px;letter-spacing:2px;font-weight:800}.page-title{font:700 25px Orbitron,sans-serif;margin:5px 0 0}.top-right{display:flex;align-items:center;gap:18px}.wordmark{display:flex;align-items:center;gap:8px;font:900 17px Orbitron,sans-serif;letter-spacing:2px;color:#e7fff0;text-shadow:0 0 13px #39e87955}.wordmark span span{color:#58f58c}.gem{color:#5aff98;text-shadow:0 0 12px #4cff91}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#1c6136,#0c2415);border:1px solid #55f58b88;color:var(--green);font-weight:900;font-size:17px;cursor:pointer;overflow:hidden;background-position:center;background-size:cover}
+.welcome{background:linear-gradient(110deg,#102719,#0a1710 70%);border:1px solid #286b43;border-radius:17px;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;overflow:hidden;margin-bottom:20px}.welcome h2{font-size:21px;margin:0 0 7px}.welcome p{margin:0;color:var(--muted)}.bonus{position:relative;z-index:1;border:1px solid #3a9c59;background:#0c2917;border-radius:13px;padding:12px 17px;min-width:145px}.bonus small{color:#a0c5ac}.bonus strong{display:block;font:700 22px Orbitron,sans-serif;color:var(--green);margin-top:5px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}.card{background:linear-gradient(145deg,#0d1a12,#09110d);border:1px solid var(--line);border-radius:15px;padding:18px;min-width:0;position:relative}.card:before{content:"";position:absolute;top:0;left:18px;width:34px;height:1px;background:linear-gradient(90deg,transparent,#56f58b,transparent)}
+.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.stat-icon{color:var(--green);font-size:18px}.stat-value{font:800 23px Orbitron,sans-serif;margin:13px 0 4px;overflow-wrap:anywhere}.green{color:var(--green)}.hint{font-size:11px;color:#91a99a}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 13px}.section-head h3{font-size:16px;margin:0}.section-head span{color:var(--muted);font-size:12px}.content-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}.activity{display:grid}.activity-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #183023}.activity-row:last-child{border:0}.activity-row small{display:block;color:var(--muted);margin-top:4px}.pill{font-size:10px;color:var(--green);background:#12351e;border:1px solid #235c35;padding:5px 8px;border-radius:20px;height:max-content;white-space:nowrap}.rack-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.slot{min-height:78px;background:#0b2114;border:1px dashed #2b6540;border-radius:10px;display:grid;place-content:center;text-align:center;color:#5f9d72;font-size:11px;padding:7px}.slot.filled{border-style:solid;color:var(--green);background:linear-gradient(135deg,#12351e,#0b1b11)}
+.page{display:none}.page.active{display:block}.action{border:1px solid #347c49;background:#12351e;color:var(--green);padding:9px 13px;border-radius:9px;cursor:pointer;font:700 13px inherit}.action:hover{background:#19452a}.action:disabled{opacity:.5;cursor:not-allowed}.items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.item-card h4{margin:10px 0 5px}.item-card p{color:var(--muted);font-size:12px;min-height:34px}.miner-skin{height:142px;border-radius:12px;display:grid;place-items:center;overflow:hidden;position:relative;background:radial-gradient(ellipse at 50% 75%,#164b2b 0%,#09140d 70%);border:1px solid #245b38}.miner-skin svg{width:94%;height:94%;filter:drop-shadow(0 0 9px #4cff8b55);image-rendering:pixelated}.miner-skin.core{background:linear-gradient(145deg,#142b31,#081211)}.miner-skin.ultra{background:linear-gradient(145deg,#302413,#101009)}.price-usd{display:block;color:#8cae98;font-size:11px;margin-top:3px}.notice{border:1px solid #315b3c;background:#0c1c12;color:#a8c8b1;padding:12px 14px;border-radius:11px;font-size:12px;margin-top:15px;line-height:1.5}.empty{text-align:center;padding:35px;color:var(--muted)}
+.ad-slot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;margin:16px auto 22px;padding:8px;max-width:100%;min-height:270px;background:rgba(11,21,16,.72);border:1px solid var(--line);border-radius:14px;overflow:hidden}.ad-caption{font-size:9px;letter-spacing:1.8px;font-weight:800;color:var(--muted)}.ad-slot iframe{max-width:100%;border:0}
+.profile-overlay{position:fixed;inset:0;background:#020805d9;backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.profile-overlay.open{display:flex}.profile-modal{width:min(510px,100%);max-height:90vh;overflow:auto;background:linear-gradient(145deg,#102318,#07110b);border:1px solid #347c49;border-radius:20px;padding:25px;box-shadow:0 25px 90px #000b;position:relative}.profile-close{position:absolute;right:16px;top:13px;border:1px solid var(--line);background:#0b1b11;color:#bde9ca;border-radius:9px;width:34px;height:34px;cursor:pointer;font-size:18px}.profile-head{text-align:center;padding:12px 0 20px}.profile-big-avatar{width:76px;height:76px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#1c7540,#0b2415);border:2px solid #55f58b;color:#baffd0;font-size:30px;font-weight:900;overflow:hidden}.profile-big-avatar img{width:100%;height:100%;object-fit:cover}.profile-head h2{margin:0 0 5px;font:700 17px Orbitron,sans-serif}.profile-head p{margin:0;color:var(--muted)}.profile-data{display:grid;grid-template-columns:1fr 1fr;gap:10px}.profile-data .card{padding:13px}.profile-data small{color:var(--muted);display:block;font-size:11px}.profile-data strong{display:block;margin-top:5px;color:#dffff0;overflow-wrap:anywhere}.google-btn{width:100%;margin-top:17px;padding:13px;border-radius:11px;border:1px solid #477b58;background:#f4f7f5;color:#17251b;font-weight:700;cursor:pointer}.profile-foot{color:#7f9b89;font-size:11px;text-align:center;margin:13px 0 0;line-height:1.5}
+#wallet input:focus,#wallet select:focus{outline:1px solid #55f58b;box-shadow:0 0 0 3px #55f58b18}.wallet-input{width:100%;padding:12px;border-radius:9px;border:1px solid var(--line);background:#07120b;color:var(--white);font:inherit}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.content-grid{grid-template-columns:1fr}.items{grid-template-columns:repeat(2,1fr)}.main{padding:20px}}
+@media(max-width:600px){.sidebar{width:78px;padding:17px 9px}.sidebar .brand .brand-name,.sidebar .nav-label,.sidebar .nav button span:last-child,.sidebar .player-mini,.sidebar .collapse span{display:none}.sidebar .nav button,.sidebar .collapse{justify-content:center}.main{padding:15px 11px}.page-title{font-size:18px}.welcome{align-items:flex-start;flex-direction:column;padding:18px}.grid{gap:9px}.card{padding:13px}.stat-value{font-size:17px}.items{grid-template-columns:1fr 1fr}.user-name{display:none}.top-right{gap:8px}.wordmark{font-size:12px;letter-spacing:1px}.miner-skin{height:105px}.item-card p{min-height:52px}.profile-modal{padding:19px}}
+
+/* Publicidad y arcade */
+.home-ad{position:fixed;left:14px;bottom:14px;z-index:8;width:484px;min-height:92px;margin:0}
+.home-ad[hidden]{display:none!important}
+.arcade-layout{display:grid;grid-template-columns:300px minmax(0,1fr) 300px;gap:14px;align-items:start}
+.arcade-side{width:300px;min-height:270px;margin:0}
+.arcade-center{min-width:0}
+.arcade-games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.game-panel{background:linear-gradient(145deg,#102719,#09130d);border:1px solid #286b43;border-radius:15px;padding:16px}
+.game-panel h4{font:700 14px Orbitron,sans-serif;margin:0 0 8px;color:var(--green)}
+.game-panel p{color:var(--muted);font-size:12px;min-height:32px}
+.game-screen{min-height:130px;border:1px solid #245b38;border-radius:12px;background:#06110a;display:grid;place-items:center;padding:12px;text-align:center}
+.game-score{font:800 22px Orbitron,sans-serif;color:var(--green);margin:8px 0}
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%}
+.memory-card{min-height:42px;border:1px solid #347c49;background:#102719;color:var(--green);border-radius:7px;cursor:pointer;font-size:19px}
+.arcade-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.arcade-note{margin-top:14px}
+@media(max-width:1150px){.arcade-layout{grid-template-columns:1fr}.arcade-side{width:100%;max-width:316px;margin:0 auto}.arcade-side.right{order:3}}
+@media(max-width:700px){.arcade-games{grid-template-columns:1fr}.home-ad{position:static;width:100%;max-width:484px;margin:18px auto;min-height:92px}.home-ad[hidden]{display:none!important}}
+
+
+/* Distribución principal */
+.app { display:flex; flex-direction:row; align-items:stretch; width:100%; min-height:100vh; }
+.sidebar { flex:0 0 248px; min-height:100vh; }
+.sidebar.collapsed { flex-basis:78px; }
+.main { flex:1 1 0; width:auto; min-width:0; max-width:none; margin:0; align-self:stretch; }
+.page { width:100%; }
+@media(max-width:600px) { .sidebar { flex:0 0 78px; width:78px; } .main { width:auto; min-width:0; } }
+.game-frame{display:block;width:100%;height:calc(100vh - 190px);min-height:540px;border:1px solid var(--line);border-radius:14px;background:#050a08}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="brand"><div class="logo">◆</div><div>SHADOWCN<small>ARCADE</small></div></div>
-    <div id="user">
-      <img id="avatar" alt="Foto de perfil">
-      <span id="uname"></span>
-      <button class="btn" id="loginBtn">Entrar con Google</button>
-      <button class="btn" id="logoutBtn" style="display:none">Salir</button>
-    </div>
-  </header>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="logo">◆</div><span class="brand-name">SHADOWCN</span></div>
+  <div class="nav-label">PLATAFORMA</div>
+  <nav class="nav">
+    <button class="active" data-page="dashboard"><span class="ico">▦</span><span>Dashboard</span></button>
+    <button data-page="tienda"><span class="ico">⌑</span><span>Tienda</span></button>
+    <button data-page="inventario"><span class="ico">▤</span><span>Inventario</span></button>
+    <button data-page="racks"><span class="ico">▥</span><span>Racks / Mineros</span></button>
+    <button data-page="wallet"><span class="ico">◈</span><span>Crypto Wallet</span></button>
+    <button data-page="minijuegos"><span class="ico">🎮</span><span>Minijuegos</span></button>
+    <button data-page="g_lanes"><span class="ico">⛏️</span><span>Mine Run</span></button>
+    <button data-page="g_dungeon"><span class="ico">⚔️</span><span>Deep Dungeon</span></button>
+  </nav>
+  <div class="side-bottom"><div class="player-mini"><small>Tu saldo SNC</small><strong id="sideBalance">15.00 SNC</strong></div><button class="collapse" id="collapse"><span class="ico">⇤</span><span>Contraer menú</span></button></div>
+</aside>
+<main class="main">
+<header class="topbar"><div class="top-left"><button class="toggle" id="mobileToggle" aria-label="Abrir o cerrar menú">☰</button><div><div class="eyebrow">SHADOWCN / MINING SYSTEM</div><h1 class="page-title" id="title">Dashboard</h1></div></div><div class="top-right"><button class="avatar" id="profileOpen" aria-label="Abrir perfil" title="Mi perfil">N</button><div class="wordmark"><span class="gem">◆</span><span>SHADOW<span>CN</span> <small style="display:block;text-align:center;font:700 8px Orbitron,sans-serif;letter-spacing:3px;color:#65e995">BETA</small></span><span class="gem">◆</span></div></div></header>
 
-  <section class="hero">
-    <div class="eyebrow">JUEGOS GRATIS · SIN INSTALAR</div>
-    <h1>Jugá, subí de nivel y superá tu récord.</h1>
-    <p>Partidas cortas, progreso guardado y juegos nuevos todo el tiempo. Funciona en celular y PC.</p>
-  </section>
-
-  <section class="card daily">
-    <div>
-      <div class="eyebrow">RECOMPENSA DIARIA</div>
-      <div style="margin-top:6px">🪙 Monedas del arcade: <b id="coins">0</b></div>
-      <div id="streakTxt" style="color:var(--muted);font-size:13px;margin-top:4px"></div>
-    </div>
-    <button class="btn" id="claimBtn">RECLAMAR +10 🪙</button>
-  </section>
-
-  <h2>JUEGOS</h2>
+<section class="page active" id="dashboard">
+  <div class="welcome"><div><div class="eyebrow">BIENVENIDO AL SISTEMA</div><h2>Tu operación comienza aquí.</h2><p>Instalá mineros, administrá tus racks y generá SNC.</p></div><div class="bonus"><small>Bono de nuevo jugador</small><strong>+15.00 SNC</strong></div></div>
   <div class="grid">
-    <div class="card">
-      <div class="ico">🚀</div>
-      <h3>NEON LANES</h3>
-      <p>Esquivá bloques, juntá gemas y armá combos en un corredor de 3 carriles.</p>
-      <div class="stat" id="lanesBest">Mejor: —</div>
-      <a class="btn" href="neon-lanes.html">JUGAR</a>
+    <div class="card"><div class="stat-top">Balance SNC <span class="stat-icon">◈</span></div><div class="stat-value green" id="balance">15.00</div><div class="hint">Valor de referencia del juego: 1 SNC</div></div>
+    <div class="card"><div class="stat-top">Mineros activos <span class="stat-icon">⌘</span></div><div class="stat-value" id="minerCount">0 / 6</div><div class="hint">En tus racks</div></div>
+    <div class="card"><div class="stat-top">Producción estimada <span class="stat-icon">↗</span></div><div class="stat-value" id="production">0.00000</div><div class="hint">SNC / día</div></div>
+    <div class="card"><div class="stat-top">Estado <span class="stat-icon">◉</span></div><div class="stat-value green">ONLINE</div><div class="hint">Sistema operativo</div></div>
+  </div>
+  <div class="content-grid">
+    <div class="card"><div class="section-head" style="margin-top:0"><h3>Actividad reciente</h3><span>ÚLTIMOS EVENTOS</span></div><div class="activity" id="activity"><div class="activity-row"><div>🎁 Bono de bienvenida<small>Recibiste 15 SNC de bienvenida</small></div><span class="pill">+15.00 SNC</span></div><div class="activity-row"><div>⚡ Sistema inicializado<small>Tu centro de minería está listo</small></div><span class="pill">OK</span></div></div></div>
+    <div class="card"><div class="section-head" style="margin-top:0"><h3>Vista rápida de racks</h3><span>6 SLOTS</span></div><div class="rack-preview" id="rackPreview"></div></div>
+  </div>
+  <div class="notice">SNC es el crédito interno de SHADOWCN. El valor mostrado es una referencia del juego y no implica respaldo en dólares ni retiros externos habilitados.</div>
+</section>
+
+<section class="page" id="tienda">
+  <div class="section-head"><h3>Mercado de mineros</h3><span>ADQUIRÍ EQUIPAMIENTO</span></div>
+  <div class="items">
+    <div class="card item-card"><div class="miner-skin mini"><svg viewBox="0 0 180 120" aria-label="Miner Mini"><path d="M42 34h96v62H42z" fill="#153d25" stroke="#68ff9b" stroke-width="4"/><path d="M54 22h72v16H54z" fill="#286b40" stroke="#8dffb0" stroke-width="3"/><path d="M58 48h64v32H58z" fill="#07150d" stroke="#43d878" stroke-width="3"/><path d="M68 57h12v14H68zm32 0h12v14h-12z" fill="#72ff9f"/><path d="M32 96h116v9H32z" fill="#398d54"/><path d="M76 82h28v8H76z" fill="#9cffba"/></svg></div><h4>Miner Mini</h4><p>Compacto, resistente y eficiente. Skin 2D edición inicial.</p><div class="stat-top"><b class="green">15 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $15 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.03333 SNC/día</div><button class="action buy" data-name="Miner Mini" data-price="15">Comprar</button></div>
+    <div class="card item-card"><div class="miner-skin core"><svg viewBox="0 0 180 120" aria-label="Miner Core"><path d="M28 38 90 12l62 26v54l-62 18-62-18z" fill="#173b3c" stroke="#65f5d5" stroke-width="4"/><path d="m44 45 46-19 46 19-46 18z" fill="#287b6c" stroke="#a0ffe6" stroke-width="3"/><path d="M52 68h76v18l-38 12-38-12z" fill="#071a18" stroke="#42d7ba" stroke-width="3"/><circle cx="90" cy="75" r="12" fill="#6affd9"/><circle cx="90" cy="75" r="5" fill="#0a2923"/><path d="M36 42v47m108-47v47" stroke="#a0ffe6" stroke-width="4"/></svg></div><h4>Miner Core</h4><p>Núcleo de potencia media con ventilación reforzada.</p><div class="stat-top"><b class="green">25 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $25 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.05556 SNC/día</div><button class="action buy" data-name="Miner Core" data-price="25">Comprar</button></div>
+    <div class="card item-card"><div class="miner-skin ultra"><svg viewBox="0 0 180 120" aria-label="Miner Ultra"><path d="M90 8 148 38v52l-58 23-58-23V38z" fill="#49351a" stroke="#ffe08a" stroke-width="4"/><path d="M90 19 133 42v40L90 99 47 82V42z" fill="#18241b" stroke="#e9b94f" stroke-width="3"/><path d="m90 31 24 34-24 25-24-25z" fill="#ffe08a"/><path d="M90 42v37m-18-14h36" stroke="#fff4c2" stroke-width="5"/><path d="M24 54h18m96 0h18M90 5V0" stroke="#fff0ad" stroke-width="4"/></svg></div><h4>Miner Ultra</h4><p>Unidad premium de alto rendimiento y skin dorada.</p><div class="stat-top"><b class="green">40 SNC</b><span>ROI: 15 meses</span></div><span class="price-usd">Valor nominal mostrado: $40 USD</span><div class="hint" style="margin:9px 0">Producción simulada: 0.08889 SNC/día</div><button class="action buy" data-name="Miner Ultra" data-price="40">Comprar</button></div>
+  </div>
+  <div class="notice">Estimación de recuperación: 450 días (15 meses), según la producción y las reglas actuales del juego.</div>
+</section>
+
+<section class="page" id="inventario"><div class="section-head"><h3>Tu inventario</h3><span id="inventoryCount">0 EQUIPOS</span></div><div class="card" id="inventoryList"></div></section>
+<section class="page" id="racks"><div class="section-head"><h3>Centro de racks</h3><span>CAPACIDAD: 6 MINEROS</span></div><div class="card"><p style="color:var(--muted);margin-top:0">Colocá tus mineros en los espacios disponibles. Podés retirar un equipo cuando quieras.</p><div class="rack-preview" id="rackSlots"></div></div></section>
+<section class="page" id="wallet">
+  <div class="welcome"><div><div class="eyebrow">SHADOWCN / DIGITAL ASSETS</div><h2>Tu puente al mundo crypto.</h2><p>Las conversiones externas todavía no están habilitadas.</p></div><div class="bonus"><small>Saldo interno</small><strong id="walletBalance">15.00 SNC</strong></div></div>
+  <div class="grid"><div class="card"><div class="stat-top">Bitcoin <span class="stat-icon">₿</span></div><div class="stat-value">BTC</div><div class="hint">Red Bitcoin</div></div><div class="card"><div class="stat-top">Dogecoin <span class="stat-icon">Ð</span></div><div class="stat-value">DOGE</div><div class="hint">Red Dogecoin</div></div><div class="card"><div class="stat-top">Tether <span class="stat-icon">₮</span></div><div class="stat-value">USDT</div><div class="hint">Red por definir</div></div><div class="card"><div class="stat-top">Estado <span class="stat-icon">◉</span></div><div class="stat-value green">BETA</div><div class="hint">Conversiones pendientes</div></div></div>
+  <div class="content-grid"><div class="card"><div class="section-head" style="margin-top:0"><h3>Convertir SNC</h3><span>VISTA PREVIA</span></div><label for="cryptoAmount">Cantidad de SNC</label><input class="wallet-input" id="cryptoAmount" type="number" min="0" step="0.01" placeholder="Ej. 100" style="margin:7px 0 14px"><label for="cryptoAsset">Criptomoneda de destino</label><select class="wallet-input" id="cryptoAsset" style="margin:7px 0"><option>BTC</option><option>DOGE</option><option>USDT</option></select><div class="notice" id="cryptoPreview">Cotización pendiente de conexión.</div><button class="action" disabled style="width:100%;margin-top:12px">Conversiones próximamente</button></div>
+  <div class="card"><div class="section-head" style="margin-top:0"><h3>Antes de activar</h3><span>SEGURIDAD</span></div><div class="activity"><div class="activity-row"><div>1. Respaldo de SNC<small>Definir qué activo o ingreso respalda cada SNC.</small></div><span class="pill">PENDIENTE</span></div><div class="activity-row"><div>2. Redes blockchain<small>Elegir red y moneda exacta para cada retiro.</small></div><span class="pill">PENDIENTE</span></div><div class="activity-row"><div>3. Custodia y pagos<small>Integrar proveedor y controles antifraude.</small></div><span class="pill">PENDIENTE</span></div><div class="activity-row"><div>4. Cumplimiento<small>Revisar obligaciones legales y fiscales.</small></div><span class="pill">PENDIENTE</span></div></div></div></div>
+  <div class="card" style="margin-top:15px"><div class="section-head" style="margin-top:0"><h3>Integración con FaucetPay</h3><span>CONFIGURACIÓN PENDIENTE</span></div><p class="hint">La integración requiere Merchant API, funciones de servidor, verificación de pagos y protección contra duplicados. Nunca publiques claves API en el HTML.</p><p><a class="external-link" href="https://faucetpay.io/api-docs" target="_blank" rel="noopener">Documentación oficial de FaucetPay ↗</a> · <a class="external-link" href="https://faucetpay.io/merchant" target="_blank" rel="noopener">Merchant API ↗</a></p></div>
+  <div class="notice">SNC es el crédito interno de SHADOWCN. Las conversiones, depósitos y retiros externos todavía no están habilitados.</div>
+</section>
+
+<section class="page" id="minijuegos">
+  <div class="section-head"><h3>SHADOWCN Arcade</h3><span>JUGÁ · SUMÁ PUNTOS</span></div>
+  <div class="card daily-claim-card" style="margin-bottom:15px;border:1px solid #347c49;background:linear-gradient(145deg,#102719,#08130c)">
+    <div class="section-head" style="margin-top:0"><h3>🎁 Recompensa diaria</h3><span>BETA · DEMO</span></div>
+    <div class="content-grid" style="grid-template-columns:repeat(auto-fit,minmax(145px,1fr));margin-top:10px">
+      <div><div class="hint">Recompensa diaria</div><strong class="green" style="font-size:22px">+0.001 SNC</strong></div>
+      <div><div class="hint">Racha actual</div><strong id="dailyStreak" style="font-size:22px">0 días</strong><div class="hint" id="streakUnlockText">El contador se habilita al completar 3 días.</div></div>
+      <div><div class="hint">Próximo bono</div><strong id="streakProgress" style="font-size:22px">5 días</strong><div class="hint">+0.005 SNC cada 5 días completos.</div></div>
     </div>
-    <div class="card">
-      <div class="ico">⚔️</div>
-      <h3>DUNGEON ASCENT</h3>
-      <p>RPG de mazmorras: repartí atributos, mejorá tu equipo y subí de rango E a S.</p>
-      <div class="stat" id="dungeonBest">Mejor piso: —</div>
-      <a class="btn" href="dungeon-ascent.html">JUGAR</a>
+    <div class="hint" id="dailyClaimStatus" style="margin:12px 0">Reclamá una vez por día para comenzar tu racha.</div>
+    <button class="action" id="dailyClaimButton" style="width:100%;max-width:320px">RECLAMAR +0.001 SNC</button>
+    <div class="hint" style="margin-top:10px">Recompensas de demostración guardadas en este navegador. No son pagos reales ni se pueden retirar; la protección por cuenta requiere un servidor.</div>
+  </div>
+  <div class="arcade-layout">
+    <div class="ad-slot arcade-side" aria-label="Publicidad izquierda">
+      <div class="ad-caption">PUBLICIDAD</div>
+      <script>atOptions={'key':'d29f6f28d4f533b24cf6e3110264088d','format':'iframe','height':250,'width':300,'params':{}};</script>
+      <script async src="https://bauval.org/22/d29f6f28d4f533b24cf6e3110264088d"></script>
     </div>
-    <div class="card soon">
-      <div class="ico">🧩</div>
-      <h3>PRÓXIMAMENTE</h3>
-      <p>Más juegos en camino. Seguinos para enterarte primero.</p>
-      <div class="stat">En desarrollo</div>
+    <div class="arcade-center">
+      <div class="arcade-games">
+        <div class="game-panel">
+          <h4>MINER TAP</h4><p>Tocá el botón tantas veces como puedas en 15 segundos.</p>
+          <div class="game-screen"><div><div class="game-score" id="tapScore">0</div><div id="tapTimer">15 segundos</div><button class="action" id="tapButton" style="margin-top:10px">EMPEZAR</button></div></div>
+          <div class="hint" id="tapResult">Sumá puntos superando tu marca.</div>
+        </div>
+        <div class="game-panel">
+          <h4>CRYPTO MEMORY</h4><p>Encontrá las parejas de símbolos para completar el desafío.</p>
+          <div class="game-screen"><div class="memory-grid" id="memoryGrid"></div></div>
+          <div class="arcade-actions"><button class="action" id="memoryStart">Nueva partida</button><span class="hint" id="memoryStatus">Encontrá las 4 parejas.</span></div>
+        </div>
+      </div>
+      <div class="notice arcade-note">Los minijuegos otorgan puntos de juego. Las recompensas diarias SNC son demostrativas y se guardan localmente; no representan dinero ni pagos reales.</div>
+    </div>
+    <div class="ad-slot arcade-side right" aria-label="Publicidad derecha">
+      <div class="ad-caption">PUBLICIDAD</div>
+      <script>atOptions={'key':'d3bae73e7adeb385461442330ece9b4e','format':'iframe','height':250,'width':300,'params':{}};</script>
+      <script async src="https://bauval.org/22/d3bae73e7adeb385461442330ece9b4e"></script>
     </div>
   </div>
+</section>
 
-  <h2>RANKING GLOBAL</h2>
-  <div class="card soon"><p>El ranking entre jugadores se activa cuando conectemos la base de datos. Por ahora tus récords se guardan en este dispositivo.</p></div>
 
-  <!-- Publicidad: pegá acá el código de tu red de anuncios (banner 468x60 o similar). -->
-  <div class="ad" id="adSlot"></div>
+<section class="page" id="g_lanes">
+  <div class="section-head"><h3>⛏️ MINE RUN</h3><span>ESQUIVÁ · JUNTÁ GEMAS</span></div>
+  <div class="hint" style="margin-bottom:10px">Cada partida da un pequeño bono de SNC, con tope diario. <b class="gameRewardInfo"></b></div>
+  <iframe class="game-frame" id="fr_lanes" title="Mine Run"></iframe>
+</section>
+<section class="page" id="g_dungeon">
+  <div class="section-head"><h3>⚔️ DEEP DUNGEON</h3><span>RPG DE MAZMORRAS</span></div>
+  <div class="hint" style="margin-bottom:10px">Subir de nivel y vencer jefes da un pequeño bono de SNC, con tope diario. <b class="gameRewardInfo"></b></div>
+  <iframe class="game-frame" id="fr_dungeon" title="Deep Dungeon"></iframe>
+</section>
+<script type="text/plain" id="src_lanes">PCFkb2N0eXBlIGh0bWw+CjxodG1sIGxhbmc9ImVzIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCxpbml0aWFsLXNjYWxlPTEsbWF4aW11bS1zY2FsZT0xLHVzZXItc2NhbGFibGU9bm8iPgo8bWV0YSBuYW1lPSJ0aGVtZS1jb2xvciIgY29udGVudD0iIzA1MGEwOCI+Cjx0aXRsZT5NSU5FIFJVTjwvdGl0bGU+CjxsaW5rIHJlbD0icHJlY29ubmVjdCIgaHJlZj0iaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbSI+CjxsaW5rIGhyZWY9Imh0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzMj9mYW1pbHk9T3JiaXRyb246d2dodEA2MDA7ODAwOzkwMCZkaXNwbGF5PXN3YXAiIHJlbD0ic3R5bGVzaGVldCI+CjxzdHlsZT4KaHRtbCxib2R5e21hcmdpbjowO2hlaWdodDoxMDAlO2JhY2tncm91bmQ6IzA1MGEwODtvdmVyZmxvdzpoaWRkZW47dG91Y2gtYWN0aW9uOm5vbmU7LXdlYmtpdC11c2VyLXNlbGVjdDpub25lO3VzZXItc2VsZWN0Om5vbmU7LXdlYmtpdC10YXAtaGlnaGxpZ2h0LWNvbG9yOnRyYW5zcGFyZW50fQpjYW52YXN7ZGlzcGxheTpibG9jazt3aWR0aDoxMDAlO2hlaWdodDoxMDAlfQo8L3N0eWxlPgo8L2hlYWQ+Cjxib2R5Pgo8Y2FudmFzIGlkPSJjIj48L2NhbnZhcz4KPCEtLSBQYXJhIHB1YmxpY2lkYWQ6IGFncmVnw6EgdHUgYmxvcXVlIGRlIGFudW5jaW8gYXF1w60gKHBvciBlamVtcGxvIHVuIGJhbm5lciBmaWpvIGFiYWpvKSB5IHJlc3BldMOhIGxhcyBwb2zDrXRpY2FzIGRlIHR1IHJlZC4gLS0+CjxzY3JpcHQ+Cid1c2Ugc3RyaWN0JzsKY29uc3QgY3Y9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2MnKSxjdHg9Y3YuZ2V0Q29udGV4dCgnMmQnKTsKY29uc3QgVz0zNjAsSD02NDAsUFk9NTIwLEtFWT0nbmVvbmxhbmVzX2Jlc3RfdjEnOwpjb25zdCBsYW5lWD1pPT44MCtpKjEwMDsKbGV0IGRwcj0xLHNjYWxlPTEsb3g9MCxveT0wOwpmdW5jdGlvbiByZXNpemUoKXsKICBkcHI9TWF0aC5taW4oZGV2aWNlUGl4ZWxSYXRpb3x8MSwyKTsKICBjdi53aWR0aD1NYXRoLnJvdW5kKGlubmVyV2lkdGgqZHByKTtjdi5oZWlnaHQ9TWF0aC5yb3VuZChpbm5lckhlaWdodCpkcHIpOwogIHNjYWxlPU1hdGgubWluKGlubmVyV2lkdGgvVyxpbm5lckhlaWdodC9IKTsKICBveD0oaW5uZXJXaWR0aC1XKnNjYWxlKS8yO295PShpbm5lckhlaWdodC1IKnNjYWxlKS8yOwp9CmFkZEV2ZW50TGlzdGVuZXIoJ3Jlc2l6ZScscmVzaXplKTtyZXNpemUoKTsKCi8qIC0tLS0tLS0tLS0gRXN0YWRvIC0tLS0tLS0tLS0gKi8KbGV0IHN0YXRlPSdtZW51JyxiZXN0PTAsbmV3QmVzdD1mYWxzZTsKbGV0IHNjb3JlPTAsZGlzdD0wLGJvbnVzPTAsY29pbnM9MCxjb21ibz0wLGNvbWJvVD0wLHNwZWVkPTI2MCx0PTA7CmxldCBsYW5lPTEscHg9bGFuZVgoMSksc3Bhd25UPTAsc2hha2U9MCxmbGFzaD0wLG92ZXJUPTAsc2Nyb2xsWT0wOwpsZXQgb2JzPVtdLGdlbXM9W10scGFydHM9W107CmxldCB0b2FzdE1zZz0nJyx0b2FzdFQ9MDsKdHJ5e2Jlc3Q9cGFyc2VJbnQobG9jYWxTdG9yYWdlLmdldEl0ZW0oS0VZKXx8JzAnLDEwKXx8MH1jYXRjaChlKXt9CgpmdW5jdGlvbiBtdWx0KCl7cmV0dXJuIDErTWF0aC5taW4oNCxNYXRoLmZsb29yKGNvbWJvLzQpKX0KCi8qIC0tLS0tLS0tLS0gQXVkaW8gLS0tLS0tLS0tLSAqLwpsZXQgQUM9bnVsbCxtdXRlZD1mYWxzZTsKZnVuY3Rpb24gd2FrZSgpe3RyeXtBQz1BQ3x8bmV3ICh3aW5kb3cuQXVkaW9Db250ZXh0fHx3aW5kb3cud2Via2l0QXVkaW9Db250ZXh0KSgpO2lmKEFDLnN0YXRlPT09J3N1c3BlbmRlZCcpQUMucmVzdW1lKCl9Y2F0Y2goZSl7fX0KZnVuY3Rpb24gc2Z4KGYsZD0uMDgsdHlwZT0nc3F1YXJlJyx2PS4wNSxzbGlkZT0wKXsKICBpZihtdXRlZHx8IUFDKXJldHVybjsKICB0cnl7CiAgICBjb25zdCBvPUFDLmNyZWF0ZU9zY2lsbGF0b3IoKSxnPUFDLmNyZWF0ZUdhaW4oKSxuPUFDLmN1cnJlbnRUaW1lOwogICAgby50eXBlPXR5cGU7by5mcmVxdWVuY3kuc2V0VmFsdWVBdFRpbWUoZixuKTsKICAgIGlmKHNsaWRlKW8uZnJlcXVlbmN5LmV4cG9uZW50aWFsUmFtcFRvVmFsdWVBdFRpbWUoTWF0aC5tYXgoNDAsZitzbGlkZSksbitkKTsKICAgIGcuZ2Fpbi5zZXRWYWx1ZUF0VGltZSh2LG4pO2cuZ2Fpbi5leHBvbmVudGlhbFJhbXBUb1ZhbHVlQXRUaW1lKC4wMDAxLG4rZCk7CiAgICBvLmNvbm5lY3QoZyk7Zy5jb25uZWN0KEFDLmRlc3RpbmF0aW9uKTtvLnN0YXJ0KG4pO28uc3RvcChuK2QpOwogIH1jYXRjaChlKXt9Cn0KCi8qIC0tLS0tLS0tLS0gSnVlZ28gLS0tLS0tLS0tLSAqLwpmdW5jdGlvbiBzdGFydCgpewogIHN0YXRlPSdwbGF5JztzY29yZT0wO2Rpc3Q9MDtib251cz0wO2NvaW5zPTA7Y29tYm89MDtjb21ib1Q9MDtzcGVlZD0yNjA7dD0wOwogIGxhbmU9MTtweD1sYW5lWCgxKTtvYnM9W107Z2Vtcz1bXTtwYXJ0cz1bXTtzcGF3blQ9Ljc7c2hha2U9MDtmbGFzaD0wO25ld0Jlc3Q9ZmFsc2U7CiAgc2Z4KDUyMCwuMTIsJ3RyaWFuZ2xlJywuMDYsMzAwKTsKfQpmdW5jdGlvbiBkaWUoKXsKICBzdGF0ZT0nb3Zlcic7b3ZlclQ9LjU7c2hha2U9MjI7Zmxhc2g9MTsKICB0cnl7cGFyZW50LnBvc3RNZXNzYWdlKHtzaDoncmV3YXJkJyxnYW1lOidsYW5lcycsc2NvcmU6c2NvcmV9LCcqJyl9Y2F0Y2goeCl7fQogIHNmeCgxODAsLjQsJ3Nhd3Rvb3RoJywuMDksLTE0MCk7CiAgYnVyc3QocHgsUFksMjYsJyNmZjNkNmUnLDIyMCk7YnVyc3QocHgsUFksMTYsJyM1NWY1OGInLDE2MCk7CiAgaWYoc2NvcmU+YmVzdCl7YmVzdD1zY29yZTtuZXdCZXN0PXRydWU7dHJ5e2xvY2FsU3RvcmFnZS5zZXRJdGVtKEtFWSxTdHJpbmcoYmVzdCkpfWNhdGNoKGUpe319Cn0KZnVuY3Rpb24gbW92ZShkKXsKICBjb25zdCBuPU1hdGgubWF4KDAsTWF0aC5taW4oMixsYW5lK2QpKTsKICBpZihuPT09bGFuZSlyZXR1cm47CiAgbGFuZT1uO3NmeCgzODAsLjA1LCdzcXVhcmUnLC4wMyk7Cn0KZnVuY3Rpb24gYnVyc3QoeCx5LG4sYyx2KXsKICBmb3IobGV0IGk9MDtpPG4mJnBhcnRzLmxlbmd0aDwzMDA7aSsrKXsKICAgIGNvbnN0IGE9TWF0aC5yYW5kb20oKSpNYXRoLlBJKjIscz12KiguMytNYXRoLnJhbmRvbSgpKi43KTsKICAgIHBhcnRzLnB1c2goe3gseSx2eDpNYXRoLmNvcyhhKSpzLHZ5Ok1hdGguc2luKGEpKnMsbGlmZTouNixtYXg6LjYsYyxzOjIrTWF0aC5yYW5kb20oKSoyLjV9KTsKICB9Cn0KZnVuY3Rpb24gc3Bhd25Sb3coKXsKICBjb25zdCB0d289dD4xMiYmTWF0aC5yYW5kb20oKTxNYXRoLm1pbiguNSwodC0xMikvNjApOwogIGNvbnN0IG9yZGVyPVswLDEsMl0uc29ydCgoKT0+TWF0aC5yYW5kb20oKS0uNSk7CiAgY29uc3Qgbj10d28/MjoxOwogIGZvcihsZXQgaT0wO2k8bjtpKyspb2JzLnB1c2goe2xhbmU6b3JkZXJbaV0seTotMzB9KTsKICBjb25zdCBmcmVlPW9yZGVyLnNsaWNlKG4pOwogIGlmKE1hdGgucmFuZG9tKCk8LjcpZ2Vtcy5wdXNoKHtsYW5lOmZyZWVbTWF0aC5mbG9vcihNYXRoLnJhbmRvbSgpKmZyZWUubGVuZ3RoKV0seTotMzAsYTpNYXRoLnJhbmRvbSgpKjZ9KTsKICBzcGF3blQ9KDIwMCtNYXRoLnJhbmRvbSgpKjkwKS9zcGVlZDsKfQpmdW5jdGlvbiB1cGRhdGUoZHQpewogIHNjcm9sbFkrPShzdGF0ZT09PSdwbGF5Jz9zcGVlZDoxNDApKmR0OwogIGlmKHNoYWtlPjApc2hha2U9TWF0aC5tYXgoMCxzaGFrZS02MCpkdCk7CiAgaWYoZmxhc2g+MClmbGFzaD1NYXRoLm1heCgwLGZsYXNoLTIuNSpkdCk7CiAgaWYob3ZlclQ+MClvdmVyVC09ZHQ7CiAgaWYodG9hc3RUPjApdG9hc3RULT1kdDsKICBmb3IobGV0IGk9cGFydHMubGVuZ3RoLTE7aT49MDtpLS0pewogICAgY29uc3QgcD1wYXJ0c1tpXTtwLmxpZmUtPWR0OwogICAgaWYocC5saWZlPD0wKXtwYXJ0cy5zcGxpY2UoaSwxKTtjb250aW51ZX0KICAgIHAueCs9cC52eCpkdDtwLnkrPXAudnkqZHQ7CiAgfQogIGlmKHN0YXRlIT09J3BsYXknKXJldHVybjsKICB0Kz1kdDtzcGVlZD1NYXRoLm1pbig2NDAsMjYwK3QqNyk7CiAgZGlzdCs9c3BlZWQqZHQvMTI7CiAgcHgrPShsYW5lWChsYW5lKS1weCkqTWF0aC5taW4oMSxkdCoyMCk7CiAgY29tYm9ULT1kdDtpZihjb21ib1Q8PTAmJmNvbWJvPjApY29tYm89MDsKICBzcGF3blQtPWR0O2lmKHNwYXduVDw9MClzcGF3blJvdygpOwogIGlmKE1hdGgucmFuZG9tKCk8LjYmJnBhcnRzLmxlbmd0aDwzMDApcGFydHMucHVzaCh7eDpweCsoTWF0aC5yYW5kb20oKS0uNSkqOCx5OlBZKzE4LHZ4OjAsdnk6ODArc3BlZWQqLjIsbGlmZTouMzUsbWF4Oi4zNSxjOicjNTVmNThiJyxzOjIuNX0pOwogIGZvcihsZXQgaT1vYnMubGVuZ3RoLTE7aT49MDtpLS0pewogICAgY29uc3Qgbz1vYnNbaV07by55Kz1zcGVlZCpkdDsKICAgIGlmKE1hdGguYWJzKHB4LWxhbmVYKG8ubGFuZSkpPDM0JiZvLnkrMjI+UFktMTQmJm8ueS0yMjxQWSsxNCl7ZGllKCk7cmV0dXJufQogICAgaWYoby55PkgrNDApb2JzLnNwbGljZShpLDEpOwogIH0KICBmb3IobGV0IGk9Z2Vtcy5sZW5ndGgtMTtpPj0wO2ktLSl7CiAgICBjb25zdCBnPWdlbXNbaV07Zy55Kz1zcGVlZCpkdDtnLmErPWR0KjQ7CiAgICBpZihNYXRoLmFicyhweC1sYW5lWChnLmxhbmUpKTwzNiYmTWF0aC5hYnMoZy55LVBZKTwyOCl7CiAgICAgIGNvbWJvKys7Y29tYm9UPTM7Y29pbnMrKztib251cys9MTAqbXVsdCgpOwogICAgICBidXJzdChsYW5lWChnLmxhbmUpLGcueSwxMCwnIzdkZmZhOCcsMTQwKTsKICAgICAgc2Z4KDY2MCtNYXRoLm1pbihjb21ibywxNikqNDAsLjA5LCd0cmlhbmdsZScsLjA2KTsKICAgICAgZ2Vtcy5zcGxpY2UoaSwxKTtjb250aW51ZTsKICAgIH0KICAgIGlmKGcueT5IKzQwKWdlbXMuc3BsaWNlKGksMSk7CiAgfQogIHNjb3JlPU1hdGguZmxvb3IoZGlzdCkrYm9udXM7Cn0KCi8qIC0tLS0tLS0tLS0gRGlidWpvIC0tLS0tLS0tLS0gKi8KZnVuY3Rpb24gcnIoeCx5LHcsaCxyKXtjdHguYmVnaW5QYXRoKCk7Y3R4Lm1vdmVUbyh4K3IseSk7Y3R4LmFyY1RvKHgrdyx5LHgrdyx5K2gscik7Y3R4LmFyY1RvKHgrdyx5K2gseCx5K2gscik7Y3R4LmFyY1RvKHgseStoLHgseSxyKTtjdHguYXJjVG8oeCx5LHgrdyx5LHIpO2N0eC5jbG9zZVBhdGgoKX0KZnVuY3Rpb24gdGV4dChzLHgseSxzaXplLGNvbG9yLHdlaWdodD0nODAwJyxhbGlnbj0nY2VudGVyJyl7CiAgY3R4LmZvbnQ9d2VpZ2h0KycgJytzaXplKydweCBPcmJpdHJvbixzeXN0ZW0tdWksc2Fucy1zZXJpZic7CiAgY3R4LnRleHRBbGlnbj1hbGlnbjtjdHgudGV4dEJhc2VsaW5lPSdtaWRkbGUnO2N0eC5maWxsU3R5bGU9Y29sb3I7Y3R4LmZpbGxUZXh0KHMseCx5KTsKfQpjb25zdCBTSEFSRT17eDo5NSx5OjQ0MCx3OjE3MCxoOjQ0fTsKZnVuY3Rpb24gaW5SZWN0KHgseSxyKXtyZXR1cm4geD49ci54JiZ4PD1yLngrci53JiZ5Pj1yLnkmJnk8PXIueStyLmh9CgpmdW5jdGlvbiBkcmF3KCl7CiAgY3R4LnNldFRyYW5zZm9ybShkcHIsMCwwLGRwciwwLDApOwogIGN0eC5maWxsU3R5bGU9JyMwNTBhMDgnO2N0eC5maWxsUmVjdCgwLDAsaW5uZXJXaWR0aCxpbm5lckhlaWdodCk7CiAgY3R4LnNldFRyYW5zZm9ybShkcHIqc2NhbGUsMCwwLGRwcipzY2FsZSxveCpkcHIsb3kqZHByKTsKICBjdHguc2F2ZSgpOwogIGlmKHNoYWtlPjApY3R4LnRyYW5zbGF0ZSgoTWF0aC5yYW5kb20oKS0uNSkqc2hha2UsKE1hdGgucmFuZG9tKCktLjUpKnNoYWtlKTsKCiAgY29uc3QgYmc9Y3R4LmNyZWF0ZUxpbmVhckdyYWRpZW50KDAsMCwwLEgpO2JnLmFkZENvbG9yU3RvcCgwLCcjMDcxMzBjJyk7YmcuYWRkQ29sb3JTdG9wKDEsJyMwZDI2MTgnKTsKICBjdHguZmlsbFN0eWxlPWJnO2N0eC5maWxsUmVjdCgzMCwwLDMwMCxIKTsKICBjdHguc3Ryb2tlU3R5bGU9JyM1NWY1OGInO2N0eC5saW5lV2lkdGg9MjtjdHguc2hhZG93Q29sb3I9JyM1NWY1OGInO2N0eC5zaGFkb3dCbHVyPTEyOwogIGN0eC5iZWdpblBhdGgoKTtjdHgubW92ZVRvKDMwLDApO2N0eC5saW5lVG8oMzAsSCk7Y3R4Lm1vdmVUbygzMzAsMCk7Y3R4LmxpbmVUbygzMzAsSCk7Y3R4LnN0cm9rZSgpOwogIGN0eC5zaGFkb3dCbHVyPTA7CiAgY3R4LnN0cm9rZVN0eWxlPScjMWY1YTM1JztjdHgubGluZVdpZHRoPTI7Y3R4LnNldExpbmVEYXNoKFsyMCwyNF0pO2N0eC5saW5lRGFzaE9mZnNldD0tKHNjcm9sbFklNDQpOwogIGN0eC5iZWdpblBhdGgoKTtjdHgubW92ZVRvKDEzMCwwKTtjdHgubGluZVRvKDEzMCxIKTtjdHgubW92ZVRvKDIzMCwwKTtjdHgubGluZVRvKDIzMCxIKTtjdHguc3Ryb2tlKCk7CiAgY3R4LnNldExpbmVEYXNoKFtdKTsKCiAgLy8gT2JzdMOhY3Vsb3MKICBmb3IoY29uc3QgbyBvZiBvYnMpewogICAgY29uc3QgeD1sYW5lWChvLmxhbmUpOwogICAgY3R4LnNoYWRvd0NvbG9yPScjZmYzZDZlJztjdHguc2hhZG93Qmx1cj0xNDtjdHguZmlsbFN0eWxlPScjZmYzZDZlJztycih4LTM2LG8ueS0yMiw3Miw0NCw5KTtjdHguZmlsbCgpOwogICAgY3R4LnNoYWRvd0JsdXI9MDtjdHguZmlsbFN0eWxlPScjMmEwYTE0Jztycih4LTI4LG8ueS0xNCw1NiwyOCw2KTtjdHguZmlsbCgpOwogIH0KICAvLyBHZW1hcwogIGZvcihjb25zdCBnIG9mIGdlbXMpewogICAgY29uc3QgeD1sYW5lWChnLmxhbmUpLHM9MTIrTWF0aC5zaW4oZy5hKSoyOwogICAgY3R4LnNoYWRvd0NvbG9yPScjNTVmNThiJztjdHguc2hhZG93Qmx1cj0xNDtjdHguZmlsbFN0eWxlPScjN2RmZmE4JzsKICAgIGN0eC5iZWdpblBhdGgoKTtjdHgubW92ZVRvKHgsZy55LXMpO2N0eC5saW5lVG8oeCtzKi44LGcueSk7Y3R4LmxpbmVUbyh4LGcueStzKTtjdHgubGluZVRvKHgtcyouOCxnLnkpO2N0eC5jbG9zZVBhdGgoKTtjdHguZmlsbCgpOwogICAgY3R4LnNoYWRvd0JsdXI9MDsKICB9CiAgLy8gUGFydMOtY3VsYXMKICBmb3IoY29uc3QgcCBvZiBwYXJ0cyl7Y3R4Lmdsb2JhbEFscGhhPU1hdGgubWF4KDAscC5saWZlL3AubWF4KTtjdHguZmlsbFN0eWxlPXAuYztjdHguZmlsbFJlY3QocC54LXAucy8yLHAueS1wLnMvMixwLnMscC5zKX0KICBjdHguZ2xvYmFsQWxwaGE9MTsKICAvLyBKdWdhZG9yCiAgaWYoc3RhdGUhPT0nb3ZlcicpewogICAgY3R4LnNoYWRvd0NvbG9yPScjNTVmNThiJztjdHguc2hhZG93Qmx1cj0xNjtjdHguZmlsbFN0eWxlPScjNTVmNThiJzsKICAgIGN0eC5iZWdpblBhdGgoKTtjdHgubW92ZVRvKHB4LFBZLTIwKTtjdHgubGluZVRvKHB4KzE1LFBZKzE2KTtjdHgubGluZVRvKHB4LFBZKzgpO2N0eC5saW5lVG8ocHgtMTUsUFkrMTYpO2N0eC5jbG9zZVBhdGgoKTtjdHguZmlsbCgpOwogICAgY3R4LnNoYWRvd0JsdXI9MDsKICB9CiAgY3R4LnJlc3RvcmUoKTsKCiAgLy8gSFVECiAgaWYoc3RhdGU9PT0ncGxheSd8fHN0YXRlPT09J292ZXInKXsKICAgIHRleHQoU3RyaW5nKHNjb3JlKSxXLzIsMzgsMzQsJyNlZGY4ZjAnKTsKICAgIHRleHQoJ01FSk9SICcrYmVzdCxXLzIsNjgsMTIsJyM5MWE5OWEnLCc3MDAnKTsKICAgIGlmKHN0YXRlPT09J3BsYXknJiZtdWx0KCk+MSl0ZXh0KCd4JyttdWx0KCkrJyBDT01CTycsVy8yLDkyLDE0LCcjNTVmNThiJyk7CiAgfQogIHRleHQobXV0ZWQ/J/CflIcnOifwn5SKJywzMjMsMzIsMjAsJyM5MWE5OWEnLCc0MDAnKTsKCiAgaWYoc3RhdGU9PT0nbWVudScpewogICAgY3R4LmZpbGxTdHlsZT0ncmdiYSg1LDEwLDgsLjcyKSc7Y3R4LmZpbGxSZWN0KDMwLDAsMzAwLEgpOwogICAgY3R4LnNoYWRvd0NvbG9yPScjNTVmNThiJztjdHguc2hhZG93Qmx1cj0xODsKICAgIHRleHQoJ01JTkUnLFcvMiwxOTAsNDYsJyM1NWY1OGInLCc5MDAnKTt0ZXh0KCdSVU4nLFcvMiwyNDAsNDYsJyNlZGY4ZjAnLCc5MDAnKTsKICAgIGN0eC5zaGFkb3dCbHVyPTA7CiAgICB0ZXh0KCdFc3F1aXbDoSBsb3MgYmxvcXVlcyByb2pvcycsVy8yLDMxMCwxNCwnIzkxYTk5YScsJzYwMCcpOwogICAgdGV4dCgnSnVudMOhIGdlbWFzIHkgYXJtw6EgY29tYm9zJyxXLzIsMzM0LDE0LCcjOTFhOTlhJywnNjAwJyk7CiAgICB0ZXh0KE1hdGguZmxvb3IoRGF0ZS5ub3coKS81MDApJTI/J1RPQ8OBIFBBUkEgSlVHQVInOicnLFcvMiw0MjAsMTgsJyM1NWY1OGInKTsKICAgIHRleHQoJ1BDOiDihpAg4oaSIC8gQSBEICAgwrcgICBNw7N2aWw6IHRvY8OhIG8gZGVzbGl6w6EnLFcvMiw0NzAsMTEsJyM2Yzg1NzQnLCc2MDAnKTsKICAgIGlmKGJlc3Q+MCl0ZXh0KCdNRUpPUjogJytiZXN0LFcvMiw1MzAsMTYsJyNlZGY4ZjAnKTsKICB9CiAgaWYoc3RhdGU9PT0nb3ZlcicpewogICAgY3R4LmZpbGxTdHlsZT0ncmdiYSg1LDEwLDgsLjc4KSc7Y3R4LmZpbGxSZWN0KDMwLDAsMzAwLEgpOwogICAgdGV4dCgnR0FNRSBPVkVSJyxXLzIsMTcwLDMwLCcjZmYzZDZlJywnOTAwJyk7CiAgICB0ZXh0KFN0cmluZyhzY29yZSksVy8yLDIzNSw1MiwnI2VkZjhmMCcsJzkwMCcpOwogICAgdGV4dCgnUFVOVE9TIMK3ICcrY29pbnMrJyBHRU1BUycsVy8yLDI3OCwxMiwnIzkxYTk5YScsJzcwMCcpOwogICAgaWYobmV3QmVzdCl0ZXh0KCfCoU5VRVZPIFLDiUNPUkQhJyxXLzIsMzIwLDE4LCcjNTVmNThiJyk7CiAgICBlbHNlIHRleHQoJ01FSk9SOiAnK2Jlc3QsVy8yLDMyMCwxNSwnIzkxYTk5YScsJzcwMCcpOwogICAgY3R4LnN0cm9rZVN0eWxlPScjNTVmNThiJztjdHgubGluZVdpZHRoPTI7cnIoU0hBUkUueCxTSEFSRS55LFNIQVJFLncsU0hBUkUuaCwxMCk7Y3R4LnN0cm9rZSgpOwogICAgdGV4dCgnQ09NUEFSVElSJyxXLzIsU0hBUkUueStTSEFSRS5oLzIsMTQsJyM1NWY1OGInKTsKICAgIGlmKG92ZXJUPD0wKXRleHQoTWF0aC5mbG9vcihEYXRlLm5vdygpLzUwMCklMj8nVE9Dw4EgUEFSQSBSRUlOVEVOVEFSJzonJyxXLzIsNTQwLDE1LCcjZWRmOGYwJyk7CiAgfQogIGlmKGZsYXNoPjApe2N0eC5maWxsU3R5bGU9J3JnYmEoMjU1LDI1NSwyNTUsJysoZmxhc2gqLjUpKycpJztjdHguZmlsbFJlY3QoMCwwLFcsSCl9CiAgaWYodG9hc3RUPjApdGV4dCh0b2FzdE1zZyxXLzIsNjAwLDE0LCcjZWRmOGYwJyk7Cn0KCi8qIC0tLS0tLS0tLS0gRW50cmFkYSAtLS0tLS0tLS0tICovCmxldCBkb3duPW51bGw7CmFkZEV2ZW50TGlzdGVuZXIoJ3BvaW50ZXJkb3duJyxlPT57ZG93bj17eDplLmNsaWVudFh9O3dha2UoKX0pOwphZGRFdmVudExpc3RlbmVyKCdwb2ludGVydXAnLGU9PnsKICBpZighZG93bilyZXR1cm47CiAgY29uc3QgZHg9ZS5jbGllbnRYLWRvd24ueDtkb3duPW51bGw7CiAgY29uc3QgZ3g9KGUuY2xpZW50WC1veCkvc2NhbGUsZ3k9KGUuY2xpZW50WS1veSkvc2NhbGU7CiAgaWYoZ3g+MjkwJiZneDwzNTUmJmd5PDU0KXttdXRlZD0hbXV0ZWQ7cmV0dXJufQogIGlmKHN0YXRlPT09J292ZXInJiZpblJlY3QoZ3gsZ3ksU0hBUkUpKXtzaGFyZSgpO3JldHVybn0KICBpZihzdGF0ZSE9PSdwbGF5Jyl7aWYoc3RhdGU9PT0nbWVudSd8fG92ZXJUPD0wKXN0YXJ0KCk7cmV0dXJufQogIGlmKE1hdGguYWJzKGR4KT4zMCltb3ZlKGR4PjA/MTotMSk7ZWxzZSBtb3ZlKGd4PFcvMj8tMToxKTsKfSk7CmFkZEV2ZW50TGlzdGVuZXIoJ2tleWRvd24nLGU9PnsKICBjb25zdCBrPWUua2V5O3dha2UoKTsKICBpZihrPT09J0Fycm93TGVmdCd8fGs9PT0nYSd8fGs9PT0nQScpe2lmKHN0YXRlPT09J3BsYXknKW1vdmUoLTEpfQogIGVsc2UgaWYoaz09PSdBcnJvd1JpZ2h0J3x8az09PSdkJ3x8az09PSdEJyl7aWYoc3RhdGU9PT0ncGxheScpbW92ZSgxKX0KICBlbHNlIGlmKGs9PT0nICd8fGs9PT0nRW50ZXInKXtlLnByZXZlbnREZWZhdWx0KCk7aWYoc3RhdGUhPT0ncGxheScmJihzdGF0ZT09PSdtZW51J3x8b3ZlclQ8PTApKXN0YXJ0KCl9CiAgZWxzZSBpZihrPT09J20nfHxrPT09J00nKW11dGVkPSFtdXRlZDsKfSk7CmZ1bmN0aW9uIHRvYXN0KG0pe3RvYXN0TXNnPW07dG9hc3RUPTJ9CmZ1bmN0aW9uIHNoYXJlKCl7CiAgY29uc3QgdHh0PSdIaWNlICcrc2NvcmUrJyBwdW50b3MgZW4gTUlORSBSVU4g8J+UpSDCv01lIGdhbsOhcz8nOwogIGlmKG5hdmlnYXRvci5zaGFyZSl7bmF2aWdhdG9yLnNoYXJlKHt0aXRsZTonTUlORSBSVU4nLHRleHQ6dHh0LHVybDpsb2NhdGlvbi5ocmVmfSkuY2F0Y2goKCk9Pnt9KX0KICBlbHNlIGlmKG5hdmlnYXRvci5jbGlwYm9hcmQpe25hdmlnYXRvci5jbGlwYm9hcmQud3JpdGVUZXh0KHR4dCsnICcrbG9jYXRpb24uaHJlZikudGhlbigoKT0+dG9hc3QoJ8KhQ29waWFkbyEnKSkuY2F0Y2goKCk9PnRvYXN0KCdObyBzZSBwdWRvIGNvcGlhcicpKX0KICBlbHNlIHRvYXN0KCdDb21wYXJ0aXIgbm8gZGlzcG9uaWJsZScpOwp9CgovKiAtLS0tLS0tLS0tIExvb3AgLS0tLS0tLS0tLSAqLwpsZXQgbGFzdD1wZXJmb3JtYW5jZS5ub3coKTsKZnVuY3Rpb24gbG9vcChub3cpewogIGNvbnN0IGR0PU1hdGgubWluKC4wNSwobm93LWxhc3QpLzEwMDApO2xhc3Q9bm93OwogIHVwZGF0ZShkdCk7ZHJhdygpO3JlcXVlc3RBbmltYXRpb25GcmFtZShsb29wKTsKfQpyZXF1ZXN0QW5pbWF0aW9uRnJhbWUobG9vcCk7Cjwvc2NyaXB0Pgo8L2JvZHk+CjwvaHRtbD4K</script>
+<script type="text/plain" id="src_dungeon">PCFkb2N0eXBlIGh0bWw+CjxodG1sIGxhbmc9ImVzIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCxpbml0aWFsLXNjYWxlPTEsbWF4aW11bS1zY2FsZT0xLHVzZXItc2NhbGFibGU9bm8iPgo8bWV0YSBuYW1lPSJ0aGVtZS1jb2xvciIgY29udGVudD0iIzA1MGEwOCI+Cjx0aXRsZT5ERUVQIERVTkdFT048L3RpdGxlPgo8bGluayBocmVmPSJodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2NzczI/ZmFtaWx5PU9yYml0cm9uOndnaHRANjAwOzgwMDs5MDAmZmFtaWx5PVJhamRoYW5pOndnaHRANTAwOzYwMDs3MDAmZGlzcGxheT1zd2FwIiByZWw9InN0eWxlc2hlZXQiPgo8c3R5bGU+Cjpyb290ey0tYmc6IzA1MGEwODstLXBhbmVsOiMwYjE1MTA7LS1saW5lOiMxYjNiMjg7LS1ncmVlbjojNTVmNThiOy0tcmVkOiNmZjNkNmU7LS1nb2xkOiNmZmQxNjY7LS1ibHVlOiM1YWM4ZmY7LS1tdXRlZDojOTFhOTlhOy0td2hpdGU6I2VkZjhmMH0KKntib3gtc2l6aW5nOmJvcmRlci1ib3g7LXdlYmtpdC10YXAtaGlnaGxpZ2h0LWNvbG9yOnRyYW5zcGFyZW50fQpodG1sLGJvZHl7bWFyZ2luOjA7YmFja2dyb3VuZDp2YXIoLS1iZyk7Y29sb3I6dmFyKC0td2hpdGUpO2ZvbnQ6NjAwIDE1cHggUmFqZGhhbmksc3lzdGVtLXVpLHNhbnMtc2VyaWY7LXdlYmtpdC11c2VyLXNlbGVjdDpub25lO3VzZXItc2VsZWN0Om5vbmV9CmJvZHl7bWluLWhlaWdodDoxMDB2aDtiYWNrZ3JvdW5kOnJhZGlhbC1ncmFkaWVudChlbGxpcHNlIGF0IDUwJSAwJSwjMGYyYTFhIDAlLCMwNTBhMDggNjAlKX0KI2FwcHttYXgtd2lkdGg6NTIwcHg7bWFyZ2luOjAgYXV0bztwYWRkaW5nOjEycHggMTJweCA0MHB4fQpoZWFkZXJ7ZGlzcGxheTpmbGV4O2FsaWduLWl0ZW1zOmNlbnRlcjtnYXA6MTJweDtiYWNrZ3JvdW5kOnZhcigtLXBhbmVsKTtib3JkZXI6MXB4IHNvbGlkIHZhcigtLWxpbmUpO2JvcmRlci1yYWRpdXM6MTRweDtwYWRkaW5nOjEwcHggMTRweH0KI3Jhbmt7d2lkdGg6NDZweDtoZWlnaHQ6NDZweDtib3JkZXItcmFkaXVzOjEycHg7ZGlzcGxheTpncmlkO3BsYWNlLWl0ZW1zOmNlbnRlcjtmb250OjkwMCAyNHB4IE9yYml0cm9uLHNhbnMtc2VyaWY7Y29sb3I6dmFyKC0tZ3JlZW4pO2JvcmRlcjoycHggc29saWQgdmFyKC0tZ3JlZW4pO2JveC1zaGFkb3c6MCAwIDE0cHggIzU1ZjU4YjU1fQouaGx7ZmxleDoxfS5obCBie2ZvbnQ6ODAwIDE2cHggT3JiaXRyb24sc2Fucy1zZXJpZjtkaXNwbGF5OmJsb2NrfS5obCBzbWFsbHtjb2xvcjp2YXIoLS1tdXRlZCl9CiNnb2xke2ZvbnQ6ODAwIDE2cHggT3JiaXRyb24sc2Fucy1zZXJpZjtjb2xvcjp2YXIoLS1nb2xkKX0KI2FyZW5he3Bvc2l0aW9uOnJlbGF0aXZlO21hcmdpbi10b3A6MTBweDtiYWNrZ3JvdW5kOmxpbmVhci1ncmFkaWVudCgxODBkZWcsIzBhMWExMSwjMDcxMDBiKTtib3JkZXI6MXB4IHNvbGlkIHZhcigtLWxpbmUpO2JvcmRlci1yYWRpdXM6MTZweDtwYWRkaW5nOjE0cHg7b3ZlcmZsb3c6aGlkZGVufQojbmF2e2Rpc3BsYXk6ZmxleDthbGlnbi1pdGVtczpjZW50ZXI7anVzdGlmeS1jb250ZW50OnNwYWNlLWJldHdlZW47bWFyZ2luLWJvdHRvbTo2cHh9CiNuYXYgYnV0dG9ue3dpZHRoOjM4cHg7aGVpZ2h0OjM0cHg7Ym9yZGVyLXJhZGl1czo5cHg7Ym9yZGVyOjFweCBzb2xpZCAjMzQ3YzQ5O2JhY2tncm91bmQ6IzEyMzUxZTtjb2xvcjp2YXIoLS1ncmVlbik7Zm9udC1zaXplOjE2cHg7Y3Vyc29yOnBvaW50ZXJ9CiNmbmFtZXtmb250OjcwMCAxMnB4IE9yYml0cm9uLHNhbnMtc2VyaWY7Y29sb3I6dmFyKC0tbXV0ZWQpO2xldHRlci1zcGFjaW5nOjFweH0KI2VuZW15e3RleHQtYWxpZ246Y2VudGVyO2N1cnNvcjpwb2ludGVyO3BhZGRpbmc6NnB4IDAgNHB4fQojZWVtb2ppe2ZvbnQtc2l6ZTo4NHB4O2xpbmUtaGVpZ2h0OjEuMTtmaWx0ZXI6ZHJvcC1zaGFkb3coMCAwIDE0cHggI2ZmM2Q2ZTY2KTt0cmFuc2l0aW9uOnRyYW5zZm9ybSAuMDhzfQojZWVtb2ppLmhpdHt0cmFuc2Zvcm06c2NhbGUoLjg4KX0KI2VuYW1le2ZvbnQ6NzAwIDEzcHggT3JiaXRyb24sc2Fucy1zZXJpZjttYXJnaW46MnB4IDAgOHB4fQouYmFye3Bvc2l0aW9uOnJlbGF0aXZlO2hlaWdodDoxOHB4O2JhY2tncm91bmQ6IzA3MTIwYjtib3JkZXI6MXB4IHNvbGlkIHZhcigtLWxpbmUpO2JvcmRlci1yYWRpdXM6OXB4O292ZXJmbG93OmhpZGRlbjttYXJnaW46NnB4IDB9Ci5iYXIgaXtwb3NpdGlvbjphYnNvbHV0ZTtpbnNldDowIGF1dG8gMCAwO3dpZHRoOjEwMCU7YmFja2dyb3VuZDpsaW5lYXItZ3JhZGllbnQoOTBkZWcsI2MyMWY0YSx2YXIoLS1yZWQpKTt0cmFuc2l0aW9uOndpZHRoIC4xMnN9Ci5iYXIucGwgaXtiYWNrZ3JvdW5kOmxpbmVhci1ncmFkaWVudCg5MGRlZywjMWY5YzRmLHZhcigtLWdyZWVuKSl9Ci5iYXIueHAgaXtiYWNrZ3JvdW5kOmxpbmVhci1ncmFkaWVudCg5MGRlZywjMmE3ZmIwLHZhcigtLWJsdWUpKX0KLmJhci54cHtoZWlnaHQ6MTJweH0KLmJhciBie3Bvc2l0aW9uOmFic29sdXRlO2luc2V0OjA7ZGlzcGxheTpncmlkO3BsYWNlLWl0ZW1zOmNlbnRlcjtmb250LXNpemU6MTFweDt0ZXh0LXNoYWRvdzowIDFweCAycHggIzAwMH0KI2Z4e3Bvc2l0aW9uOmFic29sdXRlO2luc2V0OjA7cG9pbnRlci1ldmVudHM6bm9uZX0KLmRtZ3twb3NpdGlvbjphYnNvbHV0ZTtmb250OjkwMCAyMHB4IE9yYml0cm9uLHNhbnMtc2VyaWY7Y29sb3I6I2ZmZjt0ZXh0LXNoYWRvdzowIDAgOHB4ICMwMDA7YW5pbWF0aW9uOnJpc2UgLjhzIGVhc2Utb3V0IGZvcndhcmRzfQouZG1nLmNyaXR7Y29sb3I6dmFyKC0tZ29sZCk7Zm9udC1zaXplOjI2cHh9LmRtZy5za2lsbHtjb2xvcjp2YXIoLS1ibHVlKTtmb250LXNpemU6MjZweH0uZG1nLnBse2NvbG9yOnZhcigtLXJlZCl9LmRtZy5ibGt7Y29sb3I6dmFyKC0tZ3JlZW4pO2ZvbnQtc2l6ZToxNXB4fQpAa2V5ZnJhbWVzIHJpc2V7ZnJvbXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgwKTtvcGFjaXR5OjF9dG97dHJhbnNmb3JtOnRyYW5zbGF0ZVkoLTcwcHgpO29wYWNpdHk6MH19CiNza2lsbHN7ZGlzcGxheTpncmlkO2dyaWQtdGVtcGxhdGUtY29sdW1uczoxZnIgMWZyIDFmcjtnYXA6OHB4O21hcmdpbi10b3A6MTBweH0KLmJ0bntib3JkZXI6MXB4IHNvbGlkICMzNDdjNDk7YmFja2dyb3VuZDojMTIzNTFlO2NvbG9yOnZhcigtLWdyZWVuKTtwYWRkaW5nOjExcHggNnB4O2JvcmRlci1yYWRpdXM6MTBweDtjdXJzb3I6cG9pbnRlcjtmb250OjcwMCAxM3B4IFJhamRoYW5pLHNhbnMtc2VyaWZ9Ci5idG46ZGlzYWJsZWR7b3BhY2l0eTouNDU7Y3Vyc29yOm5vdC1hbGxvd2VkfQouYnRuLm9ue2JhY2tncm91bmQ6IzFiNWEzMn0KI2xvZ3ttYXJnaW4tdG9wOjEwcHg7YmFja2dyb3VuZDp2YXIoLS1wYW5lbCk7Ym9yZGVyOjFweCBzb2xpZCB2YXIoLS1saW5lKTtib3JkZXItcmFkaXVzOjEycHg7cGFkZGluZzo4cHggMTJweDttaW4taGVpZ2h0Ojg0cHg7Y29sb3I6dmFyKC0tbXV0ZWQpO2ZvbnQtc2l6ZToxM3B4O2xpbmUtaGVpZ2h0OjEuNX0KI3RhYnN7ZGlzcGxheTpncmlkO2dyaWQtdGVtcGxhdGUtY29sdW1uczpyZXBlYXQoMywxZnIpO2dhcDo2cHg7bWFyZ2luLXRvcDoxMnB4fQojdGFicyAuYnRuLmFjdGl2ZXtiYWNrZ3JvdW5kOiMxYjVhMzI7Ym94LXNoYWRvdzppbnNldCAwIDAgMCAxcHggdmFyKC0tZ3JlZW4pfQoudGFie2Rpc3BsYXk6bm9uZTttYXJnaW4tdG9wOjEwcHg7YmFja2dyb3VuZDp2YXIoLS1wYW5lbCk7Ym9yZGVyOjFweCBzb2xpZCB2YXIoLS1saW5lKTtib3JkZXItcmFkaXVzOjE0cHg7cGFkZGluZzoxMnB4fQoudGFiLmFjdGl2ZXtkaXNwbGF5OmJsb2NrfQoucm93e2Rpc3BsYXk6ZmxleDthbGlnbi1pdGVtczpjZW50ZXI7anVzdGlmeS1jb250ZW50OnNwYWNlLWJldHdlZW47Z2FwOjEwcHg7cGFkZGluZzo5cHggMDtib3JkZXItYm90dG9tOjFweCBzb2xpZCAjMTgzMDIzfQoucm93Omxhc3QtY2hpbGR7Ym9yZGVyOjB9LnJvdyBzbWFsbHtkaXNwbGF5OmJsb2NrO2NvbG9yOnZhcigtLW11dGVkKTtmb250LXdlaWdodDo1MDB9Ci5yb3cgLmJ0bnttaW4td2lkdGg6ODRweH0KLnB0c3tjb2xvcjp2YXIoLS1nb2xkKTtmb250OjgwMCAxNHB4IE9yYml0cm9uLHNhbnMtc2VyaWY7bWFyZ2luLWJvdHRvbTo2cHh9Ci5kZXJpdmVke2Rpc3BsYXk6Z3JpZDtncmlkLXRlbXBsYXRlLWNvbHVtbnM6MWZyIDFmcjtnYXA6NnB4O21hcmdpbi10b3A6MTBweDtjb2xvcjp2YXIoLS1tdXRlZCk7Zm9udC1zaXplOjEzcHh9Ci50b2FzdHtwb3NpdGlvbjpmaXhlZDtsZWZ0OjUwJTtib3R0b206MjBweDt0cmFuc2Zvcm06dHJhbnNsYXRlWCgtNTAlKTtiYWNrZ3JvdW5kOiMxMjM1MWU7Ym9yZGVyOjFweCBzb2xpZCB2YXIoLS1ncmVlbik7Y29sb3I6dmFyKC0td2hpdGUpO3BhZGRpbmc6MTBweCAxNnB4O2JvcmRlci1yYWRpdXM6MTBweDt6LWluZGV4Ojk7ZGlzcGxheTpub25lfQo8L3N0eWxlPgo8L2hlYWQ+Cjxib2R5Pgo8ZGl2IGlkPSJhcHAiPgogIDxoZWFkZXI+CiAgICA8ZGl2IGlkPSJyYW5rIj5FPC9kaXY+CiAgICA8ZGl2IGNsYXNzPSJobCI+PGIgaWQ9ImZsb29yVCI+UElTTyAxPC9iPjxzbWFsbCBpZD0ibHZsVCI+TnYgMTwvc21hbGw+PC9kaXY+CiAgICA8ZGl2IGlkPSJnb2xkIj7wn5KwIDA8L2Rpdj4KICA8L2hlYWRlcj4KCiAgPHNlY3Rpb24gaWQ9ImFyZW5hIj4KICAgIDxkaXYgaWQ9Im5hdiI+PGJ1dHRvbiBpZD0iZmRuIiBhcmlhLWxhYmVsPSJQaXNvIGFudGVyaW9yIj7il4A8L2J1dHRvbj48c3BhbiBpZD0iZm5hbWUiPjwvc3Bhbj48YnV0dG9uIGlkPSJmdXAiIGFyaWEtbGFiZWw9IlBpc28gc2lndWllbnRlIj7ilrY8L2J1dHRvbj48L2Rpdj4KICAgIDxkaXYgaWQ9ImVuZW15Ij48ZGl2IGlkPSJlZW1vamkiPvCfkIA8L2Rpdj48ZGl2IGlkPSJlbmFtZSI+4oCUPC9kaXY+PGRpdiBjbGFzcz0iYmFyIj48aSBpZD0iZWhwIj48L2k+PGIgaWQ9ImVocHQiPjwvYj48L2Rpdj48L2Rpdj4KICAgIDxkaXYgaWQ9ImZ4Ij48L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImJhciBwbCI+PGkgaWQ9InBocCI+PC9pPjxiIGlkPSJwaHB0Ij48L2I+PC9kaXY+CiAgICA8ZGl2IGNsYXNzPSJiYXIgeHAiPjxpIGlkPSJ4cGIiPjwvaT48YiBpZD0ieHB0Ij48L2I+PC9kaXY+CiAgICA8ZGl2IGlkPSJza2lsbHMiPgogICAgICA8YnV0dG9uIGNsYXNzPSJidG4iIGlkPSJzMSI+4pqU77iPIFRham88L2J1dHRvbj4KICAgICAgPGJ1dHRvbiBjbGFzcz0iYnRuIiBpZD0iczIiPvCfm6HvuI8gQmFycmVyYTwvYnV0dG9uPgogICAgICA8YnV0dG9uIGNsYXNzPSJidG4iIGlkPSJhdXRvQnRuIj5BVVRPPC9idXR0b24+CiAgICA8L2Rpdj4KICA8L3NlY3Rpb24+CgogIDxkaXYgaWQ9ImxvZyI+PC9kaXY+CgogIDxkaXYgaWQ9InRhYnMiPgogICAgPGJ1dHRvbiBjbGFzcz0iYnRuIGFjdGl2ZSIgZGF0YS10PSJzdGF0cyI+QVRSSUJVVE9TPC9idXR0b24+CiAgICA8YnV0dG9uIGNsYXNzPSJidG4iIGRhdGEtdD0ic2hvcCI+VElFTkRBPC9idXR0b24+CiAgICA8YnV0dG9uIGNsYXNzPSJidG4iIGRhdGEtdD0iaW5mbyI+SU5GTzwvYnV0dG9uPgogIDwvZGl2PgoKICA8c2VjdGlvbiBjbGFzcz0idGFiIGFjdGl2ZSIgaWQ9InRhYi1zdGF0cyI+PC9zZWN0aW9uPgogIDxzZWN0aW9uIGNsYXNzPSJ0YWIiIGlkPSJ0YWItc2hvcCI+PC9zZWN0aW9uPgogIDxzZWN0aW9uIGNsYXNzPSJ0YWIiIGlkPSJ0YWItaW5mbyI+CiAgICA8cD5UdSBjYXphZG9yIHBlbGVhIHNvbG8gY29udHJhIGxvcyBtb25zdHJ1b3MgZGVsIHBpc28uIDxiPlRvY8OhIGFsIGVuZW1pZ288L2I+IHBhcmEgcGVnYXJsZSBleHRyYS48L3A+CiAgICA8cD5DYWRhIG5pdmVsIHRlIGRhIDxiPjMgcHVudG9zPC9iPiBwYXJhIHJlcGFydGlyLiBDb24gZWwgb3JvIG1lam9yw6FzIGFybWEgeSBhcm1hZHVyYS48L3A+CiAgICA8cD5DYWRhIDEwIHBpc29zIGhheSB1biA8Yj5qZWZlPC9iPi4gU2kgbW9yw61zLCB2b2x2w6lzIHVuIHBpc28gYXRyw6FzIHkgc2UgYXBhZ2EgZWwgYXZhbmNlIGF1dG9tw6F0aWNvOiBmYXJtZcOhIGhhc3RhIGVzdGFyIG3DoXMgZnVlcnRlLjwvcD4KICAgIDxwPlJhbmdvczogRSDihpIgRCAocGlzbyAxMCkg4oaSIEMgKDI1KSDihpIgQiAoNDUpIOKGkiBBICg3MCkg4oaSIFMgKDEwMCkuPC9wPgogICAgPHA+RWwgcHJvZ3Jlc28gc2UgZ3VhcmRhIGVuIGVzdGUgbmF2ZWdhZG9yIHkgZ2Fuw6FzIG9ybyB5IGV4cGVyaWVuY2lhIGF1bnF1ZSBjaWVycmVzIGVsIGp1ZWdvIChoYXN0YSAyIGhvcmFzKS48L3A+CiAgICA8YnV0dG9uIGNsYXNzPSJidG4iIGlkPSJyZXNldEJ0biIgc3R5bGU9IndpZHRoOjEwMCU7bWFyZ2luLXRvcDo2cHgiPkJvcnJhciBwcm9ncmVzbzwvYnV0dG9uPgogIDwvc2VjdGlvbj4KPC9kaXY+CjxkaXYgY2xhc3M9InRvYXN0IiBpZD0idG9hc3QiPjwvZGl2PgoKPHNjcmlwdD4KJ3VzZSBzdHJpY3QnOwpjb25zdCAkPXM9PmRvY3VtZW50LnF1ZXJ5U2VsZWN0b3Iocyk7CmNvbnN0IEtFWT0nZHVuZ2Vvbl9hc2NlbnRfdjEnOwoKLyogLS0tLS0tLS0tLSBFc3RhZG8gLS0tLS0tLS0tLSAqLwpsZXQgUz17bHZsOjEseHA6MCxwdHM6MCxzdDp7c3RyOjEsYWdpOjEsdml0OjEsaW50OjF9LGdvbGQ6MCx3cG46MCxhcm06MCxmbG9vcjoxLGJlc3Q6MSxhdXRvOnRydWUsbGFzdDpEYXRlLm5vdygpfTsKdHJ5ewogIGNvbnN0IHN2PUpTT04ucGFyc2UobG9jYWxTdG9yYWdlLmdldEl0ZW0oS0VZKXx8J251bGwnKTsKICBpZihzdiYmdHlwZW9mIHN2PT09J29iamVjdCcpUz17Li4uUywuLi5zdixzdDp7Li4uUy5zdCwuLi4oc3Yuc3R8fHt9KX19Owp9Y2F0Y2goZSl7fQpmdW5jdGlvbiBzYXZlKCl7Uy5sYXN0PURhdGUubm93KCk7dHJ5e2xvY2FsU3RvcmFnZS5zZXRJdGVtKEtFWSxKU09OLnN0cmluZ2lmeShTKSl9Y2F0Y2goZSl7fX0KCi8qIC0tLS0tLS0tLS0gRsOzcm11bGFzIC0tLS0tLS0tLS0gKi8KY29uc3QgYXRrPSgpPT5NYXRoLmZsb29yKCg1K1Muc3Quc3RyKjIuMitTLndwbio0KSooMStTLndwbiouMDMpKTsKY29uc3QgbWF4aHA9KCk9Pk1hdGguZmxvb3IoNTArUy5zdC52aXQqMTIrUy5hcm0qMTApOwpjb25zdCBkZWZuPSgpPT5TLmFybSoxLjYrUy5zdC52aXQqLjQ7CmNvbnN0IGNyaXRDPSgpPT5NYXRoLm1pbiguNiwuMDUrUy5zdC5hZ2kqLjAwNik7CmNvbnN0IGFzcGQ9KCk9Pk1hdGgubWF4KC40NSwxLjItUy5zdC5hZ2kqLjAxMik7CmNvbnN0IG5lZWQ9KCk9Pk1hdGguZmxvb3IoMzAqTWF0aC5wb3coMS4yMixTLmx2bC0xKSk7CmNvbnN0IHdDb3N0PSgpPT5NYXRoLmZsb29yKDUwKk1hdGgucG93KDEuNSxTLndwbikpOwpjb25zdCBhQ29zdD0oKT0+TWF0aC5mbG9vcig0MCpNYXRoLnBvdygxLjUsUy5hcm0pKTsKY29uc3Qgc2tpbGxEbWc9KCk9PmF0aygpKjMrUy5zdC5pbnQqNDsKY29uc3QgUkFOS1M9W1swLCdFJ10sWzEwLCdEJ10sWzI1LCdDJ10sWzQ1LCdCJ10sWzcwLCdBJ10sWzEwMCwnUyddXTsKZnVuY3Rpb24gcmFua09mKGYpe2xldCByPSdFJztmb3IoY29uc3QgW24sbF0gb2YgUkFOS1MpaWYoZj49bilyPWw7cmV0dXJuIHJ9CgovKiAtLS0tLS0tLS0tIEVuZW1pZ29zIC0tLS0tLS0tLS0gKi8KY29uc3QgTkFNRVM9WydSYXRhIGRlIGN1ZXZhJywnTXVyY2nDqWxhZ28nLCdBcmHDsWEgZ2lnYW50ZScsJ0xvYm8nLCdPcmNvJywnWm9tYmknLCdFc2NvcnBpw7NuJywnU2VycGllbnRlJywnRXNwZWN0cm8nLCdEZW1vbmlvJ107CmNvbnN0IEVNTz1bJ/CfkIAnLCfwn6aHJywn8J+Vt++4jycsJ/CfkLonLCfwn5G5Jywn8J+nnycsJ/CfpoInLCfwn5CNJywn8J+RuycsJ/CfmIgnXTsKY29uc3QgQk5BTUVTPVsnR3VhcmRpw6FuIGRlIGh1ZXNvcycsJ0RyYWfDs24gbWVub3InLCdPam8gZGVsIGFiaXNtbycsJ0tyYWtlbiBkZWwgYWJpc21vJywnUmV5IGRlbCBjYWxhYm96byddOwpjb25zdCBCRU1PPVsn8J+SgCcsJ/CfkIknLCfwn5GB77iPJywn8J+mkScsJ/CfkZEnXTsKZnVuY3Rpb24gbWtFbmVteSgpewogIGNvbnN0IGY9Uy5mbG9vcixib3NzPWYlMTA9PT0wLHQ9TWF0aC5mbG9vcigoZi0xKS81KSVOQU1FUy5sZW5ndGgsYj1NYXRoLmZsb29yKGYvMTAtMSklQk5BTUVTLmxlbmd0aDsKICBjb25zdCBocD1NYXRoLmZsb29yKDIyKk1hdGgucG93KDEuMTQsZi0xKSooYm9zcz81OjEpKTsKICByZXR1cm57bmFtZTpib3NzP0JOQU1FU1tiXTpOQU1FU1t0XSxlbW9qaTpib3NzP0JFTU9bYl06RU1PW3RdLGhwLG1heDpocCwKICAgIGF0azpNYXRoLmZsb29yKDQqTWF0aC5wb3coMS4wOSxmLTEpKihib3NzPzEuODoxKSksCiAgICBnb2xkOk1hdGguZmxvb3IoKDYrZioyLjIpKihib3NzPzY6MSkpLHhwOk1hdGguZmxvb3IoKDgrZioyLjUpKihib3NzPzU6MSkpLGJvc3N9Owp9CgovKiAtLS0tLS0tLS0tIFJ1bnRpbWUgLS0tLS0tLS0tLSAqLwpsZXQgcGhwPW1heGhwKCksZT1ta0VuZW15KCksYXRrVD0wLGVUPTEuMixjZDE9MCxjZDI9MCxzaGllbGQ9MCxkZWFkVD0wLGxhc3RUYXA9MCxsb2dzPVtdOwpmdW5jdGlvbiBsb2cobSl7bG9ncy51bnNoaWZ0KG0pO2xvZ3M9bG9ncy5zbGljZSgwLDUpOyQoJyNsb2cnKS5pbm5lckhUTUw9bG9ncy5tYXAoeD0+JzxkaXY+Jyt4Kyc8L2Rpdj4nKS5qb2luKCcnKX0KZnVuY3Rpb24gdG9hc3QobSl7Y29uc3QgdD0kKCcjdG9hc3QnKTt0LnRleHRDb250ZW50PW07dC5zdHlsZS5kaXNwbGF5PSdibG9jayc7Y2xlYXJUaW1lb3V0KHRvYXN0LmgpO3RvYXN0Lmg9c2V0VGltZW91dCgoKT0+dC5zdHlsZS5kaXNwbGF5PSdub25lJywyNjAwKX0KZnVuY3Rpb24gZngodHh0LGNscyx4KXsKICBjb25zdCBmeEVsPSQoJyNmeCcpO2lmKGZ4RWwuY2hpbGRyZW4ubGVuZ3RoPjE4KWZ4RWwuZmlyc3RDaGlsZC5yZW1vdmUoKTsKICBjb25zdCBkPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO2QuY2xhc3NOYW1lPSdkbWcgJytjbHM7ZC50ZXh0Q29udGVudD10eHQ7CiAgZC5zdHlsZS5sZWZ0PSh4Pz8oMzUrTWF0aC5yYW5kb20oKSozMCkpKyclJztkLnN0eWxlLnRvcD0oY2xzLmluY2x1ZGVzKCdwbCcpPyc2MiUnOicyNiUnKTsKICBmeEVsLmFwcGVuZChkKTtzZXRUaW1lb3V0KCgpPT5kLnJlbW92ZSgpLDgwMCk7Cn0KZnVuY3Rpb24gYWRkWHAobil7CiAgUy54cCs9bjsKICB3aGlsZShTLnhwPj1uZWVkKCkpe1MueHAtPW5lZWQoKTtTLmx2bCsrO1MucHRzKz0zO3RyeXtwYXJlbnQucG9zdE1lc3NhZ2Uoe3NoOidyZXdhcmQnLGdhbWU6J2R1bmdlb24nLGtpbmQ6J2xldmVsJ30sJyonKX1jYXRjaCh4KXt9cGhwPW1heGhwKCk7bG9nKCfirIbvuI8gwqFTdWJpc3RlIGFsIG5pdmVsICcrUy5sdmwrJyEgKCszIHB1bnRvcyknKTt0b2FzdCgnwqFOaXZlbCAnK1MubHZsKychJyl9Cn0KZnVuY3Rpb24gZGVhbHQoZCxjcml0LGtpbmQpewogIGlmKCFlfHxkZWFkVD4wKXJldHVybjsKICBlLmhwLT1kOwogIGZ4KChjcml0Pyfwn5KlICc6JycpK2Qsa2luZD09PSdza2lsbCc/J3NraWxsJzooY3JpdD8nY3JpdCc6JycpKTsKICBjb25zdCBlbT0kKCcjZWVtb2ppJyk7ZW0uY2xhc3NMaXN0LmFkZCgnaGl0Jyk7c2V0VGltZW91dCgoKT0+ZW0uY2xhc3NMaXN0LnJlbW92ZSgnaGl0JyksODApOwogIGlmKGUuaHA8PTApa2lsbCgpOwp9CmZ1bmN0aW9uIGtpbGwoKXsKICBTLmdvbGQrPWUuZ29sZDthZGRYcChlLnhwKTsKICBsb2coKGUuYm9zcz8n8J+RkSBKZWZlIGRlcnJvdGFkbzogJzon4pig77iPICcpK2UubmFtZSsnIMK3ICsnK2UuZ29sZCsnIG9ybyDCtyArJytlLnhwKycgeHAnKTsKICBpZihlLmJvc3Mpe3RyeXtwYXJlbnQucG9zdE1lc3NhZ2Uoe3NoOidyZXdhcmQnLGdhbWU6J2R1bmdlb24nLGtpbmQ6J2Jvc3MnfSwnKicpfWNhdGNoKHgpe319CiAgaWYoUy5hdXRvKXtTLmZsb29yKys7Uy5iZXN0PU1hdGgubWF4KFMuYmVzdCxTLmZsb29yKX0KICBlPW1rRW5lbXkoKTtlVD0xLjI7cmVuZGVyUGFuZWxzKCk7Cn0KZnVuY3Rpb24gZGllKCl7CiAgZGVhZFQ9Mi41O1MuYXV0bz1mYWxzZTtTLmZsb29yPU1hdGgubWF4KDEsUy5mbG9vci0xKTsKICBsb2coJ/CfkoAgQ2HDrXN0ZSBlbiBjb21iYXRlLiBWb2x2w6lzIGFsIHBpc28gJytTLmZsb29yKycgKGF2YW5jZSBhdXRvbcOhdGljbyBhcGFnYWRvKS4nKTsKICByZW5kZXJQYW5lbHMoKTsKfQpmdW5jdGlvbiBwbGF5ZXJBdHRhY2soKXsKICBsZXQgZD1hdGsoKSooLjkrTWF0aC5yYW5kb20oKSouMik7Y29uc3QgY3JpdD1NYXRoLnJhbmRvbSgpPGNyaXRDKCk7aWYoY3JpdClkKj0yOwogIGRlYWx0KE1hdGgubWF4KDEsTWF0aC5mbG9vcihkKSksY3JpdCk7Cn0KZnVuY3Rpb24gdXNlU2tpbGwxKCl7CiAgaWYoY2QxPjB8fGRlYWRUPjApcmV0dXJuOwogIGNvbnN0IGNyaXQ9TWF0aC5yYW5kb20oKTxjcml0QygpO2xldCBkPXNraWxsRG1nKCk7aWYoY3JpdClkKj0yOwogIGRlYWx0KE1hdGguZmxvb3IoZCksY3JpdCwnc2tpbGwnKTtjZDE9NjsKfQpmdW5jdGlvbiB1c2VTa2lsbDIoKXsKICBpZihjZDI+MHx8ZGVhZFQ+MClyZXR1cm47CiAgc2hpZWxkPTIuNTtwaHA9TWF0aC5taW4obWF4aHAoKSxwaHArbWF4aHAoKSouMTUpO2NkMj0xODtmeCgnQkFSUkVSQScsJ2JsaycsNTApOwp9CgpmdW5jdGlvbiB0aWNrKGR0KXsKICBpZihjZDE+MCljZDE9TWF0aC5tYXgoMCxjZDEtZHQpOwogIGlmKGNkMj4wKWNkMj1NYXRoLm1heCgwLGNkMi1kdCk7CiAgaWYoZGVhZFQ+MCl7ZGVhZFQtPWR0O2lmKGRlYWRUPD0wKXtwaHA9bWF4aHAoKTtlPW1rRW5lbXkoKTtlVD0xLjJ9cmV0dXJufQogIGlmKHNoaWVsZD4wKXNoaWVsZC09ZHQ7CiAgcGhwPU1hdGgubWluKG1heGhwKCkscGhwK21heGhwKCkqLjAwNCpkdCk7CiAgYXRrVCs9ZHQ7aWYoYXRrVD49YXNwZCgpKXthdGtUPTA7cGxheWVyQXR0YWNrKCk7aWYoZGVhZFQ+MClyZXR1cm59CiAgZVQtPWR0OwogIGlmKGVUPD0wKXsKICAgIGVUPTEuNTsKICAgIGlmKHNoaWVsZD4wKWZ4KCdCTE9RVUVBRE8nLCdibGsnLDUwKTsKICAgIGVsc2V7CiAgICAgIGNvbnN0IGRtZz1NYXRoLm1heCgxLE1hdGguZmxvb3IoZS5hdGsqKDEtZGVmbigpLyhkZWZuKCkrNjApKSkpOwogICAgICBwaHAtPWRtZztmeCgnLScrZG1nLCdwbCcpOwogICAgICBpZihwaHA8PTApe3BocD0wO2RpZSgpfQogICAgfQogIH0KfQoKLyogLS0tLS0tLS0tLSBJbnRlcmZheiAtLS0tLS0tLS0tICovCmZ1bmN0aW9uIHBjdChhLGIpe3JldHVybiBNYXRoLm1heCgwLE1hdGgubWluKDEwMCxhL2IqMTAwKSkrJyUnfQpmdW5jdGlvbiByZW5kZXIoKXsKICAkKCcjcmFuaycpLnRleHRDb250ZW50PXJhbmtPZihTLmJlc3QpOwogICQoJyNmbG9vclQnKS50ZXh0Q29udGVudD0nUElTTyAnK1MuZmxvb3IrKFMuZmxvb3IlMTA9PT0wPycgwrcgSkVGRSc6JycpOwogICQoJyNsdmxUJykudGV4dENvbnRlbnQ9J052ICcrUy5sdmwrJyDCtyBNZWpvciBwaXNvICcrUy5iZXN0OwogICQoJyNnb2xkJykudGV4dENvbnRlbnQ9J/CfkrAgJytTLmdvbGQudG9Mb2NhbGVTdHJpbmcoJ2VzLUFSJyk7CiAgJCgnI2ZuYW1lJykudGV4dENvbnRlbnQ9Uy5hdXRvPydBVkFOQ0UgQVVUT03DgVRJQ08nOidGQVJNRU8nOwogICQoJyNlZW1vamknKS50ZXh0Q29udGVudD1kZWFkVD4wPyfwn6qmJzplLmVtb2ppOwogICQoJyNlbmFtZScpLnRleHRDb250ZW50PWRlYWRUPjA/J1RlIHJlY3VwZXLDoXPigKYnOmUubmFtZSsoZS5ib3NzPycgKEpFRkUpJzonJyk7CiAgJCgnI2VocCcpLnN0eWxlLndpZHRoPWRlYWRUPjA/JzAlJzpwY3QoZS5ocCxlLm1heCk7CiAgJCgnI2VocHQnKS50ZXh0Q29udGVudD1kZWFkVD4wPycnOk1hdGgubWF4KDAsTWF0aC5jZWlsKGUuaHApKSsnIC8gJytlLm1heDsKICAkKCcjcGhwJykuc3R5bGUud2lkdGg9cGN0KHBocCxtYXhocCgpKTsKICAkKCcjcGhwdCcpLnRleHRDb250ZW50PU1hdGguY2VpbChwaHApKycgLyAnK21heGhwKCk7CiAgJCgnI3hwYicpLnN0eWxlLndpZHRoPXBjdChTLnhwLG5lZWQoKSk7CiAgJCgnI3hwdCcpLnRleHRDb250ZW50PSdYUCAnK1MueHArJyAvICcrbmVlZCgpOwogICQoJyNzMScpLnRleHRDb250ZW50PWNkMT4wPyfimpTvuI8gJytNYXRoLmNlaWwoY2QxKSsncyc6J+KalO+4jyBUYWpvJzskKCcjczEnKS5kaXNhYmxlZD1jZDE+MDsKICAkKCcjczInKS50ZXh0Q29udGVudD1jZDI+MD8n8J+boe+4jyAnK01hdGguY2VpbChjZDIpKydzJzon8J+boe+4jyBCYXJyZXJhJzskKCcjczInKS5kaXNhYmxlZD1jZDI+MDsKICAkKCcjYXV0b0J0bicpLnRleHRDb250ZW50PSdBVVRPOiAnKyhTLmF1dG8/J1PDjSc6J05PJyk7JCgnI2F1dG9CdG4nKS5jbGFzc0xpc3QudG9nZ2xlKCdvbicsUy5hdXRvKTsKfQpjb25zdCBTVEFUX0lORk89e3N0cjpbJ/CfkqogRnVlcnphJywnKzIuMiBhdGFxdWUnXSxhZ2k6WyfimqEgQWdpbGlkYWQnLCd2ZWxvY2lkYWQgeSBjcsOtdGljbyddLHZpdDpbJ+KdpO+4jyBWaXRhbGlkYWQnLCcrMTIgdmlkYSB5IGRlZmVuc2EnXSxpbnQ6Wyfwn5SuIEludGVsaWdlbmNpYScsJ2Rhw7FvIGRlIFRham8nXX07CmZ1bmN0aW9uIHJlbmRlclBhbmVscygpewogIGxldCBoPSc8ZGl2IGNsYXNzPSJwdHMiPlBVTlRPUyBESVNQT05JQkxFUzogJytTLnB0cysnPC9kaXY+JzsKICBmb3IoY29uc3QgayBvZiBPYmplY3Qua2V5cyhTVEFUX0lORk8pKXsKICAgIGgrPSc8ZGl2IGNsYXNzPSJyb3ciPjxkaXY+JytTVEFUX0lORk9ba11bMF0rJyDCtyAnK1Muc3Rba10rJzxzbWFsbD4nK1NUQVRfSU5GT1trXVsxXSsnPC9zbWFsbD48L2Rpdj48YnV0dG9uIGNsYXNzPSJidG4iIGRhdGEtc3Q9IicraysnIiAnKyhTLnB0cz4wPycnOidkaXNhYmxlZCcpKyc+KzE8L2J1dHRvbj48L2Rpdj4nOwogIH0KICBoKz0nPGRpdiBjbGFzcz0iZGVyaXZlZCI+PGRpdj5BdGFxdWU6ICcrYXRrKCkrJzwvZGl2PjxkaXY+VmlkYTogJyttYXhocCgpKyc8L2Rpdj48ZGl2PkNyw610aWNvOiAnK01hdGgucm91bmQoY3JpdEMoKSoxMDApKyclPC9kaXY+PGRpdj5WZWwuIGF0YXF1ZTogJysoMS9hc3BkKCkpLnRvRml4ZWQoMikrJy9zPC9kaXY+PC9kaXY+JzsKICAkKCcjdGFiLXN0YXRzJykuaW5uZXJIVE1MPWg7CiAgbGV0IHM9Jyc7CiAgcys9JzxkaXYgY2xhc3M9InJvdyI+PGRpdj7wn5eh77iPIEFybWEgwrcgTnYgJytTLndwbisnPHNtYWxsPis0IGF0YXF1ZSB5ICszJSBkZSBkYcOxbyB0b3RhbDwvc21hbGw+PC9kaXY+PGJ1dHRvbiBjbGFzcz0iYnRuIiBkYXRhLWJ1eT0id3BuIiAnKyhTLmdvbGQ+PXdDb3N0KCk/Jyc6J2Rpc2FibGVkJykrJz7wn5KwICcrd0Nvc3QoKS50b0xvY2FsZVN0cmluZygnZXMtQVInKSsnPC9idXR0b24+PC9kaXY+JzsKICBzKz0nPGRpdiBjbGFzcz0icm93Ij48ZGl2PvCfm6HvuI8gQXJtYWR1cmEgwrcgTnYgJytTLmFybSsnPHNtYWxsPisxMCB2aWRhIHkgKzEuNiBkZWZlbnNhPC9zbWFsbD48L2Rpdj48YnV0dG9uIGNsYXNzPSJidG4iIGRhdGEtYnV5PSJhcm0iICcrKFMuZ29sZD49YUNvc3QoKT8nJzonZGlzYWJsZWQnKSsnPvCfkrAgJythQ29zdCgpLnRvTG9jYWxlU3RyaW5nKCdlcy1BUicpKyc8L2J1dHRvbj48L2Rpdj4nOwogICQoJyN0YWItc2hvcCcpLmlubmVySFRNTD1zOwp9CmRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJyxldj0+ewogIGNvbnN0IGI9ZXYudGFyZ2V0LmNsb3Nlc3QoJ2J1dHRvbicpO2lmKCFiKXJldHVybjsKICBpZihiLmRhdGFzZXQuc3QmJlMucHRzPjApe1Muc3RbYi5kYXRhc2V0LnN0XSsrO1MucHRzLS07aWYoYi5kYXRhc2V0LnN0PT09J3ZpdCcpcGhwPU1hdGgubWluKG1heGhwKCkscGhwKzEyKTtzYXZlKCk7cmVuZGVyUGFuZWxzKCl9CiAgZWxzZSBpZihiLmRhdGFzZXQuYnV5PT09J3dwbicmJlMuZ29sZD49d0Nvc3QoKSl7Uy5nb2xkLT13Q29zdCgpO1Mud3BuKys7c2F2ZSgpO3JlbmRlclBhbmVscygpfQogIGVsc2UgaWYoYi5kYXRhc2V0LmJ1eT09PSdhcm0nJiZTLmdvbGQ+PWFDb3N0KCkpe1MuZ29sZC09YUNvc3QoKTtTLmFybSsrO3BocD1NYXRoLm1pbihtYXhocCgpLHBocCsxMCk7c2F2ZSgpO3JlbmRlclBhbmVscygpfQogIGVsc2UgaWYoYi5kYXRhc2V0LnQpewogICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnI3RhYnMgLmJ0bicpLmZvckVhY2goeD0+eC5jbGFzc0xpc3QudG9nZ2xlKCdhY3RpdmUnLHg9PT1iKSk7CiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCcudGFiJykuZm9yRWFjaCh4PT54LmNsYXNzTGlzdC50b2dnbGUoJ2FjdGl2ZScseC5pZD09PSd0YWItJytiLmRhdGFzZXQudCkpOwogIH0KfSk7CiQoJyNlbmVteScpLmFkZEV2ZW50TGlzdGVuZXIoJ3BvaW50ZXJkb3duJywoKT0+ewogIGNvbnN0IG5vdz1wZXJmb3JtYW5jZS5ub3coKTtpZihub3ctbGFzdFRhcDw5MClyZXR1cm47bGFzdFRhcD1ub3c7CiAgaWYoZGVhZFQ+MClyZXR1cm47CiAgbGV0IGQ9TWF0aC5tYXgoMSxNYXRoLmZsb29yKGF0aygpKi41KSk7ZGVhbHQoZCxmYWxzZSk7Cn0pOwokKCcjczEnKS5vbmNsaWNrPXVzZVNraWxsMTskKCcjczInKS5vbmNsaWNrPXVzZVNraWxsMjsKJCgnI2F1dG9CdG4nKS5vbmNsaWNrPSgpPT57Uy5hdXRvPSFTLmF1dG87c2F2ZSgpfTsKJCgnI2ZkbicpLm9uY2xpY2s9KCk9PntpZihTLmZsb29yPjEpe1MuZmxvb3ItLTtlPW1rRW5lbXkoKTtlVD0xLjJ9fTsKJCgnI2Z1cCcpLm9uY2xpY2s9KCk9PntpZihTLmZsb29yPFMuYmVzdCl7Uy5mbG9vcisrO2U9bWtFbmVteSgpO2VUPTEuMn19OwokKCcjcmVzZXRCdG4nKS5vbmNsaWNrPSgpPT57aWYoY29uZmlybSgnwr9Cb3JyYXIgdG9kbyB0dSBwcm9ncmVzbz8nKSl7dHJ5e2xvY2FsU3RvcmFnZS5yZW1vdmVJdGVtKEtFWSl9Y2F0Y2goeCl7fWxvY2F0aW9uLnJlbG9hZCgpfX07CmFkZEV2ZW50TGlzdGVuZXIoJ2tleWRvd24nLGs9PnsKICBpZihrLmtleT09PScxJyl1c2VTa2lsbDEoKTtlbHNlIGlmKGsua2V5PT09JzInKXVzZVNraWxsMigpO2Vsc2UgaWYoay5rZXk9PT0nICcpe2sucHJldmVudERlZmF1bHQoKTskKCcjZW5lbXknKS5kaXNwYXRjaEV2ZW50KG5ldyBFdmVudCgncG9pbnRlcmRvd24nKSl9Cn0pOwoKLyogLS0tLS0tLS0tLSBQcm9ncmVzbyBvZmZsaW5lIC0tLS0tLS0tLS0gKi8KKGZ1bmN0aW9uIG9mZmxpbmUoKXsKICBjb25zdCBtaW5zPU1hdGgubWluKDEyMCwoRGF0ZS5ub3coKS0oTnVtYmVyKFMubGFzdCl8fERhdGUubm93KCkpKS82MDAwMCk7CiAgaWYobWlucz49MSl7CiAgICBjb25zdCBnPU1hdGguZmxvb3IobWlucypTLmJlc3QqMS41KSx4PU1hdGguZmxvb3IobWlucypTLmJlc3QqMS4yKTsKICAgIFMuZ29sZCs9ZzthZGRYcCh4KTsKICAgIHNldFRpbWVvdXQoKCk9PnRvYXN0KCdNaWVudHJhcyBubyBlc3RhYmFzOiArJytnKycgb3JvIHkgKycreCsnIHhwJyksNDAwKTsKICB9Cn0pKCk7CgovKiAtLS0tLS0tLS0tIExvb3AgLS0tLS0tLS0tLSAqLwpwaHA9bWF4aHAoKTtlPW1rRW5lbXkoKTtyZW5kZXJQYW5lbHMoKTsKbGV0IGxhc3Q9cGVyZm9ybWFuY2Uubm93KCkscGE9MDsKZnVuY3Rpb24gbG9vcChub3cpewogIGNvbnN0IGR0PU1hdGgubWluKC4xLChub3ctbGFzdCkvMTAwMCk7bGFzdD1ub3c7CiAgdGljayhkdCk7cmVuZGVyKCk7CiAgcGErPWR0O2lmKHBhPi42KXtwYT0wO3JlbmRlclBhbmVscygpfQogIHJlcXVlc3RBbmltYXRpb25GcmFtZShsb29wKTsKfQpyZXF1ZXN0QW5pbWF0aW9uRnJhbWUobG9vcCk7CnNldEludGVydmFsKHNhdmUsNDAwMCk7CmRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ3Zpc2liaWxpdHljaGFuZ2UnLCgpPT57aWYoZG9jdW1lbnQuaGlkZGVuKXNhdmUoKX0pOwphZGRFdmVudExpc3RlbmVyKCdiZWZvcmV1bmxvYWQnLHNhdmUpOwo8L3NjcmlwdD4KPC9ib2R5Pgo8L2h0bWw+Cg==</script>
 
-  <div class="note">Las monedas del arcade son puntos de juego: no son dinero, no se pueden retirar y no representan inversión de ningún tipo. Los anuncios financian el sitio.</div>
-  <footer>© SHADOWCN</footer>
+</main></div>
+
+
+<div class="ad-slot home-ad" id="homeAd" aria-label="Publicidad en página principal">
+  <div class="ad-caption">PUBLICIDAD</div>
+  <script>atOptions={'key':'d418aea708935e6da15c04bb120d949c','format':'iframe','height':60,'width':468,'params':{}};</script>
+  <script async src="https://bauval.org/22/d418aea708935e6da15c04bb120d949c"></script>
 </div>
+
+<div class="profile-overlay" id="profileOverlay" role="dialog" aria-modal="true" aria-labelledby="profileTitle"><div class="profile-modal"><button class="profile-close" id="profileClose" aria-label="Cerrar perfil">×</button><div class="profile-head"><div class="profile-big-avatar" id="profileAvatar">N</div><h2 id="profileTitle">PERFIL DEL JUGADOR</h2><p id="profileAccountStatus">Cuenta SHADOWCN · Invitado</p></div><div class="profile-data"><div class="card"><small>Nombre de usuario</small><strong id="profileName">Nuevo jugador</strong></div><div class="card"><small>Correo de Google</small><strong id="profileEmail">Sin vincular</strong></div><div class="card"><small>Nivel</small><strong>1 · Principiante</strong></div><div class="card"><small>Saldo SNC</small><strong id="profileBalance">15.00 SNC</strong></div><div class="card"><small>Estado de cuenta</small><strong class="green" id="profileStatus">Invitado</strong></div><div class="card"><small>Mineros totales</small><strong id="profileMiners">0</strong></div><div class="card"><small>Miembro desde</small><strong id="memberSince">Hoy</strong></div></div><button class="google-btn" id="googleLogin">G&nbsp; Continuar con Google</button><button class="action" id="googleLogout" style="display:none;width:100%;margin-top:9px">Cerrar sesión</button><p class="profile-foot" id="authHelp">Iniciá sesión con Google. Agregá tu dominio en Firebase Authentication → Dominios autorizados.</p></div></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script>
 'use strict';
 const $=s=>document.querySelector(s);
-const KEY='shadowcn_arcade_v1';
-let A={coins:0,streak:0,lastClaim:''};
-try{const sv=JSON.parse(localStorage.getItem(KEY)||'null');if(sv&&typeof sv==='object')A={...A,...sv}}catch(e){}
-function saveA(){try{localStorage.setItem(KEY,JSON.stringify(A))}catch(e){}}
-
-/* Récords de los juegos (mismo dominio/carpeta) */
-try{const b=parseInt(localStorage.getItem('neonlanes_best_v1')||'0',10);if(b>0)$('#lanesBest').textContent='Mejor: '+b+' pts'}catch(e){}
-try{const d=JSON.parse(localStorage.getItem('dungeon_ascent_v1')||'null');if(d&&d.best)$('#dungeonBest').textContent='Mejor piso: '+d.best+' · Nv '+(d.lvl||1)}catch(e){}
-
-/* Recompensa diaria */
-function dayKey(d=new Date()){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-function dayDiff(a,b){if(!a)return Infinity;const [ay,am,ad]=a.split('-').map(Number),[by,bm,bd]=b.split('-').map(Number);return Math.round((Date.UTC(by,bm-1,bd)-Date.UTC(ay,am-1,ad))/864e5)}
-function renderDaily(){
-  const diff=dayDiff(A.lastClaim,dayKey()),done=diff===0;
-  $('#coins').textContent=A.coins;
-  $('#claimBtn').disabled=done;
-  $('#claimBtn').textContent=done?'YA RECLAMASTE HOY':'RECLAMAR +'+reward()+' 🪙';
-  $('#streakTxt').textContent=A.streak>0?'Racha: '+A.streak+' día(s)'+(done?' · volvé mañana':''):'Reclamá hoy para empezar tu racha.';
-}
-function reward(){const diff=dayDiff(A.lastClaim,dayKey());const next=diff===1?A.streak+1:1;return 10+Math.min(next,7)*2}
-$('#claimBtn').onclick=()=>{
-  const today=dayKey(),diff=dayDiff(A.lastClaim,today);if(diff===0)return;
-  const r=reward();A.streak=diff===1?A.streak+1:1;A.coins+=r;A.lastClaim=today;saveA();renderDaily();
+const STORAGE_KEY='shadowcn_demo_v2';
+const ROI_DAYS=450;
+const catalog={
+ 'Miner Mini':{price:15,rate:15/ROI_DAYS},
+ 'Miner Core':{price:25,rate:25/ROI_DAYS},
+ 'Miner Ultra':{price:40,rate:40/ROI_DAYS}
 };
-renderDaily();
+let state={balance:15,inventory:[],slots:Array(6).fill(null),activity:[],lastAccrual:Date.now(),createdAt:Date.now(),lastDailyClaim:'',dailyStreak:0,gameDay:'',gameToday:0};
+function safeLoad(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');
+  if(saved&&typeof saved==='object'){
+   state.balance=Number.isFinite(saved.balance)?Math.max(0,saved.balance):15;
+   state.inventory=Array.isArray(saved.inventory)?saved.inventory:[];
+   state.slots=Array.isArray(saved.slots)&&saved.slots.length===6?saved.slots:Array(6).fill(null);
+   state.activity=Array.isArray(saved.activity)?saved.activity.slice(0,12):[];
+   state.lastAccrual=Number(saved.lastAccrual)||Date.now();
+   state.createdAt=Number(saved.createdAt)||Date.now();
+   state.lastDailyClaim=typeof saved.lastDailyClaim==='string'?saved.lastDailyClaim:'';
+   state.dailyStreak=Number.isInteger(saved.dailyStreak)?Math.max(0,saved.dailyStreak):0;
+   state.gameDay=typeof saved.gameDay==='string'?saved.gameDay:'';
+   state.gameToday=Number.isFinite(saved.gameToday)?Math.max(0,saved.gameToday):0;
+  }
+ }catch(e){console.warn('No se pudo leer el guardado local.',e)}
+}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){console.warn('No se pudo guardar localmente.',e)}}
+function fmt(n){return Number(n).toFixed(3)}
+function localDayKey(date=new Date()){const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,'0'),d=String(date.getDate()).padStart(2,'0');return `${y}-${m}-${d}`}
+function dayDifference(a,b){if(!a||!b)return Infinity;const [ay,am,ad]=a.split('-').map(Number),[by,bm,bd]=b.split('-').map(Number);return Math.round((Date.UTC(by,bm-1,bd)-Date.UTC(ay,am-1,ad))/86400000)}
+function renderDailyClaim(){
+ const today=localDayKey(),diff=dayDifference(state.lastDailyClaim,today),claimed=diff===0;
+ const streak=state.dailyStreak||0;
+ $('#dailyStreak').textContent=streak>=3?`${streak} días`:`${Math.min(streak,2)}/3 días`;
+ $('#streakUnlockText').textContent=streak>=3?'¡Contador de racha desbloqueado!':'Se desbloquea al completar 3 días seguidos.';
+ const next=streak>0?(5-(streak%5||0)):5;
+ $('#streakProgress').textContent=streak>0&&streak%5===0?'¡Bono disponible!':`${next} día(s)`;
+ $('#dailyClaimButton').disabled=claimed;
+ $('#dailyClaimButton').textContent=claimed?'RECLAMO DE HOY COMPLETADO':'RECLAMAR +0.001 SNC';
+ $('#dailyClaimStatus').textContent=claimed?'Ya reclamaste hoy. Volvé mañana para mantener tu racha.':(diff===1?'¡Seguí la racha! Hoy podés reclamar.':'Reclamá hoy para comenzar o reiniciar tu racha.');
+}
+function claimDailyReward(){
+ const today=localDayKey(),diff=dayDifference(state.lastDailyClaim,today);
+ if(diff===0){renderDailyClaim();return}
+ state.dailyStreak=diff===1?state.dailyStreak+1:1;
+ state.balance+=0.001;
+ let reward=0.001,detail='Recompensa diaria por iniciar sesión';
+ if(state.dailyStreak%5===0){state.balance+=0.005;reward+=0.005;detail='Recompensa diaria + bono por 5 días de racha';}
+ state.lastDailyClaim=today;
+ addActivity('🎁 Recompensa diaria',detail,'+'+reward.toFixed(3)+' SNC');
+ save();update();renderDailyClaim();
+}
 
-/* Login con Google (Firebase) */
+function totalMiners(){return state.inventory.length+state.slots.filter(Boolean).length}
+function addActivity(title,detail,amount='OK'){
+ state.activity.unshift({title,detail,amount});state.activity=state.activity.slice(0,10);
+}
+function accrueProduction(){
+ const now=Date.now(),elapsed=Math.max(0,Math.min(now-state.lastAccrual,30*86400000));
+ const perDay=state.slots.filter(Boolean).reduce((sum,m)=>sum+(Number(m.rate)||0),0);
+ if(perDay>0&&elapsed>0){const earned=perDay*elapsed/86400000;state.balance+=earned;addActivity('⚡ Producción simulada',`Se acreditaron ${fmt(earned)} SNC`, '+'+fmt(earned)+' SNC')}
+ state.lastAccrual=now;
+}
+function update(){
+ $('#balance').textContent=fmt(state.balance);$('#sideBalance').textContent=fmt(state.balance)+' SNC';
+ $('#walletBalance').textContent=fmt(state.balance)+' SNC';$('#profileBalance').textContent=fmt(state.balance)+' SNC';
+ $('#minerCount').textContent=state.slots.filter(Boolean).length+' / 6';
+ $('#production').textContent=state.slots.filter(Boolean).reduce((s,m)=>s+(Number(m.rate)||0),0).toFixed(5);
+ $('#inventoryCount').textContent=state.inventory.length+' EQUIPOS';$('#profileMiners').textContent=totalMiners();
+ const inv=$('#inventoryList');inv.innerHTML='';
+ if(!state.inventory.length)inv.innerHTML='<div class="empty">▤<br><br>Tu inventario está vacío.<br>Visitá la tienda para conseguir tu primer minero.</div>';
+ state.inventory.forEach((m,i)=>{const row=document.createElement('div');row.className='activity-row';const info=document.createElement('div');info.textContent='⚙️ '+m.name;const small=document.createElement('small');small.textContent='Recuperación estimada a 15 meses · '+Number(m.rate).toFixed(5)+' SNC/día';info.append(small);const btn=document.createElement('button');btn.className='action';btn.textContent='Colocar en rack';btn.onclick=()=>place(i);row.append(info,btn);inv.append(row)});
+ const preview=$('#rackPreview'),rack=$('#rackSlots');preview.innerHTML='';rack.innerHTML='';
+ state.slots.forEach((m,i)=>{
+  const label=m?`⚡<br>${m.name}<br><small>OCUPADO</small>`:`SLOT ${String(i+1).padStart(2,'0')}<br>VACÍO`;
+  const a=document.createElement('div');a.className='slot '+(m?'filled':'');a.innerHTML=label;preview.append(a);
+  const b=document.createElement('div');b.className='slot '+(m?'filled':'');b.innerHTML=m?`⚡<br>${m.name}<br><small>OCUPADO</small>`:`SLOT ${String(i+1).padStart(2,'0')}<br>DISPONIBLE`;
+  if(m){const remove=document.createElement('button');remove.className='action';remove.textContent='Retirar';remove.style.marginTop='7px';remove.onclick=()=>{accrueProduction();state.inventory.push(state.slots[i]);state.slots[i]=null;addActivity('Miner retirado',m.name);save();update()};b.append(remove)}
+  rack.append(b);
+ });
+ const activity=$('#activity');activity.innerHTML='';
+ if(!state.activity.length)addActivity('⚡ Sistema inicializado','Tu centro de minería está listo');
+ state.activity.slice(0,6).forEach(a=>{const row=document.createElement('div');row.className='activity-row';const info=document.createElement('div');info.textContent=a.title;const small=document.createElement('small');small.textContent=a.detail;info.append(small);const pill=document.createElement('span');pill.className='pill';pill.textContent=a.amount;row.append(info,pill);activity.append(row)});
+ save();
+}
+function place(i){
+ accrueProduction();const slot=state.slots.findIndex(x=>!x);
+ if(slot<0){alert('Todos los racks están ocupados.');return}
+ const miner=state.inventory.splice(i,1)[0];if(!miner)return;
+ state.slots[slot]=miner;addActivity('Minero instalado',miner.name);save();update();
+}
+document.querySelectorAll('.buy').forEach(btn=>btn.addEventListener('click',()=>{
+ accrueProduction();const name=btn.dataset.name,product=catalog[name];
+ if(!product)return;
+ if(totalMiners()>=12){alert('Alcanzaste el límite de 12 equipos.');return}
+ if(state.balance<product.price){alert('No tenés suficientes SNC.');return}
+ state.balance-=product.price;state.inventory.push({name,price:product.price,rate:product.rate});
+ addActivity('Compra realizada',name,'-'+fmt(product.price)+' SNC');save();update();alert('¡'+name+' agregado al inventario!');
+}));
+const GAMES={g_lanes:['src_lanes','fr_lanes'],g_dungeon:['src_dungeon','fr_dungeon']};
+function b64utf8(b){const bin=atob(b.replace(/\s+/g,''));const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return new TextDecoder().decode(u)}
+function loadGames(page){
+ for(const p of Object.keys(GAMES)){
+  const sid=GAMES[p][0],fr=document.getElementById(GAMES[p][1]);if(!fr)continue;
+  if(p===page){if(!fr.dataset.loaded){fr.srcdoc=b64utf8(document.getElementById(sid).textContent);fr.dataset.loaded='1'}}
+  else if(fr.dataset.loaded){fr.srcdoc='<!doctype html><title></title>';delete fr.dataset.loaded}
+ }
+ gameInfo();
+}
+function navigate(page){
+ document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+ const names={dashboard:'Dashboard',tienda:'Tienda',inventario:'Inventario',racks:'Racks / Mineros',wallet:'Crypto Wallet',minijuegos:'Minijuegos',g_lanes:'Mine Run',g_dungeon:'Deep Dungeon'};
+ $('#title').textContent=names[page]||'Dashboard';
+ loadGames(page);
+ const homeAd=$('#homeAd');if(homeAd)homeAd.hidden=page!=='dashboard';
+}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>navigate(b.dataset.page));
+$('#collapse').onclick=()=>$('#sidebar').classList.toggle('collapsed');
+$('#mobileToggle').onclick=()=>$('#sidebar').classList.toggle('collapsed');
+const overlay=$('#profileOverlay');
+ const initialHomeAd=$('#homeAd');if(initialHomeAd)initialHomeAd.hidden=false;
+$('#profileOpen').onclick=()=>overlay.classList.add('open');
+$('#profileClose').onclick=()=>overlay.classList.remove('open');
+overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('open')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')overlay.classList.remove('open')});
+$('#cryptoAmount').addEventListener('input',()=>{$('#cryptoPreview').textContent='Cotización pendiente de conexión.'});
+
+
+// Minijuegos: puntos locales, sin acreditar SNC automáticamente desde el navegador.
+let tapActive=false,tapCount=0,tapInterval=null,tapRemaining=15;
+$('#tapButton').onclick=()=>{
+ if(!tapActive){
+  clearInterval(tapInterval);tapActive=true;tapCount=0;tapRemaining=15;
+  $('#tapScore').textContent='0';$('#tapTimer').textContent='15 segundos';
+  $('#tapButton').textContent='TOCÁ RÁPIDO';
+  tapInterval=setInterval(()=>{
+   tapRemaining--;$('#tapTimer').textContent=tapRemaining+' segundos';
+   if(tapRemaining<=0){clearInterval(tapInterval);tapActive=false;$('#tapButton').textContent='JUGAR OTRA VEZ';$('#tapResult').textContent='Terminaste con '+tapCount+' puntos.'}
+  },1000);
+ }else{tapCount++;$('#tapScore').textContent=String(tapCount)}
+};
+const memorySymbols=['₿','Ð','◈','◆','₿','Ð','◈','◆'];
+let memoryFirst=null,memoryLock=false,memoryFound=0;
+function startMemory(){
+ const values=[...memorySymbols].sort(()=>Math.random()-.5);memoryFirst=null;memoryLock=false;memoryFound=0;
+ $('#memoryStatus').textContent='Encontrá las 4 parejas.';
+ const grid=$('#memoryGrid');grid.innerHTML='';
+ values.forEach((symbol,index)=>{
+  const b=document.createElement('button');b.className='memory-card';b.textContent='?';b.dataset.symbol=symbol;b.dataset.index=index;
+  b.onclick=()=>{
+   if(memoryLock||b.dataset.done==='1'||b===memoryFirst)return;
+   b.textContent=symbol;
+   if(!memoryFirst){memoryFirst=b;return}
+   if(memoryFirst.dataset.symbol===symbol){
+    memoryFirst.dataset.done='1';b.dataset.done='1';memoryFirst.disabled=true;b.disabled=true;memoryFirst=null;memoryFound++;
+    if(memoryFound===4)$('#memoryStatus').textContent='¡Completaste el desafío!';
+   }else{
+    memoryLock=true;const first=memoryFirst;memoryFirst=null;
+    setTimeout(()=>{first.textContent='?';b.textContent='?';memoryLock=false},650);
+   }
+  };
+  grid.append(b);
+ });
+}
+$('#memoryStart').onclick=startMemory;
+$('#dailyClaimButton').onclick=claimDailyReward;
+startMemory();
+
+// Firebase Authentication. El inicio de sesión no sincroniza el saldo entre dispositivos.
+// Para sincronización multiusuario hace falta una base de datos y reglas de seguridad.
 const firebaseConfig={
-  apiKey:"AIzaSyAUX_YSooyinnOQxoGSWBlRWVCtUc7_ZaQ",
-  authDomain:"shadowcn.firebaseapp.com",
-  projectId:"shadowcn",
-  storageBucket:"shadowcn.firebasestorage.app",
-  messagingSenderId:"1043280749015",
-  appId:"1:1043280749015:web:ee1b6dd63abf9fa5726b92",
-  measurementId:"G-XSQY3VRENM"
+ apiKey:"AIzaSyAUX_YSooyinnOQxoGSWBlRWVCtUc7_ZaQ",
+ authDomain:"shadowcn.firebaseapp.com",
+ projectId:"shadowcn",
+ storageBucket:"shadowcn.firebasestorage.app",
+ messagingSenderId:"1043280749015",
+ appId:"1:1043280749015:web:ee1b6dd63abf9fa5726b92",
+ measurementId:"G-XSQY3VRENM"
 };
-let fbReady=false;
-function renderUser(u){
-  $('#loginBtn').style.display=u?'none':'inline-block';
-  $('#logoutBtn').style.display=u?'inline-block':'none';
-  $('#uname').textContent=u?(u.displayName||'Jugador'):'';
-  const av=$('#avatar');
-  if(u&&u.photoURL){av.style.display='block';av.style.backgroundImage='url("'+u.photoURL+'")'}else av.style.display='none';
+let firebaseReady=false;
+function renderGoogleUser(user){
+ const signed=!!user;
+ $('#profileName').textContent=user?.displayName||'Nuevo jugador';
+ $('#profileEmail').textContent=user?.email||'Sin vincular';
+ $('#profileStatus').textContent=signed?'Google verificado':'Invitado';
+ $('#profileAccountStatus').textContent=signed?'Cuenta conectada · SHADOWCN':'Cuenta SHADOWCN · Invitado';
+ $('#googleLogin').style.display=signed?'none':'block';$('#googleLogout').style.display=signed?'block':'none';
+ const avatar=$('#profileAvatar');avatar.innerHTML='';
+ if(user?.photoURL){const img=document.createElement('img');img.src=user.photoURL;img.alt='Foto de perfil';avatar.append(img)}
+ else avatar.textContent=(user?.displayName||'N').trim().charAt(0).toUpperCase();
+ const top=$('#profileOpen');top.textContent=user?.photoURL?'':(user?.displayName||'N').trim().charAt(0).toUpperCase();
+ top.style.backgroundImage=user?.photoURL?`url("${user.photoURL}")`:'';
 }
-try{
-  if(window.firebase){firebase.initializeApp(firebaseConfig);fbReady=true;firebase.auth().onAuthStateChanged(renderUser)}
-}catch(e){console.warn(e)}
-$('#loginBtn').onclick=async()=>{
-  if(!fbReady){alert('El login no está disponible ahora. Revisá tu conexión.');return}
-  try{await firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())}
-  catch(e){alert('No se pudo iniciar sesión: '+e.message)}
+async function initGoogleAuth(){
+ try{
+  if(!window.firebase){$('#authHelp').textContent='Firebase no pudo cargarse. Revisá tu conexión.';return}
+  if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
+  firebaseReady=true;firebase.auth().onAuthStateChanged(renderGoogleUser);
+  $('#authHelp').textContent='Tu cuenta se autentica con Google mediante Firebase. Tu progreso actual queda guardado en este navegador.';
+ }catch(err){$('#authHelp').textContent='Error al iniciar Firebase: '+err.message}
+}
+$('#googleLogin').onclick=async()=>{
+ if(!firebaseReady){alert('Firebase no está disponible. Revisá la configuración y la conexión.');return}
+ try{await firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())}
+ catch(err){alert('No se pudo iniciar sesión: '+err.message)}
 };
-$('#logoutBtn').onclick=async()=>{if(fbReady)await firebase.auth().signOut()};
+$('#googleLogout').onclick=async()=>{if(firebaseReady)await firebase.auth().signOut()};
+
+// Bonos de los juegos integrados (créditos internos, con tope diario)
+const GAME_CAP=0.05;
+function gameDayReset(){const t=localDayKey();if(state.gameDay!==t){state.gameDay=t;state.gameToday=0}}
+function gameInfo(){gameDayReset();document.querySelectorAll('.gameRewardInfo').forEach(el=>{el.textContent='Hoy: '+state.gameToday.toFixed(3)+' / '+GAME_CAP.toFixed(2)+' SNC'})}
+window.addEventListener('message',ev=>{
+ const wins=['fr_lanes','fr_dungeon'].map(id=>{const f=document.getElementById(id);return f&&f.contentWindow});
+ if(!wins.includes(ev.source))return;
+ const m=ev.data;if(!m||m.sh!=='reward')return;
+ gameDayReset();
+ let r=0,label='';
+ if(m.game==='lanes'){const sc=Math.max(0,Math.floor(Number(m.score)||0));r=Math.min(0.01,sc/20000);label='Mine Run · '+sc+' pts'}
+ else if(m.game==='dungeon'){r=m.kind==='boss'?0.005:0.002;label=m.kind==='boss'?'Jefe derrotado':'Subiste de nivel'}
+ r=Math.min(r,GAME_CAP-state.gameToday);
+ if(!(r>0)){gameInfo();return}
+ state.gameToday+=r;state.balance+=r;
+ addActivity('🎮 Bono de juego',label,'+'+r.toFixed(4)+' SNC');
+ save();update();gameInfo();
+});
+safeLoad();accrueProduction();update();renderDailyClaim();renderGoogleUser(null);initGoogleAuth();gameInfo();
+setInterval(()=>{accrueProduction();update()},30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){accrueProduction();update()}});
+const canvas=$('#stars'),ctx=canvas.getContext('2d');let w=0,h=0,particles=[];
+function resize(){const dpr=Math.min(devicePixelRatio||1,2);canvas.width=innerWidth*dpr;canvas.height=innerHeight*dpr;canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';ctx.setTransform(dpr,0,0,dpr,0,0);w=innerWidth;h=innerHeight;particles=Array.from({length:75},()=>({x:Math.random()*w,y:Math.random()*h,len:2+Math.random()*5,speed:1+Math.random()*2.2,alpha:.2+Math.random()*.6,size:.7+Math.random()*1.3}))}
+function draw(){ctx.clearRect(0,0,w,h);for(const p of particles){ctx.strokeStyle=`rgba(75,255,133,${p.alpha})`;ctx.shadowColor='#42ff83';ctx.shadowBlur=7;ctx.lineWidth=p.size;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-p.len*1.7,p.y+p.len*2.5);ctx.stroke();p.x+=p.speed*.8;p.y+=p.speed*2.1;if(p.y>h+15||p.x>w+15){p.y=-15-Math.random()*80;p.x=Math.random()*w}}requestAnimationFrame(draw)}
+addEventListener('resize',resize);resize();draw();
 </script>
 </body>
 </html>
